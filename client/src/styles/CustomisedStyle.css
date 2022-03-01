@@ -3,10 +3,10 @@
 }
 
 .colorRed {
-  color: #ff0000;
+  color: #b90808;
 }
 .colorGreen {
-  color: #5c87a3;
+  color: #2a3855;
 }
 
 .heading_color {
@@ -30,7 +30,7 @@
 
 .decocting_instruction {
   font-weight: bold;
-  color: #5c87a3;
+  color: #2a3855;
   position: absolute;
   cursor: pointer;
   text-decoration: underline;
@@ -44,7 +44,7 @@
 
 .btnLink:hover {
   text-decoration: underline;
-  color: #5c87a3;
+  color: #2a3855;
   background-color: transparent;
   border: 0px solid white;
 }
@@ -70,6 +70,23 @@
   background-image: none;
   border: 1px solid transparent;
   border-radius: 4px;
+}
+
+.btn-round {
+  height: 100px;
+  width: 100px;
+  border-radius: 50% !important;
+  font-size: 18px;
+  font-weight: 600;
+
+  background: transparent;
+  border: 3px solid #2a3855;
+}
+
+.btn-round:hover,
+.btn-round:focus {
+  border: 3px solid #2a3855;
+  background: #5c87a3;
 }
 
 .btn_submit {
@@ -198,13 +215,6 @@ h5:last-child {
   background: #0da028;
 }
 
-/* Handle */
-::-webkit-scrollbar-thumb {
-  -webkit-border-radius: 10px;
-  border-radius: 2px;
-  background: #5c87a3;
-}
-
 .footer {
   position: fixed;
   bottom: 0;
@@ -256,9 +266,9 @@ footer.footer .top_top {
 }
 
 .top_menu {
-  background-color: #5c87a3;
+  background-color: #aa9a08;
   /* #4b748f;#0086dc */
-  /* #5c87a3; */
+  /* #5c87a3; -> purple blue*/
 }
 
 .row {
@@ -622,7 +632,7 @@ p {
 }
 
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 12px;
   height: 10px;
 }
 
@@ -637,12 +647,12 @@ p {
 ::-webkit-scrollbar-thumb {
   -webkit-border-radius: 10px;
   border-radius: 2px;
-  background: #5c87a3;
+  background: #2a3855;
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
 
 ::-webkit-scrollbar-thumb:window-inactive {
-  background: #5c87a3;
+  background: #2a3855;
 }
 
 #regDes {
@@ -942,8 +952,8 @@ hr {
   color: #fff;
 }
 
-.btn_green_bg {
-  background-color: #5c87a3;
+.btn_color_bg {
+  background-color: #2a3855;
   color: #fff;
   padding: 5px 30px;
   border-radius: 5px;
@@ -965,7 +975,7 @@ hr {
 }
 
 .btn_round:hover {
-  background-color: #5c87a3;
+  background-color: #2a3855;
   color: #fff;
 }
 
@@ -1135,18 +1145,11 @@ label {
   margin-top: 40px;
 }
 
-.herb_tick {
-  height: 52px;
-  width: 52px;
-}
-
 .infodiv_height {
   height: 200px;
   overflow-y: scroll;
 }
 
-.herbname,
-.herbqty,
 .labelBold {
   font-weight: bold;
 }
@@ -1192,24 +1195,6 @@ label {
   width: 100%;
 }
 
-.tool-herbs:before {
-  content: " ";
-  position: absolute;
-  width: 0px;
-  height: 0px;
-  left: 90px;
-  top: -7px;
-  border: 2px solid;
-  width: 14px;
-  height: 14px;
-  border-color: transparent;
-  border-top-color: #5cb85c;
-  border-left-color: #5cb85c;
-  transform: rotate(45deg);
-  background: rgb(92, 184, 92);
-  z-index: -1;
-}
-
 .tool-vaccum:before {
   content: " ";
   position: absolute;
@@ -1228,95 +1213,7 @@ label {
   z-index: -1;
 }
 
-.tool-granules:before {
-  content: " ";
-  position: absolute;
-  width: 0px;
-  height: 0px;
-  right: 341px;
-  top: -7px;
-  border: 2px solid;
-  width: 14px;
-  height: 14px;
-  border-color: transparent;
-  border-top-color: #5cb85c;
-  border-left-color: #5cb85c;
-  transform: rotate(45deg);
-  background: rgb(92, 184, 92);
-  z-index: -1;
-}
-.tool-topical:before {
-  content: " ";
-  position: absolute;
-  width: 0px;
-  height: 0px;
-  right: 114px;
-  top: -7px;
-  border: 2px solid;
-  width: 14px;
-  height: 14px;
-  border-color: transparent;
-  border-top-color: #5cb85c;
-  border-left-color: #5cb85c;
-  transform: rotate(45deg);
-  background: rgb(92, 184, 92);
-  z-index: -1;
-}
-
-.tool-herbss:before {
-  content: " ";
-  position: absolute;
-  width: 0px;
-  height: 0px;
-  left: 115px;
-  top: -7px;
-  border: 2px solid;
-  width: 14px;
-  height: 14px;
-  border-color: transparent;
-  border-top-color: #5cb85c;
-  border-left-color: #5cb85c;
-  transform: rotate(45deg);
-  background: rgb(92, 184, 92);
-  z-index: -1;
-}
-
 .tool-vaccums:before {
-  content: " ";
-  position: absolute;
-  width: 0px;
-  height: 0px;
-  left: 115px;
-  top: -7px;
-  border: 2px solid;
-  width: 14px;
-  height: 14px;
-  border-color: transparent;
-  border-top-color: #5cb85c;
-  border-left-color: #5cb85c;
-  transform: rotate(45deg);
-  background: rgb(92, 184, 92);
-  z-index: -1;
-}
-
-.tool-granuless:before {
-  content: " ";
-  position: absolute;
-  width: 0px;
-  height: 0px;
-  left: 115px;
-  top: -7px;
-  border: 2px solid;
-  width: 14px;
-  height: 14px;
-  border-color: transparent;
-  border-top-color: #5cb85c;
-  border-left-color: #5cb85c;
-  transform: rotate(45deg);
-  background: rgb(92, 184, 92);
-  z-index: -1;
-}
-.tool-topicals:before {
   content: " ";
   position: absolute;
   width: 0px;
@@ -1353,7 +1250,7 @@ label {
 }
 
 .adminside a:hover {
-  color: #5c87a3;
+  color: #2a3855;
   text-decoration: none;
 }
 .adminside .form-control[disabled] {
@@ -1410,26 +1307,26 @@ label {
 }
 
 .greenbrd {
-  border: 1px solid #5c87a3;
+  border: 1px solid #2a3855;
   color: #000;
   width: 200px;
   margin-top: 20px;
 }
 .greenbrd:hover {
-  border: 1px solid #5c87a3;
-  color: #5c87a3;
+  border: 1px solid #2a3855;
+  color: #2a3855;
   background-color: #fff;
   width: 200px;
   margin-top: 20px;
 }
 .greenbrd2 {
-  border: 1px solid #5c87a3;
+  border: 1px solid #2a3855;
   color: #000;
   margin-top: 20px;
 }
 .greenbrd2:hover {
-  border: 1px solid #5c87a3;
-  color: #5c87a3;
+  border: 1px solid #2a3855;
+  color: #2a3855;
   background-color: #fff;
   margin-top: 20px;
 }
@@ -1446,14 +1343,21 @@ label {
 .table-bordered > tfoot > tr > th,
 .table-bordered > thead > tr > td,
 .table-bordered > thead > tr > th {
-  border: 1px solid #000;
+  border: 1px solid #2a3855;
 }
 
 #datatable2 th {
-  background: #ccc;
-  color: #000;
-  padding: 5px;
+  background: #2a3855;
+  color: #fff;
+  padding: 8px;
   text-align: center;
+  position: sticky;
+  top: 0;
+}
+
+.fixTableHead {
+  overflow-y: auto;
+  height: 750px;
 }
 
 .shippingMatrix-list {
@@ -1703,27 +1607,8 @@ label {
   }
 }
 @media screen and (max-width: 1199px) and (min-width: 992px) {
-  .herb_positioning {
-    color: #ff0000;
-    position: absolute;
-    top: 8px;
-    right: 125px;
-  }
-
-  .tool-herbs:before {
-    left: 75px;
-  }
-
   .tool-vaccum:before {
     left: 268px;
-  }
-
-  .tool-granules:before {
-    right: 283px;
-  }
-
-  .tool-topical:before {
-    right: 95px;
   }
 
   .toper_1,
@@ -1770,12 +1655,6 @@ label {
     border-top: 1px solid #fff;
     margin-top: 15px;
     padding-top: 15px;
-  }
-
-  .herb_positioning {
-    position: absolute;
-    top: 8px;
-    right: 126px;
   }
 
   .g_style {
@@ -1879,14 +1758,12 @@ label {
 }
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) {
-  .herbCalculation,
   .continueToDosage {
     margin-left: -15px;
   }
 }
 
 @media only screen and (min-width: 481px) {
-  .herbCalculation,
   .continueToDosage {
     float: right;
   }
@@ -1951,26 +1828,6 @@ label {
   position: absolute;
   top: 20px;
   right: -10px;
-}
-
-.herbs-tooltip {
-  margin-left: -0.6em;
-  position: absolute;
-  margin-top: 0.6em;
-  background-color: #d3fdd8;
-  padding: 8px;
-}
-
-.herbs-tooltip:before {
-  content: " ";
-  position: absolute;
-  width: 0px;
-  height: 0px;
-  /* right: 20px; */
-  top: -27px;
-  border: 14px solid;
-  border-color: transparent;
-  border-bottom-color: #383838;
 }
 
 .error {
@@ -2111,7 +1968,7 @@ input[type="radio"].error {
   font-family: Verdana, Arial, sans-serif;
   font-size: 1.1em;
   width: 100%;
-  background: #5c87a3 !important;
+  background: #2a3855 !important;
   padding: 0.3em 1em;
   color: #fff !important;
   height: 36px !important;
@@ -2127,7 +1984,7 @@ input[type="radio"].error {
   font-family: Verdana, Arial, sans-serif;
   font-size: 1.1em;
   width: 100%;
-  background: #5c87a3 !important;
+  background: #2a3855 !important;
   padding: 0.3em 1em;
   color: #fff !important;
   height: 46px !important;
@@ -2185,7 +2042,7 @@ input[type="radio"].error {
 .input_DropDown:hover {
   min-width: 180px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 12px;
-  background-color: #5c87a3;
+  background-color: #2a3855;
   color: #fff;
 }
 
@@ -2239,7 +2096,7 @@ input[type="radio"].error {
 }
 .pagination a.active {
   background: #fff;
-  color: #5c87a3;
+  color: #2a3855;
   font-weight: 500;
   /*border-radius: 10px;*/
 }
@@ -2393,23 +2250,10 @@ input[type="radio"].error {
   background: #cccccc;
 }
 
-.GranHerb,
-.herbPriceDiv,
 .swapCategoryDiv,
 .swapCategoryBtn {
   display: none;
 }
-
-/* .herbPriceDiv {
-  display: none;
-}
-
-.swapCategoryDiv {
-  display: none;
-}
-
-.swapCategoryBtn {
-} */
 
 .col-lg-3.col-md-8.col-sm-10.col-10 {
   display: block;
@@ -2527,17 +2371,6 @@ button.swap-btn {
 }
 
 /* Build formula close button style */
-.herb_remove_icon {
-  width: auto;
-  cursor: pointer;
-}
-
-.btnAddHerb {
-  margin-right: 153px;
-  background-color: #ffffff;
-  color: #0d9d28;
-  border: 2px solid #0d9d28;
-}
 
 .det-button {
   background-color: #0d9d28;
@@ -2611,7 +2444,7 @@ button.swap-btn {
   display: inline-block;
   width: 4rem;
   margin: 2px;
-  background-color: #5c87a3;
+  background-color: #2a3855;
 }
 
 .react-datepicker__current-month,
@@ -2620,14 +2453,14 @@ button.swap-btn {
   margin: 4px;
   font-weight: bold;
   font-size: 0.944rem;
-  background-color: #5c87a3;
+  background-color: #2a3855;
   color: #fff;
 }
 
 .react-datepicker__header {
   margin: 4px;
   text-align: center;
-  background-color: #5c87a3;
+  background-color: #2a3855;
   border-bottom: 1px solid #aeaeae;
   border-top-left-radius: 0.3rem;
   /* padding-top: 8px; */
@@ -2651,7 +2484,7 @@ button.swap-btn {
   line-height: 1.7rem;
   text-align: center;
   margin: 0.166rem;
-  background-color: #5c87a3;
+  background-color: #2a3855;
 }
 
 .react-datepicker__day--disabled,
@@ -2691,8 +2524,9 @@ button.swap-btn {
 
 .react-datepicker-wrapper {
   /* display: inline-block; */
-  padding: 0;
-  border: 0;
+  padding: 0 !important;
+  border: 0 !important;
+  /* width: 100% !important; */
 }
 
 .react-datepicker__day-names,
@@ -2720,7 +2554,7 @@ button.swap-btn {
 
 /*font awesome fa-pencil */
 .font_fa_pencil {
-  color: #5c87a3;
+  color: #2a3855;
   font-size: 20px;
 }
 
@@ -2750,28 +2584,6 @@ button.swap-btn {
   border-radius: 4px;
 }
 
-.calculation-box {
-  /* display: flex;
-  width: 100%;*/
-  margin: 10px 0px;
-  border: 1px solid;
-  padding: 10px;
-}
-
-.dscunts {
-  text-align: left;
-  border: 1px solid;
-  padding: 10px 10px;
-  margin: 6px 0px;
-}
-@media (min-width: 768px) {
-  .dscunts {
-    text-align: right;
-    border: 1px solid;
-    padding: 10px 10px;
-    margin: 6px 0px;
-  }
-}
 .sm-inpt-bx {
   margin: 0px;
   width: 60px;
@@ -2802,7 +2614,7 @@ span.grinding {
 }
 
 .alrt-close {
-  background: #5c87a3;
+  background: #2a3855;
   width: max-content;
   padding: 5px 15px;
   color: #fff;
@@ -2849,11 +2661,6 @@ span.input-radio-sm {
   margin-left: 0px;
   margin-top: 10px;
 }
-/* @media screen and (min-width: 768) {
-  .build-formula-btn-align {
-    margin-top: -40px;
-  }
-} */
 
 @media (min-width: 768px) {
   .build-formula-btn-align {
@@ -2891,4 +2698,230 @@ span.input-radio-sm {
   cursor: pointer;
   padding: 15px 10px !important;
   text-align: center;
+}
+
+.textarea {
+  width: 70%;
+  resize: none;
+}
+.tdbackground {
+  background-color: #2a3855;
+  /* border-radius: 50%; */
+}
+.MainPhoto {
+  border-radius: 50%;
+  height: 150px;
+  width: 150px;
+}
+
+.image1 {
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+}
+
+.hover-fx img {
+  -webkit-transform: scale(1);
+  transform: scale(1);
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+}
+.hover-fx :hover img {
+  -webkit-transform: scale(1.3);
+  transform: scale(1.3);
+}
+
+/* css for all staff page right border */
+.brdr-clr-styles {
+  border-right: dotted 2px;
+}
+
+/* for set image zoomed in for levels*/
+/* input[type="radio"] {
+  display: none;
+} */
+.radiolevels {
+  display: none;
+}
+input[type="checkbox"] {
+  display: none;
+}
+
+input[type="radio"]:checked ~ label > img {
+  transform: scale(2);
+  cursor: pointer;
+}
+
+input[type="checkbox"]:checked ~ label > img {
+  transform: scale(2);
+  cursor: pointer;
+}
+
+.levels img {
+  /* margin: 100px; */
+  transition: transform 0.25s ease;
+  cursor: pointer;
+}
+
+/* for image upload add and edit modal*/
+.form__img-input-container {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  margin: auto;
+}
+
+/* this class is used to hide the file input */
+.visually-hidden {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+/* Adding the focus and focus-within styles for accessibility */
+/* input.visually-hidden:focus + label,
+input.visually-hidden:focus-within + label {
+  outline: 8px solid rgba(86, 206, 239, 0.4);
+} */
+
+/* The file input is a labeled control, and since we hid it, 
+we're going to use its associated label to trigger it */
+.form-img__file-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  cursor: pointer;
+  /* background-color: rgba(245, 245, 231, 0.3); */
+}
+
+.form-img__file-label:hover {
+  background-color: rgba(245, 245, 231, 0.5);
+}
+
+.form-img__file-label > svg {
+  position: absolute;
+  top: 80%;
+  left: 92%;
+  /* opacity: 3; */
+  transform: translate(-50%, -50%);
+}
+
+.form-img__file-label:hover > svg {
+  opacity: 1;
+}
+
+/* The image element is going to be positioned under the 
+label element, since the label is a see through, we're going 
+to be able to see the preview of the image. */
+.form-img__img-preview {
+  display: block;
+  width: 250px;
+  height: 250px;
+  object-fit: contain;
+  border-radius: 50%;
+  border: 5px solid #2a3855;
+}
+
+/* datepicker css changes start */
+
+.react-datepicker__navigation-icon {
+  top: 9px !important;
+}
+/* datepicker css changes end */
+.btn-roun {
+  height: 25px;
+  width: 25px;
+  border-radius: 50% !important;
+  font-size: 18px;
+  font-weight: 600;
+
+  background: transparent;
+  border: 1px solid #2a3855;
+}
+.btn-rou {
+  height: 100px;
+  width: 100px;
+
+  font-size: 18px;
+  font-weight: 600;
+
+  background: transparent;
+  border: 1px solid #2a3855;
+}
+.btn-rou:hover,
+.btn-rou:focus {
+  border: 3px solid #2a3855;
+  background: #5c87a3;
+}
+.yearpicker {
+  text-align: center;
+  font-weight: bold;
+}
+
+img {
+  height: 150px;
+  width: 100%;
+}
+
+.item {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.item-card {
+  transition: 0.5s;
+  cursor: pointer;
+}
+.item-card-title {
+  font-size: 15px;
+  transition: 1s;
+  cursor: pointer;
+}
+.item-card-title i {
+  font-size: 15px;
+  transition: 1s;
+  cursor: pointer;
+  color: #ffa710;
+}
+.card-title i:hover {
+  transform: scale(1.25) rotate(100deg);
+  color: #18d4ca;
+}
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
+}
+.card-text {
+  height: 80px;
+}
+
+.card::before,
+.card::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: scale3d(0, 0, 1);
+  transition: transform 0.3s ease-out 0s;
+  background: rgba(255, 255, 255, 0.1);
+  content: "";
+  pointer-events: none;
+}
+.card::before {
+  transform-origin: left top;
+}
+.card::after {
+  transform-origin: right bottom;
+}
+.card:hover::before,
+.card:hover::after,
+.card:focus::before,
+.card:focus::after {
+  transform: scale3d(1, 1, 1);
 }
