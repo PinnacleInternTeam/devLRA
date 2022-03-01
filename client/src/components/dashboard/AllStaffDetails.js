@@ -170,9 +170,7 @@ const AllStaffDetails = ({
                     users.map((user, idx) => {
                       return (
                         <tr key={idx}>
-                          <td>
-                          
-                          </td>
+                          <td></td>
                           <td>{user.fullName}</td>
                           <td></td>
 
