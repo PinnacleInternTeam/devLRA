@@ -78,11 +78,12 @@ const TenantFilters = ({
   ) : (
     <Fragment>
       <div className="container_align ">
-        <div className="row py-4">
-          <div className="col-lg-1 col-md-1 col-sm-1 col-1 text-center brdr-clr-styles">
+        <div className="row ">
+          <div className="col-lg-1 py-4 col-md-1 col-sm-1 col-1 text-center brdr-clr-styles top_menu">
             <form>
-              <div className="pt-2">
-                <button className="btn-rou">100</button>
+              <div className="py-2">
+                <button className="btn btn_more" >100</button>
+                {/* className="btn-rou" */}
               </div>
               <div className="py-3">
                 <DatePicker
@@ -100,22 +101,22 @@ const TenantFilters = ({
               {optName &&
                 optName.map((optFiltr, idx) => {
                   return (
-                    <div className="pt-2" key={idx}>
-                      <div>
+                    <div className="py-2" key={idx}>
+                      <div style={{color:"#fff"}}>
                         {" "}
                         <Link
                           to="#"
                           name="alphaSearch"
-                          className="btnLink"
+                          // className="btnLink"
                           onClick={() => onSelectChange(optFiltr)}
-                          style={{ fontWeight: "bold", fontSize: "18px" }}
+                          style={{ fontWeight: "bold", fontSize: "19px" }}
                         >
                           {optFiltr.label}
                         </Link>{" "}
                         &nbsp;
                         <label
                           className="btn-roun"
-                          style={{ fontSize: "15px" }}
+                          style={{ fontSize: "15px" ,color:"#429f8c", background:"#fff"}}
                         >
                           97
                         </label>

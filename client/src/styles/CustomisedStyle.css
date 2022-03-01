@@ -106,6 +106,31 @@
   background: rgba(0, 0, 0, 0.45);
   color: #fff;
 }
+.btn-roun {
+  height: 25px;
+  width: 35px;
+  border-radius: 50% !important;
+  font-size: 18px;
+  font-weight: 600;
+
+  background: transparent;
+  border: 2px solid #fff;
+}
+.btn-rou {
+  height: 100px;
+  width: 100px;
+
+  font-size: 18px;
+  font-weight: 600;
+
+  background: transparent;
+  border: 1px solid #2a3855;
+}
+.btn-rou:hover,
+.btn-rou:focus {
+  border: 3px solid #2a3855;
+  background: #5c87a3;
+}
 
 .h1,
 h1 {
@@ -172,7 +197,7 @@ h5:last-child {
 .nav-item > a {
   color: #fff;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 16px;
   position: relative;
   display: block;
   padding: 10px 15px;
@@ -949,14 +974,14 @@ hr {
   padding-top: 0px;
   padding-top: 6px !important;
   margin-top: 60px;
-  font-size: 12px;
-  background-color: rgba(13, 184, 33, 1);
-  color: #fff;
+  font-size: 18px;
+  background-color: #fff;
+  color: #000;
 }
 
 .btn_more:focus,
 .btn_more:hover {
-  color: #fff;
+  color: #000;
 }
 
 .btn_green_bg {
@@ -2841,31 +2866,7 @@ to be able to see the preview of the image. */
   top: 9px !important;
 }
 /* datepicker css changes end */
-.btn-roun {
-  height: 25px;
-  width: 25px;
-  border-radius: 50% !important;
-  font-size: 18px;
-  font-weight: 600;
 
-  background: transparent;
-  border: 1px solid #2a3855;
-}
-.btn-rou {
-  height: 100px;
-  width: 100px;
-
-  font-size: 18px;
-  font-weight: 600;
-
-  background: transparent;
-  border: 1px solid #2a3855;
-}
-.btn-rou:hover,
-.btn-rou:focus {
-  border: 3px solid #2a3855;
-  background: #5c87a3;
-}
 .yearpicker {
   text-align: center;
   font-weight: bold;

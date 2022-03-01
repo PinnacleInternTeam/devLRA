@@ -96,7 +96,7 @@ const AddTenantDetails = ({ user, loggedStaff, AddTenantDetailsform }) => {
   }
   return (
     <Fragment>
-      <div className="">
+      <div className="container">
         <div className="col-lg-5 col-md-12 col-sm-12 col-12">
           <h2 className="heading_color">Add Tenant Details </h2>
         </div>
@@ -105,7 +105,7 @@ const AddTenantDetails = ({ user, loggedStaff, AddTenantDetailsform }) => {
             <label> File No :</label>
           </div>
 
-          <div className="col-lg-2  col-md-4 col-sm-4 col-12">
+          <div className="col-lg-2 col-md-4 col-sm-4 col-12">
             <input
               type="text"
               name="tenantFileNo"
@@ -115,7 +115,7 @@ const AddTenantDetails = ({ user, loggedStaff, AddTenantDetailsform }) => {
             />
           </div>
           <div className="col-lg-1 col-md-2 col-sm-4 col-12">
-            <label>Door no :</label>
+            <label>DoorNo:</label>
           </div>
 
           <div className="col-lg-2  col-md-4 col-sm-4 col-12">
@@ -129,11 +129,11 @@ const AddTenantDetails = ({ user, loggedStaff, AddTenantDetailsform }) => {
           </div>
         </div>
         <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-          <div className="col-lg-1 col-md-2 col-sm-4 col-12">
-            <label> Name:</label>
+          <div className="col-lg-2 col-md-2 col-sm-4 col-12">
+            <label>Tenant Name:</label>
           </div>
 
-          <div className="col-lg-2  col-md-4 col-sm-4 col-12">
+          <div className="col-lg-4  col-md-4 col-sm-4 col-12">
             <input
               type="text"
               name="tenantName"
@@ -142,11 +142,11 @@ const AddTenantDetails = ({ user, loggedStaff, AddTenantDetailsform }) => {
               required
             />
           </div>
-          <div className="col-lg-1 col-md-2 col-sm-4 col-12">
+          <div className="col-lg-2 col-md-2 col-sm-4 col-12">
             <label>Phone no :</label>
           </div>
 
-          <div className="col-lg-2  col-md-4 col-sm-4 col-12">
+          <div className="col-lg-4 col-md-4 col-sm-4 col-12">
             <input
               type="text"
               name="tenantPhone"
@@ -158,11 +158,11 @@ const AddTenantDetails = ({ user, loggedStaff, AddTenantDetailsform }) => {
         </div>
 
         <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-          <div className="col-lg-1 col-md-2 col-sm-4 col-12">
+          <div className="col-lg-2 col-md-2 col-sm-4 col-12">
             <label> Firm Name :</label>
           </div>
 
-          <div className="col-lg-2  col-md-4 col-sm-4 col-12">
+          <div className="col-lg-4 col-md-4 col-sm-4 col-12">
             <input
               type="text"
               name="tenantFirmName"
@@ -172,11 +172,11 @@ const AddTenantDetails = ({ user, loggedStaff, AddTenantDetailsform }) => {
             />
           </div>
 
-          <div className="col-lg-1 col-md-2 col-sm-4 col-12">
-            <label>Address :</label>
+          <div className="col-lg-2 col-md-2 col-sm-4 col-12">
+            <label>Tenant's Address :</label>
           </div>
 
-          <div className="col-lg-2  col-md-4 col-sm-6 col-12">
+          <div className="col-lg-4 col-md-4 col-sm-6 col-12">
             <textarea
               name="tenantAddr"
               id="tenantAddr"
@@ -191,11 +191,11 @@ const AddTenantDetails = ({ user, loggedStaff, AddTenantDetailsform }) => {
         </div>
 
         <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-          <div className="col-lg-1 col-md-2 col-sm-4 col-12">
+          <div className="col-lg-2 col-md-2 col-sm-4 col-12">
             <label>Adhar No :</label>
           </div>
 
-          <div className="col-lg-2  col-md-4 col-sm-4 col-12">
+          <div className="col-lg-4 col-md-4 col-sm-4 col-12">
             <input
               type="text"
               name="tenantAdharNo"
@@ -204,11 +204,11 @@ const AddTenantDetails = ({ user, loggedStaff, AddTenantDetailsform }) => {
               required
             />
           </div>
-          <div className="col-lg-1 col-md-2 col-sm-4 col-12">
-            <label>Pan No :</label>
+          <div className="col-lg-2 col-md-2 col-sm-4 col-12">
+            <label>Pancard No :</label>
           </div>
 
-          <div className="col-lg-2  col-md-4 col-sm-4 col-12">
+          <div className="col-lg-4 col-md-4 col-sm-4 col-12">
             <input
               type="text"
               name="tenantPanNo"
@@ -219,7 +219,7 @@ const AddTenantDetails = ({ user, loggedStaff, AddTenantDetailsform }) => {
           </div>
         </div>
         <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-          <div className="col-lg-1 col-md-2 col-sm-4 col-12">
+          <div className="col-lg-2 col-md-2 col-sm-4 col-12">
             <label>Deposit Amount :</label>
           </div>
 
@@ -233,7 +233,7 @@ const AddTenantDetails = ({ user, loggedStaff, AddTenantDetailsform }) => {
             />
           </div>
 
-          <div className="col-lg-1 col-md-2 col-sm-4 col-12">
+          <div className="col-lg-2 col-md-2 col-sm-4 col-12">
             <label>Mode Of Payment :</label>
           </div>
 
@@ -260,7 +260,7 @@ const AddTenantDetails = ({ user, loggedStaff, AddTenantDetailsform }) => {
 
         {showChequenoSection && (
           <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-            <div className="col-lg-1 col-md-4 col-sm-4 col-12">
+            <div className="col-lg-2 col-md-4 col-sm-4 col-12">
               <label>Cheque No/DD No :</label>
             </div>
 
@@ -273,7 +273,7 @@ const AddTenantDetails = ({ user, loggedStaff, AddTenantDetailsform }) => {
                 required
               />
             </div>
-            <div className="col-lg-1 col-md-4 col-sm-4 col-12">
+            <div className="col-lg-2 col-md-4 col-sm-4 col-12">
               <label>Bank Name :</label>
             </div>
 
@@ -286,7 +286,7 @@ const AddTenantDetails = ({ user, loggedStaff, AddTenantDetailsform }) => {
                 required
               />
             </div>
-            <div className="col-lg-1 col-md-4 col-sm-4 col-12">
+            <div className="col-lg-2 col-md-4 col-sm-4 col-12">
               <label>ChequeDate:</label>
             </div>
             <div className="col-lg-2  col-md-4 col-sm-4 col-12">
