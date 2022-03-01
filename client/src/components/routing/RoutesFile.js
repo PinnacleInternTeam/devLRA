@@ -10,19 +10,35 @@ import RouteDriver from "../dashboard/RouteDriver";
 import AllStaffDetails from "../dashboard/AllStaffDetails";
 import AddStaffFeedBack from "../dashboard/AddStaffFeedBack";
 
+import AddTenantDetails from "../dashboard/AddTenantDetails";
+import TenantSettings from "../dashboard/TenantSettings";
+import AddTenantAgreement from "../dashboard/AddTenantAgreement";
+import TenantFilters from "../dashboard/TenantFilters";
+import TenantReport from "../dashboard/TenantReport";
 const RoutesFile = () => {
   return (
-    <section className="container">
+    <section>
       <Switch>
-        <PrivateRoute
-          exact
-          path="/all-staff-details"
-          component={AllStaffDetails}
-        />
+        <PrivateRoute exact path="/tenant-Page" component={TenantFilters} />
         <PrivateRoute
           exact
           path="/add-staff-feedBack"
           component={AddStaffFeedBack}
+        />
+        <PrivateRoute
+          exact
+          path="/tenant-add-details"
+          component={AddTenantDetails}
+        />
+        <PrivateRoute exact path="/tenant-report" component={TenantReport} />
+        <PrivateRoute exact path="/tenant-setting" component={TenantSettings} />
+
+        <PrivateRoute exact path="/tenant-Page" component={TenantFilters} />
+
+        <PrivateRoute
+          exact
+          path="/add-agreement-details"
+          component={AddTenantAgreement}
         />
         <PrivateRoute exact path="/route-driver" component={RouteDriver} />
 

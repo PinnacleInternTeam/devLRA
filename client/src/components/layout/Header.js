@@ -55,7 +55,44 @@ const Header = ({ auth: { isAuthenticated, loading, user }, logout }) => {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="mr-auto navbar_Collapse_content">
-                <NavItem></NavItem>
+                {/* <NavItem>
+                  {!loading && isAuthenticated && user ? (
+                    <Link to="/tenant-add-details">Rent Details</Link>
+                  ) : (
+                    <NavItem></NavItem>
+                  )}
+                </NavItem> */}
+
+                <NavItem>
+                  {!loading && isAuthenticated && user ? (
+                    <Link to="/add-agreement-details">
+                      Add agreement Details
+                    </Link>
+                  ) : (
+                    <NavItem></NavItem>
+                  )}
+                </NavItem>
+                {/* <NavItem>
+                  {!loading && isAuthenticated && user ? (
+                    <Link to="/tenant-report">Rent Report</Link>
+                  ) : (
+                    <NavItem></NavItem>
+                  )}
+                </NavItem> */}
+                <NavItem>
+                  {!loading && isAuthenticated && user ? (
+                    <Link to="/tenant-setting">Tenant Setting</Link>
+                  ) : (
+                    <NavItem></NavItem>
+                  )}
+                </NavItem>
+                <NavItem>
+                  {!loading && isAuthenticated && user ? (
+                    <Link to="/tenant-Page">Tenants Main Page</Link>
+                  ) : (
+                    <NavItem></NavItem>
+                  )}
+                </NavItem>
               </Nav>
               {!loading && isAuthenticated && user ? (
                 <Nav>
