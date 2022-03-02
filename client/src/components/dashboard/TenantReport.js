@@ -1,78 +1,49 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 const TenantReport = () => {
   return (
-    <div className="container container_align ">
-      <section className="sub_reg">
-        <div class="row">
-          <div class="col-md-3 col-sm-6 item">
-            <div class="card item-card card-block">
-              <h4 class="card-title text-right">
-                <i class="material-icons">settings</i>
-              </h4>
-              <img
-                src="https://static.pexels.com/photos/7096/people-woman-coffee-meeting.jpg"
-                alt="Photo of sunset"
-              ></img>
-              <h5 class="item-card-title mt-3 mb-3">
-                Sierra Web Development • Owner
-              </h5>
-              <p class="card-text">
-                This is a company that builds websites, web apps and e-commerce
-                solutions.
-              </p>
-            </div>
+    <Fragment>
+      <div className="container container_align">
+        <section className="body">
+          <div className="col-lg-5 col-md-12 col-sm-12 col-12">
+            <h2 className="heading_color">Tenant Reports for{} </h2>
           </div>
-          <div class="col-md-3 col-sm-6 item">
-            <div class="card item-card card-block">
-              <h4 class="item-card-title text-right">
-                <i class="material-icons">settings</i>
-              </h4>
-              <img
-                src="https://static.pexels.com/photos/7357/startup-photos.jpg"
-                alt="Photo of sunset"
-              ></img>
-              <h5 class="card-title  mt-3 mb-3">ProVyuh</h5>
-              <p class="card-text">
-                This is a company that builds websites, web .
-              </p>
-            </div>
+          <div className="body-inner no-padding  table-responsive fixTableHead">
+            <table
+              className="table table-bordered table-striped table-hover"
+              id="datatable2"
+            >
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Door No</th>
+                  <th>File No</th>
+                  <th>Expiry Date</th>
+                  <th>Charges</th>
+                  <th>Operation</th>
+                </tr>
+              </thead>
+              <tbody>
+                {/* {allTenantDetails &&
+                        allTenantDetails[0] &&
+                        allTenantDetails.map((, idx) => { */}
+                {/* return ( */}
+                <tr>
+                  <td>{}</td>
+                  <td>{}</td>
+                  <td>{}</td>
+                  <td>{}</td>
+                  <td>{}</td>
+                  <td>{}</td>
+                </tr>
+                {/* ); */}
+                {/* })} */}
+              </tbody>
+            </table>
           </div>
-          <div class="col-md-3 col-sm-6 item">
-            <div class="card item-card card-block">
-              <h4 class="item-card-title text-right">
-                <i class="material-icons">settings</i>
-              </h4>
-              <img
-                src="https://static.pexels.com/photos/262550/pexels-photo-262550.jpeg"
-                alt="Photo of sunset"
-              ></img>
-              <h5 class="card-title  mt-3 mb-3">ProVyuh</h5>
-              <p class="card-text">
-                This is a company that builds websites, web apps and e-commerce
-                solutions.
-              </p>
-            </div>
-          </div>
-          <div class="col-md-3 col-sm-6 item">
-            <div class="card item-card card-block">
-              <h4 class="item-card-title text-right">
-                <i class="material-icons">settings</i>
-              </h4>
-              <img
-                src="https://static.pexels.com/photos/326424/pexels-photo-326424.jpeg"
-                alt="Photo of sunset"
-              ></img>
-              <h5 class="card-title  mt-3 mb-3">ProVyuh</h5>
-              <p class="card-text">
-                This is a company that builds websites, web apps and e-commerce
-                solutions.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
+        </section>
+      </div>
+    </Fragment>
   );
 };
 

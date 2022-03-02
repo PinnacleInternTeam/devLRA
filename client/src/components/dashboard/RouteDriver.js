@@ -10,7 +10,7 @@ const RouteDriver = ({ auth: { user }, loadUser }) => {
   }, [loadUser]);
 
   if (user) {
-    return <Redirect to="/tenant-Page" />;
+    return <Redirect to="/tenant-report" />;
   }
   return <Fragment>loading...</Fragment>;
 };

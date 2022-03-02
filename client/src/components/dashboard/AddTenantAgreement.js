@@ -1,10 +1,35 @@
 import React, { useState, Fragment, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { AddTenantSettingsform } from "../../actions/staff";
+import { AddTenantAgreementform } from "../../actions/staff";
 import Select from "react-select";
 import { Redirect } from "react-router-dom";
-const AddTenantAgreement = ({ user, loggedStaff, AddTenantSettingsform }) => {
+const AddTenantAgreement = ({ user, loggedStaff, AddTenantAgreementform }) => {
+  var today = new Date();
+  var today2 = new Date();
+
+  var dd = today.getDate();
+  var mm = today.getMonth() + 1;
+  var yyyy = today.getFullYear();
+
+  var dd1 = today2.getDate() - 1;
+  var mm1 = today2.getMonth();
+  var yyyy1 = today2.getFullYear();
+
+  if (dd < 10 || dd1 < 10) {
+    dd = "0" + dd;
+    dd1 = "0" + dd1;
+  }
+  if (mm < 10 || mm1 < 10) {
+    mm = "0" + mm;
+    mm1 = "0" + mm1;
+  }
+  var todayDatedmy = dd + "-" + mm + "-" + yyyy;
+  var yesterdayDt = yyyy1 + "-" + mm1 + "-" + dd1;
+  //console.log(yesterdayDt);
+  //For setting mindate as todays date
+  var today2 = yyyy + "-" + mm + "-" + dd;
+
   const PaymentMethods = [
     { value: "Cash", label: "Cash" },
     { value: "Cheque", label: "Cheque" },
@@ -14,29 +39,21 @@ const AddTenantAgreement = ({ user, loggedStaff, AddTenantSettingsform }) => {
   const [formData, setFormData] = useState({
     tenantRentAmount: "",
     tenantLeaseStartDate: "",
-    tenantName: "",
-    tenantPhone: "",
-    tenantFirmName: "",
-    tenantAddr: "",
-    tenantAdharNo: "",
-    tenantPanNo: "",
-    tenantDepositAmt: "",
-    tenantPaymentMode: "",
+    tenantLeaseEndDate: "",
+    tdId: "",
+    tenantFileNo: "",
+    tenantDoorNo: "",
+
     isSubmitted: false,
   });
 
   const {
     tenantRentAmount,
     tenantLeaseStartDate,
-    tenantName,
-    tenantPhone,
-    tenantFirmName,
-    tenantAddr,
-    tenantAdharNo,
-    tenantPanNo,
-    tenantDepositAmt,
-    tenantPaymentMode,
-    tenantChequenoOrDdno,
+    tenantLeaseEndDate,
+    tdId,
+    tenantFileNo,
+    tenantDoorNo,
     isSubmitted,
   } = formData;
 
@@ -68,24 +85,21 @@ const AddTenantAgreement = ({ user, loggedStaff, AddTenantSettingsform }) => {
       });
     }
   };
-
+  const [entryDate, setEntryDate] = useState(today2);
+  const onDateChangeEntry = (e) => {
+    setEntryDate(e.target.value);
+  };
   const onSubmit = () => {
     const finalData = {
       tenantRentAmount: tenantRentAmount,
-      tenantLeaseStartDate: tenantLeaseStartDate,
-      tenantName: tenantName,
-      tenantPhone: tenantPhone,
-      tenantFirmName: tenantFirmName,
-      tenantAddr: tenantAddr,
-      tenantAdharNo: tenantAdharNo,
-      tenantPanNo: tenantPanNo,
-      tenantDepositAmt: tenantDepositAmt,
-      tenantPaymentMode: tenantPaymentMode,
-      tenantChequenoOrDdno: tenantChequenoOrDdno,
-      tenantstatus: "Active",
+      tenantLeaseStartDate: entryDate,
+      tenantLeaseEndDate: tenantLeaseEndDate,
+      tdId: tdId,
+      tenantFileNo: tenantFileNo,
+      tenantDoorNo: tenantDoorNo,
     };
-
-    AddTenantSettingsform(finalData);
+    console.log(finalData);
+    AddTenantAgreementform(finalData);
     setFormData({ ...formData, isSubmitted: true });
 
     //  window.location.reload();
@@ -104,41 +118,42 @@ const AddTenantAgreement = ({ user, loggedStaff, AddTenantSettingsform }) => {
               </h2>
             </div>
             <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-              <div className="col-lg-2 col-md-2 col-sm-1 col-12">
+              <div className="col-lg-1 col-md-2 col-sm-1 col-12">
                 <label> File No :</label>
               </div>
 
-              <div className="col-lg-4  col-md-4 col-sm-4 col-12">
-                <input
+              <div className="col-lg-5  col-md-4 col-sm-4 col-12">
+                {/* <input
                   type="text"
                   name="tenantFileNo"
                   className="form-control"
                   onChange={(e) => onInputChange(e)}
                   required
-                />
+                /> */}
                 <label>{}</label>
               </div>
-              <div className="col-lg-2 col-md-2 col-sm-4 col-12">
+              <div className="col-lg-1 col-md-2 col-sm-4 col-12">
                 <label>Door no :</label>
               </div>
 
-              <div className="col-lg-4  col-md-4 col-sm-4 col-12">
-                <input
+              <div className="col-lg-5  col-md-4 col-sm-4 col-12">
+                {/* <input
                   type="text"
                   name="tenantDoorNo"
                   className="form-control"
                   onChange={(e) => onInputChange(e)}
                   required
-                />
+                /> */}
+                <label>{}</label>
               </div>
             </div>
 
             <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-              <div className="col-lg-2 col-md-2 col-sm-4 col-12">
+              <div className="col-lg-1 col-md-2 col-sm-4 col-12">
                 <label> Rent Amount:</label>
               </div>
 
-              <div className="col-lg-4  col-md-4 col-sm-4 col-12">
+              <div className="col-lg-5  col-md-4 col-sm-4 col-12">
                 <input
                   type="text"
                   name="tenantRentAmount"
@@ -150,11 +165,11 @@ const AddTenantAgreement = ({ user, loggedStaff, AddTenantSettingsform }) => {
             </div>
 
             <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-              <div className="col-lg-2 col-md-2 col-sm-4 col-12">
+              <div className="col-lg-1 col-md-2 col-sm-4 col-12">
                 <label> Lease Start Date:</label>
               </div>
 
-              <div className="col-lg-4  col-md-4 col-sm-4 col-12">
+              <div className="col-lg-5  col-md-4 col-sm-4 col-12">
                 <input
                   type="date"
                   placeholder="dd/mm/yyyy"
@@ -163,32 +178,19 @@ const AddTenantAgreement = ({ user, loggedStaff, AddTenantSettingsform }) => {
                   //   max={today2}
                   className="form-control cpp-input datevalidation"
                   name="tenantLeaseStartDate"
-                  //   value={startSelectedDate}
-                  //   onChange={(e) => onDateChange(e)}
+                  value={entryDate}
+                  onChange={(e) => onDateChangeEntry(e)}
                   style={{
-                    width: "55%",
+                    width: "35%",
                   }}
                 />
               </div>
-              <div className="col-lg-2 col-md-2 col-sm-4 col-12">
+              <div className="col-lg-1 col-md-2 col-sm-4 col-12">
                 <label>Lease End Date:</label>
               </div>
 
-              <div className="col-lg-4  col-md-4 col-sm-4 col-12">
-                <input
-                  type="date"
-                  placeholder="dd/mm/yyyy"
-                  dateFormat="dd-MM-yyyy"
-                  //   min={yesterdayDt}
-                  //   max={today2}
-                  className="form-control cpp-input datevalidation"
-                  name="selectedDate"
-                  //   value={startSelectedDate}
-                  //   onChange={(e) => onDateChange(e)}
-                  style={{
-                    width: "55%",
-                  }}
-                />
+              <div className="col-lg-5  col-md-4 col-sm-4 col-12">
+                <label></label>
               </div>
             </div>
 
@@ -197,18 +199,18 @@ const AddTenantAgreement = ({ user, loggedStaff, AddTenantSettingsform }) => {
                 variant="success"
                 className="btn sub_form btn_continue Save"
                 onClick={() => onSubmit()}
-                style={
-                  tenantLeaseStartDate !== "" &&
-                  tenantName !== "" &&
-                  tenantPhone !== "" &&
-                  tenantFirmName !== "" &&
-                  tenantDepositAmt !== "" &&
-                  tenantAdharNo !== "" &&
-                  tenantAddr !== "" &&
-                  tenantPanNo !== ""
-                    ? { opacity: "1" }
-                    : { opacity: "1", pointerEvents: "none" }
-                }
+                // style={
+                //   tenantLeaseStartDate !== "" &&
+                //   tenantName !== "" &&
+                //   tenantPhone !== "" &&
+                //   tenantFirmName !== "" &&
+                //   tenantDepositAmt !== "" &&
+                //   tenantAdharNo !== "" &&
+                //   tenantAddr !== "" &&
+                //   tenantPanNo !== ""
+                //     ? { opacity: "1" }
+                //     : { opacity: "1", pointerEvents: "none" }
+                // }
               >
                 Save
               </button>
@@ -222,7 +224,7 @@ const AddTenantAgreement = ({ user, loggedStaff, AddTenantSettingsform }) => {
 
 AddTenantAgreement.propTypes = {
   auth: PropTypes.object.isRequired,
-  AddTenantSettingsform: PropTypes.func.isRequired,
+  AddTenantAgreementform: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -230,5 +232,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-  AddTenantSettingsform,
+  AddTenantAgreementform,
 })(AddTenantAgreement);

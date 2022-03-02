@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const TenantAgreementDetails = new mongoose.Schema({
+  tdId: {
+    type: String,
+    // required: true,
+  },
   tenantRentAmount: {
     type: Number,
     required: true,
@@ -11,7 +15,15 @@ const TenantAgreementDetails = new mongoose.Schema({
   },
   tenantLeaseEndDate: {
     type: String,
-    required: true,
+    // required: true,
+  },
+  tenantFileNo: {
+    type: String,
+    // required: true,
+  },
+  tenantDoorNo: {
+    type: String,
+    // required: true,
   },
 });
 

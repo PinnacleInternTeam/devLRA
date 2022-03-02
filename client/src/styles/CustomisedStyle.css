@@ -234,6 +234,9 @@ h5:last-child {
   color: #fff;
   background: #0da028;
 }
+.filterdiv {
+  background: #429f8c;
+}
 
 ::selection {
   color: #fff;
@@ -1375,11 +1378,11 @@ label {
 .table-bordered > tfoot > tr > th,
 .table-bordered > thead > tr > td,
 .table-bordered > thead > tr > th {
-  border: 1px solid #2a3855;
+  border: 1px solid #429f8c;
 }
 
 #datatable2 th {
-  background: #2a3855;
+  background: #429f8c;
   color: #fff;
   padding: 8px;
   text-align: center;

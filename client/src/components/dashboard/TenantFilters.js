@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Modal } from "react-bootstrap";
-
+import { Redirect } from "react-router-dom";
 import AddTenantDetails from "./AddTenantDetails";
 import TenantReport from "./TenantReport";
 
@@ -45,18 +45,19 @@ const TenantFilters = ({
 
   const { alphaSearch } = searchData;
 
-  const onSelectChange = (optFiltr) => {
-    if (optFiltr) {
-      setSearchData({
-        ...searchData,
-        alphaSearch: optFiltr.value,
-      });
-      const finalData = {
-        alphaSearch: optFiltr.value,
-      };
+  const onSelectChange = () => {
+    // if (optFiltr) {
+    //   setSearchData({
+    //     ...searchData,
+    //     alphaSearch: optFiltr.value,
+    //   });
+    //   const finalData = {
+    //     alphaSearch: optFiltr.value,
+    //   };
 
-      getSearchUsersByFilter(finalData);
-    }
+    //   getSearchUsersByFilter(finalData);
+    // }
+    <Redirect to="/tenant-report" />;
   };
 
   const [startMonthDate, setMonthStartDate] = useState(new Date());
@@ -79,10 +80,11 @@ const TenantFilters = ({
     <Fragment>
       <div className="container_align ">
         <div className="row ">
-          <div className="col-lg-1 py-4 col-md-1 col-sm-1 col-1 text-center brdr-clr-styles top_menu">
+          <div className="col-lg-12 py-4 col-md-1 col-sm-1 col-1 text-center  top_menu">
+            {/* brdr-clr-styles */}
             <form>
               <div className="py-2">
-                <button className="btn btn_more" >100</button>
+                <button className="btn btn_more">100</button>
                 {/* className="btn-rou" */}
               </div>
               <div className="py-3">
@@ -102,13 +104,13 @@ const TenantFilters = ({
                 optName.map((optFiltr, idx) => {
                   return (
                     <div className="py-2" key={idx}>
-                      <div style={{color:"#fff"}}>
+                      <div style={{ color: "#fff" }}>
                         {" "}
                         <Link
-                          to="#"
+                          to="/tenant-report"
                           name="alphaSearch"
                           // className="btnLink"
-                          onClick={() => onSelectChange(optFiltr)}
+                          onClick={() => onSelectChange()}
                           style={{ fontWeight: "bold", fontSize: "19px" }}
                         >
                           {optFiltr.label}
@@ -116,7 +118,11 @@ const TenantFilters = ({
                         &nbsp;
                         <label
                           className="btn-roun"
-                          style={{ fontSize: "15px" ,color:"#429f8c", background:"#fff"}}
+                          style={{
+                            fontSize: "15px",
+                            color: "#429f8c",
+                            background: "#fff",
+                          }}
                         >
                           97
                         </label>
@@ -128,11 +134,7 @@ const TenantFilters = ({
             </form>
           </div>
 
-          <div className="col-lg-10 col-md-7 col-sm-8 col-8">
-            <AddTenantDetails />
-          </div>
-
-          {/* <div className="col-lg-4 col-md-7 col-sm-8 col-8">
+          {/* <div className="col-lg-10 col-md-7 col-sm-8 col-8">
             <TenantReport />
           </div> */}
         </div>

@@ -2,6 +2,7 @@ import React, { Fragment, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Header from "./components/layout/Header";
+import TenantFilters from "./components/dashboard/TenantFilters";
 import Footer from "./components/layout/Footer";
 import HomePage from "./components/layout/HomePage";
 
@@ -34,14 +35,19 @@ const App = () => {
       <Router>
         <Fragment>
           <Header />
-          {/* <Alert /> */}
-
-          <Switch>
-            <Route exact path="/" component={HomePage} />
-            <Route exact path="/login" component={Login} />
-            <Route component={RoutesFile} />
-          </Switch>
-
+          <div className="row ">
+            <div className="col-lg-1 filterdiv">
+              <TenantFilters />
+            </div>
+            {/* <Alert /> */}
+            <div className="col-lg-11">
+              <Switch>
+                <Route exact path="/" component={HomePage} />
+                <Route exact path="/login" component={Login} />
+                <Route component={RoutesFile} />
+              </Switch>
+            </div>
+          </div>
           <footer className="footer">
             <Footer />
             <br />

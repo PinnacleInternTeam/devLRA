@@ -7,7 +7,6 @@ import { logout } from "../../actions/auth";
 import Login from "../auth/Login";
 import "react-datepicker/dist/react-datepicker.css";
 
-
 const Header = ({ auth: { isAuthenticated, loading, user }, logout }) => {
   const [showLogin, setShowLogin] = useState(true);
   const [showLogout, setShowLogout] = useState(false);
@@ -64,7 +63,13 @@ const Header = ({ auth: { isAuthenticated, loading, user }, logout }) => {
                     <NavItem></NavItem>
                   )}
                 </NavItem> */}
-
+                <NavItem>
+                  {!loading && isAuthenticated && user ? (
+                    <Link to="/add-tenant-details">Add Tenant Details</Link>
+                  ) : (
+                    <NavItem></NavItem>
+                  )}
+                </NavItem>
                 <NavItem>
                   {!loading && isAuthenticated && user ? (
                     <Link to="/add-agreement-details">
@@ -90,7 +95,7 @@ const Header = ({ auth: { isAuthenticated, loading, user }, logout }) => {
                 </NavItem>
                 <NavItem>
                   {!loading && isAuthenticated && user ? (
-                    <Link to="/tenant-Page">Tenants Main Page</Link>
+                    <Link to="/shop-Details">Shop Details</Link>
                   ) : (
                     <NavItem></NavItem>
                   )}
@@ -110,10 +115,6 @@ const Header = ({ auth: { isAuthenticated, loading, user }, logout }) => {
                       </Link>
 
                       <ul className="dropdown-menu second-level-menu ">
-                        <li>
-                          <Link to="/all-staff-details">Levels</Link>
-                        </li>
-
                         <li>
                           <Link to="#" onClick={() => handleLogoutModalShow()}>
                             Logout

@@ -15,33 +15,27 @@ import TenantSettings from "../dashboard/TenantSettings";
 import AddTenantAgreement from "../dashboard/AddTenantAgreement";
 import TenantFilters from "../dashboard/TenantFilters";
 import TenantReport from "../dashboard/TenantReport";
+import ShopDetails from "../dashboard/ShopDetails";
 const RoutesFile = () => {
   return (
     <section>
       <Switch>
-        <PrivateRoute exact path="/tenant-Page" component={TenantFilters} />
         <PrivateRoute
           exact
-          path="/add-staff-feedBack"
-          component={AddStaffFeedBack}
-        />
-        <PrivateRoute
-          exact
-          path="/tenant-add-details"
+          path="/add-tenant-details"
           component={AddTenantDetails}
         />
         <PrivateRoute exact path="/tenant-report" component={TenantReport} />
         <PrivateRoute exact path="/tenant-setting" component={TenantSettings} />
 
-        <PrivateRoute exact path="/tenant-Page" component={TenantFilters} />
-
+        <PrivateRoute exact path="/shop-Details" component={ShopDetails} />
         <PrivateRoute
           exact
           path="/add-agreement-details"
           component={AddTenantAgreement}
         />
+        <PrivateRoute exact path="/shop-Details" component={ShopDetails} />
         <PrivateRoute exact path="/route-driver" component={RouteDriver} />
-
         <Route component={NotFound} />
       </Switch>
     </section>

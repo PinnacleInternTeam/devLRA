@@ -1,7 +1,7 @@
 import React, { useState, Fragment, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { AddTenantSettingform } from "../../actions/staff";
+import { AddTenantSettingform } from "../../actions/tenants";
 import Select from "react-select";
 import { Redirect } from "react-router-dom";
 const TenantSettings = ({ user, loggedStaff, AddTenantSettingform }) => {
