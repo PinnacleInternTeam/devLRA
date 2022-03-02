@@ -2,7 +2,12 @@ import axios from "axios";
 import { setAlert } from "./alert";
 import { getAllUsers } from "./auth";
 // import { getAllStaffDelays } from "./staff";
-import { TENANT_ADD_INIT, AUTH_ERROR, SHOP_ADD_INIT } from "./types";
+import {
+  TENANT_ADD_INIT,
+  AUTH_ERROR,
+  SHOP_ADD_INIT,
+  AGREEMENT_ADD_INIT,
+} from "./types";
 
 const config = {
   headers: {
@@ -61,6 +66,21 @@ export const AddShopDetailsform = (finalData) => async (dispatch) => {
       type: SHOP_ADD_INIT,
     });
     await axios.post("/api/tenants/add-shop-details", finalData, config);
+  } catch (err) {
+    dispatch({
+      type: AUTH_ERROR,
+    });
+  }
+};
+
+export const AddTenantAgreementform = (finalData) => async (dispatch) => {
+  // console.log(finalData);
+  try {
+    dispatch({
+      type: AGREEMENT_ADD_INIT,
+    });
+
+    await axios.post("/api/tenants/add-agreement-details", finalData, config);
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,

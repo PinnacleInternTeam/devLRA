@@ -96,238 +96,256 @@ const AddTenantDetails = ({ user, loggedStaff, AddTenantDetailsform }) => {
   }
   return (
     <Fragment>
-      <div className="container">
-        <div className="col-lg-5 col-md-12 col-sm-12 col-12">
-          <h2 className="heading_color">Add Tenant Details </h2>
-        </div>
-        <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-          <div className="col-lg-1 col-md-2 col-sm-1 col-12">
-            <label> File No :</label>
+      <div className="container container_align">
+        <section className="sub_reg">
+          <div className="col-lg-5 col-md-12 col-sm-12 col-12 ">
+            <h2 className="heading_color">Add Tenant Details </h2>
           </div>
-
-          <div className="col-lg-2 col-md-4 col-sm-4 col-12">
-            <input
-              type="text"
-              name="tenantFileNo"
-              className="form-control"
-              onChange={(e) => onInputChange(e)}
-              required
-            />
-          </div>
-          <div className="col-lg-1 col-md-2 col-sm-4 col-12">
-            <label>DoorNo:</label>
-          </div>
-
-          <div className="col-lg-2  col-md-4 col-sm-4 col-12">
-            <input
-              type="text"
-              name="tenantDoorNo"
-              className="form-control"
-              onChange={(e) => onInputChange(e)}
-              required
-            />
-          </div>
-        </div>
-        <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-          <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-            <label>Tenant Name:</label>
-          </div>
-
-          <div className="col-lg-4  col-md-4 col-sm-4 col-12">
-            <input
-              type="text"
-              name="tenantName"
-              className="form-control"
-              onChange={(e) => onInputChange(e)}
-              required
-            />
-          </div>
-          <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-            <label>Phone no :</label>
-          </div>
-
-          <div className="col-lg-4 col-md-4 col-sm-4 col-12">
-            <input
-              type="text"
-              name="tenantPhone"
-              className="form-control"
-              onChange={(e) => onInputChange(e)}
-              required
-            />
-          </div>
-        </div>
-
-        <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-          <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-            <label> Firm Name :</label>
-          </div>
-
-          <div className="col-lg-4 col-md-4 col-sm-4 col-12">
-            <input
-              type="text"
-              name="tenantFirmName"
-              className="form-control"
-              onChange={(e) => onInputChange(e)}
-              required
-            />
-          </div>
-
-          <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-            <label>Tenant's Address :</label>
-          </div>
-
-          <div className="col-lg-4 col-md-4 col-sm-6 col-12">
-            <textarea
-              name="tenantAddr"
-              id="tenantAddr"
-              className="textarea form-control"
-              rows="3"
-              placeholder="Address"
-              onChange={(e) => onInputChange(e)}
-              style={{ width: "100%" }}
-              required
-            ></textarea>
-          </div>
-        </div>
-
-        <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-          <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-            <label>Adhar No :</label>
-          </div>
-
-          <div className="col-lg-4 col-md-4 col-sm-4 col-12">
-            <input
-              type="text"
-              name="tenantAdharNo"
-              className="form-control"
-              onChange={(e) => onInputChange(e)}
-              required
-            />
-          </div>
-          <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-            <label>Pancard No :</label>
-          </div>
-
-          <div className="col-lg-4 col-md-4 col-sm-4 col-12">
-            <input
-              type="text"
-              name="tenantPanNo"
-              className="form-control"
-              onChange={(e) => onInputChange(e)}
-              required
-            />
-          </div>
-        </div>
-        <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-          <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-            <label>Deposit Amount :</label>
-          </div>
-
-          <div className="col-lg-2  col-md-4 col-sm-4 col-12">
-            <input
-              type="text"
-              name="tenantDepositAmt"
-              className="form-control"
-              onChange={(e) => onInputChange(e)}
-              required
-            />
-          </div>
-
-          <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-            <label>Mode Of Payment :</label>
-          </div>
-
-          <div className="col-lg-2  col-md-4 col-sm-4 col-12">
-            <Select
-              name="tenantPaymentMode"
-              options={PaymentMethods}
-              isSearchable={false}
-              placeholder="Select"
-              onChange={(e) => onPaymentModeChange(e)}
-              theme={(theme) => ({
-                ...theme,
-                height: 26,
-                minHeight: 26,
-                borderRadius: 1,
-                colors: {
-                  ...theme.colors,
-                  primary: "black",
-                },
-              })}
-            />
-          </div>
-        </div>
-
-        {showChequenoSection && (
           <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-            <div className="col-lg-2 col-md-4 col-sm-4 col-12">
-              <label>Cheque No/DD No :</label>
+            <div className="col-lg-1 col-md-2 col-sm-4 col-12">
+              <label>DoorNo:</label>
             </div>
-
             <div className="col-lg-2  col-md-4 col-sm-4 col-12">
-              <input
+              {/* <input
                 type="text"
-                name="tenantChequenoOrDdno"
+                name="tenantDoorNo"
                 className="form-control"
                 onChange={(e) => onInputChange(e)}
                 required
+              /> */}
+              <Select
+                name="designationnames"
+                //options={DesignationName}
+                isSearchable={false}
+                placeholder="Select"
+                // onChange={(e) => onDesgnChange(e)}
+                theme={(theme) => ({
+                  ...theme,
+                  height: 26,
+                  minHeight: 26,
+                  borderRadius: 1,
+                  colors: {
+                    ...theme.colors,
+                    primary: "black",
+                  },
+                })}
               />
             </div>
-            <div className="col-lg-2 col-md-4 col-sm-4 col-12">
-              <label>Bank Name :</label>
+            <div className="col-lg-1 col-md-2 col-sm-1 col-12">
+              <label> File No :</label>
             </div>
 
-            <div className="col-lg-2  col-md-4 col-sm-4 col-12">
+            <div className="col-lg-2 col-md-4 col-sm-4 col-12">
               <input
                 type="text"
-                name="tenantBankName"
+                name="tenantFileNo"
                 className="form-control"
                 onChange={(e) => onInputChange(e)}
                 required
-              />
-            </div>
-            <div className="col-lg-2 col-md-4 col-sm-4 col-12">
-              <label>ChequeDate:</label>
-            </div>
-            <div className="col-lg-2  col-md-4 col-sm-4 col-12">
-              <input
-                type="date"
-                placeholder="dd/mm/yyyy"
-                dateFormat="dd-MM-yyyy"
-                className="form-control cpp-input datevalidation"
-                name="tenantchequeDate"
-                // value={startSelectedDate}
-                // onChange={(e) => onDateChange(e)}
-                style={{
-                  width: "105%",
-                }}
               />
             </div>
           </div>
-        )}
+          <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
+            <div className="col-lg-2 col-md-2 col-sm-4 col-12">
+              <label>Tenant Name:</label>
+            </div>
 
-        <div className="col-lg-6 Savebutton " size="lg">
-          <button
-            variant="success"
-            className="btn sub_form btn_continue Save float-right"
-            onClick={() => onSubmit()}
-            style={
-              tenantFileNo !== "" &&
-              tenantDoorNo !== "" &&
-              tenantName !== "" &&
-              tenantPhone !== "" &&
-              tenantFirmName !== "" &&
-              tenantDepositAmt !== "" &&
-              tenantAdharNo !== "" &&
-              tenantAddr !== "" &&
-              tenantPanNo !== ""
-                ? { opacity: "1" }
-                : { opacity: "1", pointerEvents: "none" }
-            }
-          >
-            Save
-          </button>
-        </div>
+            <div className="col-lg-4  col-md-4 col-sm-4 col-12">
+              <input
+                type="text"
+                name="tenantName"
+                className="form-control"
+                onChange={(e) => onInputChange(e)}
+                required
+              />
+            </div>
+            <div className="col-lg-2 col-md-2 col-sm-4 col-12">
+              <label>Phone no :</label>
+            </div>
+
+            <div className="col-lg-4 col-md-4 col-sm-4 col-12">
+              <input
+                type="text"
+                name="tenantPhone"
+                className="form-control"
+                onChange={(e) => onInputChange(e)}
+                required
+              />
+            </div>
+          </div>
+
+          <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
+            <div className="col-lg-2 col-md-2 col-sm-4 col-12">
+              <label> Firm Name :</label>
+            </div>
+
+            <div className="col-lg-4 col-md-4 col-sm-4 col-12">
+              <input
+                type="text"
+                name="tenantFirmName"
+                className="form-control"
+                onChange={(e) => onInputChange(e)}
+                required
+              />
+            </div>
+
+            <div className="col-lg-2 col-md-2 col-sm-4 col-12">
+              <label>Tenant's Address :</label>
+            </div>
+
+            <div className="col-lg-4 col-md-4 col-sm-6 col-12">
+              <textarea
+                name="tenantAddr"
+                id="tenantAddr"
+                className="textarea form-control"
+                rows="3"
+                placeholder="Address"
+                onChange={(e) => onInputChange(e)}
+                style={{ width: "100%" }}
+                required
+              ></textarea>
+            </div>
+          </div>
+
+          <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
+            <div className="col-lg-2 col-md-2 col-sm-4 col-12">
+              <label>Adhar No :</label>
+            </div>
+
+            <div className="col-lg-4 col-md-4 col-sm-4 col-12">
+              <input
+                type="text"
+                name="tenantAdharNo"
+                className="form-control"
+                onChange={(e) => onInputChange(e)}
+                required
+              />
+            </div>
+            <div className="col-lg-2 col-md-2 col-sm-4 col-12">
+              <label>Pancard No :</label>
+            </div>
+
+            <div className="col-lg-4 col-md-4 col-sm-4 col-12">
+              <input
+                type="text"
+                name="tenantPanNo"
+                className="form-control"
+                onChange={(e) => onInputChange(e)}
+                required
+              />
+            </div>
+          </div>
+          <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
+            <div className="col-lg-2 col-md-2 col-sm-4 col-12">
+              <label>Deposit Amount :</label>
+            </div>
+
+            <div className="col-lg-2  col-md-4 col-sm-4 col-12">
+              <input
+                type="text"
+                name="tenantDepositAmt"
+                className="form-control"
+                onChange={(e) => onInputChange(e)}
+                required
+              />
+            </div>
+
+            <div className="col-lg-2 col-md-2 col-sm-4 col-12">
+              <label>Mode Of Payment :</label>
+            </div>
+
+            <div className="col-lg-2  col-md-4 col-sm-4 col-12">
+              <Select
+                name="tenantPaymentMode"
+                options={PaymentMethods}
+                isSearchable={false}
+                placeholder="Select"
+                onChange={(e) => onPaymentModeChange(e)}
+                theme={(theme) => ({
+                  ...theme,
+                  height: 26,
+                  minHeight: 26,
+                  borderRadius: 1,
+                  colors: {
+                    ...theme.colors,
+                    primary: "black",
+                  },
+                })}
+              />
+            </div>
+          </div>
+
+          {showChequenoSection && (
+            <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
+              <div className="col-lg-2 col-md-4 col-sm-4 col-12">
+                <label>Cheque No/DD No :</label>
+              </div>
+
+              <div className="col-lg-2  col-md-4 col-sm-4 col-12">
+                <input
+                  type="text"
+                  name="tenantChequenoOrDdno"
+                  className="form-control"
+                  onChange={(e) => onInputChange(e)}
+                  required
+                />
+              </div>
+              <div className="col-lg-2 col-md-4 col-sm-4 col-12">
+                <label>Bank Name :</label>
+              </div>
+
+              <div className="col-lg-2  col-md-4 col-sm-4 col-12">
+                <input
+                  type="text"
+                  name="tenantBankName"
+                  className="form-control"
+                  onChange={(e) => onInputChange(e)}
+                  required
+                />
+              </div>
+              <div className="col-lg-2 col-md-4 col-sm-4 col-12">
+                <label>ChequeDate:</label>
+              </div>
+              <div className="col-lg-2  col-md-4 col-sm-4 col-12">
+                <input
+                  type="date"
+                  placeholder="dd/mm/yyyy"
+                  dateFormat="dd-MM-yyyy"
+                  className="form-control cpp-input datevalidation"
+                  name="tenantchequeDate"
+                  // value={startSelectedDate}
+                  // onChange={(e) => onDateChange(e)}
+                  style={{
+                    width: "105%",
+                  }}
+                />
+              </div>
+            </div>
+          )}
+
+          <div className="col-lg-6 Savebutton " size="lg">
+            <button
+              variant="success"
+              className="btn sub_form btn_continue Save float-right"
+              onClick={() => onSubmit()}
+              style={
+                tenantFileNo !== "" &&
+                tenantDoorNo !== "" &&
+                tenantName !== "" &&
+                tenantPhone !== "" &&
+                tenantFirmName !== "" &&
+                tenantDepositAmt !== "" &&
+                tenantAdharNo !== "" &&
+                tenantAddr !== "" &&
+                tenantPanNo !== ""
+                  ? { opacity: "1" }
+                  : { opacity: "1", pointerEvents: "none" }
+              }
+            >
+              Save
+            </button>
+          </div>
+        </section>
       </div>
     </Fragment>
   );

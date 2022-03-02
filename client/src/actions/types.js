@@ -12,3 +12,4 @@ export const REMOVE_ALERT = "REMOVE_ALERT";
 export const ALL_USERS = "ALL_USERS";
 export const TENANT_ADD_INIT = "TENANT_ADD_INIT";
 export const SHOP_ADD_INIT = "SHOP_ADD_INIT";
+export const AGREEMENT_ADD_INIT = "AGREEMENT_ADD_INIT";
