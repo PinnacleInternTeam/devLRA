@@ -6,6 +6,7 @@ import { deactiveTenantsDetails } from "../../actions/tenants";
 
 const DeactiveTenantDetails = ({ tenants, deactiveTenantsDetails }) => {
   const [formData, setFormData] = useState({
+    tenantdeactivereason: "",
     isSubmitted: false,
   });
 
