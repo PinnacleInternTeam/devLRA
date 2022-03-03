@@ -51,9 +51,9 @@ const ShopDetails = ({ auth: { allLevels }, getAllLevels }) => {
                     </thead>
                     <tbody>
                       {allLevels &&
-                        allLevels.map((allshops) => {
+                        allLevels.map((allshops, idx) => {
                           return (
-                            <tr>
+                            <tr key={idx}>
                               <td>{allshops.shopFileNo}</td>
                               <td>{allshops.shopDoorNo}</td>
                               <td>{allshops.shopStatus}</td>
