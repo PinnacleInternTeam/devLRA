@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import Login from "../auth/Login";
 
 const Homepage = ({ auth: { isAuthenticated, user } }) => {
-  const [showLogin, setShowLogin] = useState(false);
+  const [showLogin, setShowLogin] = useState(true);
 
   const handleLoginModalClose = () => setShowLogin(false);
   const handleLoginModalShow = () => setShowLogin(true);
@@ -17,9 +17,7 @@ const Homepage = ({ auth: { isAuthenticated, user } }) => {
         <Fragment></Fragment>
       ) : (
         <Fragment>
-          <div className="container container_align">
-            <h1>Pinnacle Media...</h1>
-          </div>
+          <div className="container container_align"></div>
           <Link
             className="log btn btn_submit"
             style={{ padding: "10px 39px" }}
@@ -38,9 +36,9 @@ const Homepage = ({ auth: { isAuthenticated, user } }) => {
           >
             <Modal.Header></Modal.Header>
             <Modal.Body>
-              <button onClick={handleLoginModalClose} className="close">
+              {/* <button onClick={handleLoginModalClose} className="close">
                 <img src={require("../../static/images/close.png")} alt="X" />
-              </button>
+              </button> */}
               <Login />
             </Modal.Body>
           </Modal>

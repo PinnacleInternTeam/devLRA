@@ -9,7 +9,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import TenantSettings from "../dashboard/TenantSettings";
 
 const Header = ({ auth: { isAuthenticated, loading, user }, logout }) => {
-  const [showLogin, setShowLogin] = useState(true);
+  const [showLogin, setShowLogin] = useState(false);
   const [showLogout, setShowLogout] = useState(false);
 
   const [showTenantSetting, setTenantSetting] = useState(false);
