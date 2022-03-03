@@ -232,15 +232,12 @@ h5:last-child {
 ::-moz-selection {
   /* Code for Firefox */
   color: #fff;
-  background: #0da028;
-}
-.filterdiv {
   background: #429f8c;
 }
 
 ::selection {
   color: #fff;
-  background: #0da028;
+  background: #429f8c;
 }
 
 /* Handle */
@@ -2875,10 +2872,10 @@ to be able to see the preview of the image. */
   font-weight: bold;
 }
 
-img {
+/* img {
   height: 150px;
   width: 100%;
-}
+} */
 
 .item {
   padding-left: 5px;

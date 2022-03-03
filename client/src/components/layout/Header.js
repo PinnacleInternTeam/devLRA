@@ -6,16 +6,21 @@ import PropTypes from "prop-types";
 import { logout } from "../../actions/auth";
 import Login from "../auth/Login";
 import "react-datepicker/dist/react-datepicker.css";
+import TenantSettings from "../dashboard/TenantSettings";
 
 const Header = ({ auth: { isAuthenticated, loading, user }, logout }) => {
   const [showLogin, setShowLogin] = useState(true);
   const [showLogout, setShowLogout] = useState(false);
+
+  const [showTenantSetting, setTenantSetting] = useState(false);
 
   // const handleLoginModalClose = () => setShowLogin(false);
   // const handleLoginModalShow = () => setShowLogin(true);
 
   const handleLogoutModalClose = () => setShowLogout(false);
   const handleLogoutModalShow = () => setShowLogout(true);
+  const handleTenantSettingModalClose = () => setTenantSetting(false);
+  const handleTenantSettingModalShow = () => setTenantSetting(true);
 
   const LogoutModalClose = () => {
     handleLogoutModalClose();
@@ -79,23 +84,21 @@ const Header = ({ auth: { isAuthenticated, loading, user }, logout }) => {
                     <NavItem></NavItem>
                   )}
                 </NavItem>
-                {/* <NavItem>
-                  {!loading && isAuthenticated && user ? (
-                    <Link to="/tenant-report">Rent Report</Link>
-                  ) : (
-                    <NavItem></NavItem>
-                  )}
-                </NavItem> */}
+              
+                
                 <NavItem>
                   {!loading && isAuthenticated && user ? (
-                    <Link to="/tenant-setting">Tenant Setting</Link>
+                    <Link to="/shop-Details">Shop Details</Link>
                   ) : (
                     <NavItem></NavItem>
                   )}
                 </NavItem>
+
                 <NavItem>
                   {!loading && isAuthenticated && user ? (
-                    <Link to="/shop-Details">Shop Details</Link>
+                    <Link to="/shop-Details">
+                      All Tenants Shop Details
+                    </Link>
                   ) : (
                     <NavItem></NavItem>
                   )}
@@ -106,7 +109,7 @@ const Header = ({ auth: { isAuthenticated, loading, user }, logout }) => {
                   <ul className="top-level-menu text-right">
                     <li>
                       <Link
-                        to="/all-staff-details"
+                        to="#"
                         onClick={() => openSecondLevelMenu2()}
                         className="navbar-right"
                       >
@@ -115,6 +118,14 @@ const Header = ({ auth: { isAuthenticated, loading, user }, logout }) => {
                       </Link>
 
                       <ul className="dropdown-menu second-level-menu ">
+                       <li>
+                        <Link to="#" onClick={() => handleTenantSettingModalShow()}>
+                          Tenant Setting 
+                        </Link>
+                        </li>
+                        <li>
+                          <Link to="/change-password">Change Password</Link>
+                        </li>
                         <li>
                           <Link to="#" onClick={() => handleLogoutModalShow()}>
                             Logout
@@ -160,6 +171,37 @@ const Header = ({ auth: { isAuthenticated, loading, user }, logout }) => {
             </Navbar.Collapse>
           </Navbar>
         </Container>
+
+        {/*Tenant Settings Modal */}
+        <Modal
+          show={showTenantSetting}
+          backdrop="static"
+          keyboard={false}
+          size="md"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+          <Modal.Header>
+            <div className="col-lg-10">
+              <h3 className="modal-title text-center">Tenant Setting</h3>
+            </div>
+            <div className="col-lg-2">
+              <button onClick={handleTenantSettingModalClose} className="close">
+                <img
+                  src={require("../../static/images/close.png")}
+                  alt="X"
+                  style={{ height: "20px", width: "20px" }}
+                />
+              </button>
+            </div>
+          </Modal.Header>
+          <Modal.Body>
+            <TenantSettings />
+          </Modal.Body>
+         
+        </Modal>
+
+        {/* Logout Modal */}
         <Modal
           show={showLogout}
           backdrop="static"

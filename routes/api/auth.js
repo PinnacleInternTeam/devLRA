@@ -25,21 +25,25 @@ const {
   LOAD_USER,
   GET_ALL_USERS,
   FILTER_USERS,
+  CHANGE_PWD
 } = require("../../common/constant/api-constants");
+
+
+
 
 // @route    POST api/auth
 // @desc     Authenticate user & get token
 // @access   Public
 router.post(
-  "/login",
+  LOGIN,
   [
     check(USERNAME, USERNAME_REQUIRED_INVALID).exists(),
     check(PASSWORD, PASSWORD_INVALID).exists(),
   ],
 
   async (req, res) => {
-    const errors = "";
-
+   
+    // const errors = validationResult(req);
     // if (!errors.isEmpty()) {
     //   return res.status(STATUS_CODE_400).json({ errors: errors.array() });
     // }
@@ -51,23 +55,23 @@ router.post(
       //userName Check In DB
       let userDetails = await UserDetails.findOne({
         userName: userName,
-        password: password,
+       
       });
-
+      console.log(userDetails);
       if (!userDetails) {
         return res.status(STATUS_CODE_400).json({
           errors: [{ msg: INVALID_CREDENTIALS }],
         });
       }
 
-      // //Match The Passwords
-      // const isMatch = await compare(password, UserDetails.password);
-      // console.log(isMatch);
-      // if (!isMatch) {
-      //   return res
-      //     .status(STATUS_CODE_400)
-      //     .json({ errors: [{ msg: INVALID_CREDENTIALS }] });
-      // }
+      //Match The Passwords
+      const isMatch = await bcrypt.compare(password, userDetails.password);
+      console.log(isMatch);
+      if (!isMatch) {
+        return res
+          .status(STATUS_CODE_400)
+          .json({ errors: [{ msg: INVALID_CREDENTIALS }] });
+      }
 
       //Create Payload
       const payload = {
@@ -80,7 +84,6 @@ router.post(
         if (err) {
           throw err;
         }
-
         res.json({ token });
       });
     } catch (err) {
@@ -138,5 +141,35 @@ router.post(FILTER_USERS, auth, async (req, res) => {
     res.status(STATUS_CODE_500).send(SERVER_ERROR);
   }
 });
+
+// @route    POST api/users
+// @desc     Change Password
+// @access   Private
+router.post(
+  CHANGE_PWD,
+  auth,
+  [check("password", "Invalid Request").not().isEmpty()],
+  async (req, res) => {
+    //validating the Request
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(STATUS_CODE_400).json({ errors: errors.array() });
+    }
+    //assigning the data from body
+    let data = req.body; 
+    try {
+      //Preparing The Salt
+      const salt = await bcrypt.genSalt(10);
+      //Hashing the Password
+      const password = await bcrypt.hash(data.password, salt);
+   
+      await UserDetails.findOneAndUpdate({ _id: req.user.id }, { password: password });
+      res.json({ msg: "Password changed succesfully" });
+    } catch (err) {
+      console.error(err.message);
+      res.status(STATUS_CODE_500).send(SERVER_ERROR);
+    }
+  }
+);
 
 module.exports = router;

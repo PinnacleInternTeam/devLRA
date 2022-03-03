@@ -3938,9 +3938,9 @@ tbody.collapse.show {
     -ms-flex-direction: row;
     flex-direction: row;
   }
-  .navbar-expand-lg .navbar-nav .dropdown-menu {
+  /* .navbar-expand-lg .navbar-nav .dropdown-menu {
     position: absolute;
-  }
+  } */
   .navbar-expand-lg .navbar-nav .dropdown-menu-right {
     right: 0;
     left: auto;

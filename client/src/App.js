@@ -36,11 +36,11 @@ const App = () => {
         <Fragment>
           <Header />
           <div className="row ">
-            <div className="col-lg-1 filterdiv">
+            <div className="col-lg-1 no_padding">
               <TenantFilters />
             </div>
             {/* <Alert /> */}
-            <div className="col-lg-11">
+            <div className="col-lg-11 no_padding">
               <Switch>
                 <Route exact path="/" component={HomePage} />
                 <Route exact path="/login" component={Login} />
