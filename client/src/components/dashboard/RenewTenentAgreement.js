@@ -16,13 +16,7 @@ if (mm < 10) {
 }
 var todayDateymd = yyyy + "-" + mm + "-" + dd;
 
-const RenewTenentAgreement = ({
-  user,
-  tenants,
-  // loggedStaff,
-  //onAbsentModalChange,
-  editStaffDetails,
-}) => {
+const RenewTenentAgreement = ({ user, tenants }) => {
   const [error, setError] = useState({
     nextBtnStyle: { opacity: "0.5", pointerEvents: "none" },
     selBtnStyle: { opacity: "0.5", pointerEvents: "none" },
@@ -71,96 +65,83 @@ const RenewTenentAgreement = ({
 
   return (
     <Fragment>
-      <div className="col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-        <section className="sub_reg">
-          <div className="row">
-            <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-              <div>
-                <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-                  <label>Door no :</label>
-                </div>
-                <div className="col-lg-4  col-md-4 col-sm-4 col-12">
-                  <label>{}</label>
-                </div>
-                <div className="col-lg-2 col-md-2 col-sm-1 col-12">
-                  <label> File No :</label>
-                </div>
-                <div className="col-lg-4  col-md-4 col-sm-4 col-12">
-                  <label>{}</label>
-                </div>
-              </div>
+      <section className="sub_reg">
+        <div className="row">
+          <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
+            <div className="col-lg-3 col-md-2 col-sm-4 col-12">
+              <label>Door no :</label>
             </div>
-            <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3"></div>
-            <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-              <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-                <label> Rent Amount:</label>
-              </div>
-
-              <div className="col-lg-3  col-md-4 col-sm-4 col-12">
-                <input
-                  type="text"
-                  name="tenantRentAmount"
-                  className="form-control"
-                  onChange={(e) => onInputChange(e)}
-                  required
-                />
-              </div>
+            <div className="col-lg-3  col-md-4 col-sm-4 col-12">
+              <label>{tenants.tenantDoorNo}</label>
             </div>
-
-            <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-              <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-                <label> Lease Start Date:</label>
-              </div>
-
-              <div className="col-lg-4  col-md-4 col-sm-4 col-12">
-                <input
-                  type="date"
-                  placeholder="dd/mm/yyyy"
-                  dateFormat="dd-MM-yyyy"
-                  //   min={yesterdayDt}
-                  //   max={today2}
-                  className="form-control cpp-input datevalidation"
-                  name="tenantLeaseStartDate"
-                  // value={entryDate}
-                  // onChange={(e) => onDateChangeEntry(e)}
-                  style={{
-                    width: "55%",
-                  }}
-                />
-              </div>
-              <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-                <label>Lease End Date:</label>
-              </div>
-
-              <div className="col-lg-4  col-md-4 col-sm-4 col-12">
-                <label></label>
-              </div>
+            <div className="col-lg-3 col-md-2 col-sm-1 col-12">
+              <label> File No :</label>
             </div>
-
-            <div className="col-lg-8 Savebutton" size="lg">
-              <button
-                variant="success"
-                className="btn sub_form btn_continue Save"
-                onClick={() => onSubmit()}
-                // style={
-                //   tenantLeaseStartDate !== "" &&
-                //   tenantName !== "" &&
-                //   tenantPhone !== "" &&
-                //   tenantFirmName !== "" &&
-                //   tenantDepositAmt !== "" &&
-                //   tenantAdharNo !== "" &&
-                //   tenantAddr !== "" &&
-                //   tenantPanNo !== ""
-                //     ? { opacity: "1" }
-                //     : { opacity: "1", pointerEvents: "none" }
-                // }
-              >
-                Save
-              </button>
+            <div className="col-lg-3  col-md-4 col-sm-4 col-12">
+              <label>{tenants.tenantFileNo}</label>
             </div>
           </div>
-        </section>
-      </div>
+        </div>
+        <div className="row">
+          <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
+            <div className="col-lg-2 col-md-2 col-sm-4 col-12">
+              <label> Rent Amount:</label>
+            </div>
+
+            <div className="col-lg-3  col-md-4 col-sm-4 col-12">
+              <input
+                type="text"
+                name="tenantRentAmount"
+                className="form-control"
+                onChange={(e) => onInputChange(e)}
+                required
+              />
+            </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-lg-6 col-md-2 col-sm-4 col-12">
+            <label> Lease Start Date:</label>
+          </div>
+
+          <div className="col-lg-6  col-md-4 col-sm-4 col-12">
+            <input
+              type="date"
+              placeholder="dd/mm/yyyy"
+              dateFormat="dd-MM-yyyy"
+              //   min={yesterdayDt}
+              //   max={today2}
+              className="form-control cpp-input datevalidation"
+              name="tenantLeaseStartDate"
+              // value={entryDate}
+              // onChange={(e) => onDateChangeEntry(e)}
+              style={{
+                width: "55%",
+              }}
+            />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-lg-6 col-md-2 col-sm-4 col-12">
+            <label>Lease End Date:</label>
+          </div>
+
+          <div className="col-lg-6  col-md-4 col-sm-4 col-12">
+            <label></label>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-lg-8 Savebutton" size="lg">
+            <button
+              variant="success"
+              className="btn sub_form btn_continue Save"
+              onClick={() => onSubmit()}
+            >
+              Save
+            </button>
+          </div>
+        </div>
+      </section>
     </Fragment>
   );
 };
