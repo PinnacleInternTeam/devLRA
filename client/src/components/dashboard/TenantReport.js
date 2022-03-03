@@ -1,6 +1,10 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { getTenantReportYearMonth } from "../../actions/tenants";
 
-const TenantReport = () => {
+const TenantReport = ({ auth: { expReport }, getTenantReportYearMonth }) => {
+  console.log(expReport);
   return (
     <Fragment>
       <div className="container container_align">
@@ -24,20 +28,20 @@ const TenantReport = () => {
                 </tr>
               </thead>
               <tbody>
-                {/* {allTenantDetails &&
-                        allTenantDetails[0] &&
-                        allTenantDetails.map((, idx) => { */}
-                {/* return ( */}
-                <tr>
-                  <td>{}</td>
-                  <td>{}</td>
-                  <td>{}</td>
-                  <td>{}</td>
-                  <td>{}</td>
-                  <td>{}</td>
-                </tr>
-                {/* ); */}
-                {/* })} */}
+                {expReport &&
+                  expReport[0] &&
+                  expReport.map((expReportVal, idx) => {
+                    return (
+                      <tr key={idx}>
+                        <td>{expReportVal.tenantName}</td>
+                        <td>{expReportVal.tenantDoorNo}</td>
+                        <td>{expReportVal.tenantFileNo}</td>
+                        <td>{expReportVal.tenantLeaseEndDate}</td>
+                        <td>{}</td>
+                        <td>{}</td>
+                      </tr>
+                    );
+                  })}
               </tbody>
             </table>
           </div>
@@ -47,4 +51,16 @@ const TenantReport = () => {
   );
 };
 
-export default TenantReport;
+// export default TenantReport;
+
+TenantReport.propTypes = {
+  auth: PropTypes.object.isRequired,
+  getTenantReportYearMonth: PropTypes.func.isRequired,
+};
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, { getTenantReportYearMonth })(
+  TenantReport
+);

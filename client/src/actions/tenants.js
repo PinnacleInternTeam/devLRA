@@ -7,6 +7,9 @@ import {
   AUTH_ERROR,
   SHOP_ADD_INIT,
   AGREEMENT_ADD_INIT,
+  MONTH_EXP_CNT,
+  YEAR_EXP_CNT,
+  EXP_REPORT,
 } from "./types";
 
 const config = {
@@ -87,3 +90,91 @@ export const AddTenantAgreementform = (finalData) => async (dispatch) => {
     });
   }
 };
+
+// Get Exp Month Count
+export const getMonthExpCount = () => async (dispatch) => {
+  try {
+    const res = await axios.get("/api/tenants/get-month-exp-count");
+    dispatch({
+      type: MONTH_EXP_CNT,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: AUTH_ERROR,
+    });
+  }
+};
+
+// Get Exp Month Count filter
+export const getMonthExpCountFilter = (finalData) => async (dispatch) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  try {
+    const res = await axios.post(
+      "/api/tenants/get-month-exp-count-filter",
+      finalData,
+      config
+    );
+    dispatch({
+      type: MONTH_EXP_CNT,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: AUTH_ERROR,
+    });
+  }
+};
+
+// Get Year Exp Count filter
+export const getPreviousYearsExpCount = (finalData) => async (dispatch) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  try {
+    const res = await axios.post(
+      "/api/tenants/get-previous-years-exp",
+      finalData,
+      config
+    );
+    dispatch({
+      type: YEAR_EXP_CNT,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: AUTH_ERROR,
+    });
+  }
+};
+
+// Get Year Month Report
+export const getTenantReportYearMonth =
+  (finalDataReport) => async (dispatch) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const res = await axios.post(
+        "/api/tenants/get-tenant-exp-report",
+        finalDataReport,
+        config
+      );
+      dispatch({
+        type: EXP_REPORT,
+        payload: res.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: AUTH_ERROR,
+      });
+    }
+  };
