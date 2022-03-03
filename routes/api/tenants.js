@@ -3,18 +3,44 @@ const router = express.Router();
 const config = require("config");
 const { check, validationResult } = require("express-validator");
 const mongoose = require("mongoose");
-const StaffPerf = require("../../models/staffPerformence");
 const TenantDetails = require("../../models/TenantDetails");
 const TenantSettings = require("../../models/TenantSettings");
 const ShopDetails = require("../../models/ShopDetails");
+const TenantAgreementDetails = require("../../models/TenantAgreementDetails");
 
 router.post("/add-tenant-details", async (req, res) => {
   let data = req.body;
-  console.log(data);
+  const finalData = {
+    tenantFileNo: data.tenantFileNo,
+    tenantDoorNo: data.tenantDoorNo,
+    tenantName: data.tenantName,
+    tenantPhone: data.tenantPhone,
+    tenantFirmName: data.tenantFirmName,
+    tenantAddr: data.tenantAddr,
+    tenantAdharNo: data.tenantAdharNo,
+    tenantPanNo: data.tenantPanNo,
+    tenantDepositAmt: data.tenantDepositAmt,
+    tenantPaymentMode: data.tenantPaymentMode,
+    tenantChequenoOrDdno: data.tenantChequenoOrDdno,
+    tenantBankName: data.tenantBankName,
+  };
+
   try {
-    let tenantDetails = new TenantDetails(data);
+    let tenantDetails = new TenantDetails(finalData);
     output = await tenantDetails.save();
-    res.send(output);
+    console.log(output._id);
+    const finalData1 = {
+      tdId: output._id,
+      tenantRentAmount: data.tenantRentAmount,
+      tenantLeaseStartDate: data.tenantLeaseStartDate,
+      tenantLeaseEndDate: data.tenantLeaseEndDate,
+    };
+    let tenantAgreementDetails = new TenantAgreementDetails(finalData1);
+    output1 = await tenantAgreementDetails.save();
+
+    console.log(output1);
+    // res.send(output);
+    // res.send(output1);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Internal Server Error.");
@@ -72,4 +98,31 @@ router.get("/get-tenant-report", async (req, res) => {
   }
 });
 
+router.get("/get-door-nos", async (req, res) => {
+  try {
+    const doorNoData = await ShopDetails.find({
+      $group: {
+        _id: "$shopId",
+        shopDoorNo: { $first: "$shopDoorNo" },
+      },
+    });
+    res.json(doorNoData);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Internal Server Error.");
+  }
+});
+
+router.post("/add-agreement-details", async (req, res) => {
+  let data = req.body;
+  // console.log(data);
+  try {
+    let tenantAgreementDetails = new TenantAgreementDetails(data);
+    output = await tenantAgreementDetails.save();
+    res.send(output);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Internal Server Error.");
+  }
+});
 module.exports = router;

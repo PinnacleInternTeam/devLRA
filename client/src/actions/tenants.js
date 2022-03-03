@@ -1,12 +1,14 @@
 import axios from "axios";
 import { setAlert } from "./alert";
 import { getAllUsers } from "./auth";
-// import { getAllStaffDelays } from "./staff";
+
 import {
   TENANT_ADD_INIT,
   AUTH_ERROR,
   SHOP_ADD_INIT,
   AGREEMENT_ADD_INIT,
+  GET_DOORNOS,
+  NEW_TENENTDETAILS,
 } from "./types";
 
 const config = {
@@ -17,13 +19,19 @@ const config = {
 
 // Add Staff Performance feedback
 export const AddTenantDetailsform = (finalData) => async (dispatch) => {
-  console.log(finalData);
+  // console.log(finalData);
   try {
+    const res = await axios.post(
+      "/api/tenants/add-tenant-details",
+      finalData,
+      config
+    );
     dispatch({
-      type: TENANT_ADD_INIT,
+      type: NEW_TENENTDETAILS,
+      payload: res.data,
     });
 
-    await axios.post("/api/tenants/add-tenant-details", finalData, config);
+    // console.log(res.data);
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,
@@ -81,6 +89,20 @@ export const AddTenantAgreementform = (finalData) => async (dispatch) => {
     });
 
     await axios.post("/api/tenants/add-agreement-details", finalData, config);
+  } catch (err) {
+    dispatch({
+      type: AUTH_ERROR,
+    });
+  }
+};
+
+export const getAllDoorNos = () => async (dispatch) => {
+  try {
+    const res = await axios.get("/api/tenants/get-door-nos");
+    dispatch({
+      type: GET_DOORNOS,
+      payload: res.data,
+    });
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,
