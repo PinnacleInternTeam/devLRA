@@ -11,6 +11,7 @@ import {
   getMonthExpCountFilter,
   getPreviousYearsExpCount,
   getTenantReportYearMonth,
+  getTenantReportOldExp,
 } from "../../actions/tenants";
 import NotFound from "../layout/NotFound";
 
@@ -36,6 +37,7 @@ const TenantFilters = ({
   getMonthExpCountFilter,
   getPreviousYearsExpCount,
   getTenantReportYearMonth,
+  getTenantReportOldExp,
 }) => {
   useEffect(() => {
     getMonthExpCount();
@@ -86,12 +88,17 @@ const TenantFilters = ({
         monthSearch: optFiltrVal,
         yearSearch: new Date(startMonthDate).getFullYear(),
       };
-      console.log(finalDataReport);
       getTenantReportYearMonth(finalDataReport);
       <Redirect to="/tenant-report" />;
     }
   };
-
+  const oldExpCountFetch = () => {
+    const finalDataReportOld = {
+      yearSearch: new Date(startMonthDate).getFullYear(),
+    };
+    getTenantReportOldExp(finalDataReportOld);
+    <Redirect to="/tenant-report" />;
+  };
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
@@ -100,74 +107,78 @@ const TenantFilters = ({
         <div className="row ">
           <div className="col-lg-12 py-4 col-md-1 col-sm-1 col-1 text-center ">
             {/* brdr-clr-styles */}
-            <form>
-              <div className="py-2">
-                <button className="btn btn_more">{yearExpCnt}</button>
-                {/* className="btn-rou" */}
-              </div>
-              <div className="py-3">
-                <DatePicker
-                  className="form-control yearpicker"
-                  placeholder="yyyy"
-                  //   maxDate={subMonths(new Date(), -1)}
-                  onChange={(date) => monthYearChange(date)}
-                  dateFormat="yyyy"
-                  selected={startMonthDate}
-                  style={{ textAlign: "center" }}
-                  showYearPicker
-                />
-              </div>
+            {/* <form> */}
+            <div className="py-2">
+              <button
+                className="btn btn_more"
+                onClick={() => oldExpCountFetch()}
+              >
+                {yearExpCnt}
+              </button>
+              {/* className="btn-rou" */}
+            </div>
+            <div className="py-3">
+              <DatePicker
+                className="form-control yearpicker"
+                placeholder="yyyy"
+                //   maxDate={subMonths(new Date(), -1)}
+                onChange={(date) => monthYearChange(date)}
+                dateFormat="yyyy"
+                selected={startMonthDate}
+                style={{ textAlign: "center" }}
+                showYearPicker
+              />
+            </div>
 
-              {optName &&
-                optName.map((optFiltr, idx) => {
-                  let countVal = 0;
-                  monthExpCnt.map((monthExpCntVal) => {
-                    if (
-                      Number(monthExpCntVal._id.month) ===
-                      Number(optFiltr.value)
-                    ) {
-                      countVal = monthExpCntVal.count;
-                    }
-                    return <></>;
-                  });
-                  return (
-                    <div className="py-2" key={idx}>
-                      <div style={{ color: "#fff" }}>
-                        {" "}
-                        <Link
-                          to="#"
-                          name="alphaSearch"
-                          // className="btnLink"
-                          onClick={() => onSelectChange(optFiltr.value)}
-                          style={{ fontWeight: "bold", fontSize: "19px" }}
-                        >
-                          {optFiltr.label}
-                        </Link>{" "}
-                        &nbsp;
-                        <label
-                          className="btn-roun"
-                          style={
-                            countVal !== 0
-                              ? {
-                                  fontSize: "15px",
-                                  color: "red",
-                                  background: "#fff",
-                                }
-                              : {
-                                  fontSize: "15px",
-                                  color: "#429f8c",
-                                  background: "#fff",
-                                }
-                          }
-                        >
-                          {countVal}
-                        </label>
-                      </div>
-                      <div> </div>
+            {optName &&
+              optName.map((optFiltr, idx) => {
+                let countVal = 0;
+                monthExpCnt.map((monthExpCntVal) => {
+                  if (
+                    Number(monthExpCntVal._id.month) === Number(optFiltr.value)
+                  ) {
+                    countVal = monthExpCntVal.count;
+                  }
+                  return <></>;
+                });
+                return (
+                  <div className="py-2" key={idx}>
+                    <div style={{ color: "#fff" }}>
+                      {" "}
+                      <Link
+                        to="#"
+                        name="alphaSearch"
+                        // className="btnLink"
+                        onClick={() => onSelectChange(optFiltr.value)}
+                        style={{ fontWeight: "bold", fontSize: "19px" }}
+                      >
+                        {optFiltr.label}
+                      </Link>{" "}
+                      &nbsp;
+                      <label
+                        className="btn-roun"
+                        style={
+                          countVal !== 0
+                            ? {
+                                fontSize: "15px",
+                                color: "red",
+                                background: "#fff",
+                              }
+                            : {
+                                fontSize: "15px",
+                                color: "#429f8c",
+                                background: "#fff",
+                              }
+                        }
+                      >
+                        {countVal}
+                      </label>
                     </div>
-                  );
-                })}
-            </form>
+                    <div> </div>
+                  </div>
+                );
+              })}
+            {/* </form> */}
           </div>
 
           {/* <div className="col-lg-10 col-md-7 col-sm-8 col-8">
@@ -185,6 +196,7 @@ TenantFilters.propTypes = {
   getMonthExpCountFilter: PropTypes.func.isRequired,
   getPreviousYearsExpCount: PropTypes.func.isRequired,
   getTenantReportYearMonth: PropTypes.func.isRequired,
+  getTenantReportOldExp: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   auth: state.auth,
@@ -195,4 +207,5 @@ export default connect(mapStateToProps, {
   getMonthExpCountFilter,
   getPreviousYearsExpCount,
   getTenantReportYearMonth,
+  getTenantReportOldExp,
 })(TenantFilters);

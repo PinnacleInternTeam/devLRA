@@ -1,10 +1,18 @@
-import React, { Fragment, useEffect } from "react";
+import React, { useState, Fragment, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getTenantReportYearMonth } from "../../actions/tenants";
+import { Modal } from "react-bootstrap";
+import RenewTenentAgreement from "./RenewTenentAgreement";
 
 const TenantReport = ({ auth: { expReport }, getTenantReportYearMonth }) => {
-  console.log(expReport);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const handleEditModalClose = () => setShowEditModal(false);
+  const [userData, setUserData] = useState(null);
+  const onRenewal = (tenants, idx) => {
+    setShowEditModal(true);
+    setUserData(tenants);
+  };
   return (
     <Fragment>
       <div className="container container_align">
@@ -24,6 +32,7 @@ const TenantReport = ({ auth: { expReport }, getTenantReportYearMonth }) => {
                   <th>File No</th>
                   <th>Expiry Date</th>
                   <th>Charges</th>
+                  <th>Stamp Duty</th>
                   <th>Operation</th>
                 </tr>
               </thead>
@@ -37,8 +46,19 @@ const TenantReport = ({ auth: { expReport }, getTenantReportYearMonth }) => {
                         <td>{expReportVal.tenantDoorNo}</td>
                         <td>{expReportVal.tenantFileNo}</td>
                         <td>{expReportVal.tenantLeaseEndDate}</td>
-                        <td>{}</td>
-                        <td>{}</td>
+                        <td>{expReportVal.chargesCal.toFixed(2)}</td>
+                        <td>{expReportVal.stampDuty.toFixed(2)}</td>
+                        <td>
+                          <button
+                            variant="success"
+                            className="btn sub_form  "
+                            //   onClick={() => onSubmit()}
+
+                            onClick={() => onRenewal(expReportVal, idx)}
+                          >
+                            Renewal
+                          </button>
+                        </td>
                       </tr>
                     );
                   })}
@@ -46,6 +66,34 @@ const TenantReport = ({ auth: { expReport }, getTenantReportYearMonth }) => {
             </table>
           </div>
         </section>
+        <Modal
+          show={showEditModal}
+          backdrop="static"
+          keyboard={false}
+          size="md"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+          <Modal.Header>
+            <div className="col-lg-10">
+              <h4 className="modal-title text-center">
+                Renewal Tenant Agreement
+              </h4>
+            </div>
+            <div className="col-lg-2">
+              <button onClick={handleEditModalClose} className="close">
+                <img
+                  src={require("../../static/images/close.png")}
+                  alt="X"
+                  style={{ height: "20px", width: "20px" }}
+                />
+              </button>
+            </div>
+          </Modal.Header>
+          <Modal.Body>
+            <RenewTenentAgreement tenants={userData} />
+          </Modal.Body>
+        </Modal>
       </div>
     </Fragment>
   );

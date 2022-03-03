@@ -404,7 +404,7 @@ router.get("/get-door-nos", async (req, res) => {
   }
 });
 
-router.post("/get-tenant-exp-old-report", async (req, res) => {
+router.post("/get-tenant-old-exp-report", async (req, res) => {
   const { yearSearch } = req.body;
   var lastDate = new Date(yearSearch, 0, 1).toISOString().split("T")[0];
   try {
