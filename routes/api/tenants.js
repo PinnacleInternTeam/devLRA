@@ -28,14 +28,14 @@ router.post("/add-tenant-details", async (req, res) => {
   try {
     let tenantDetails = new TenantDetails(finalData);
     output = await tenantDetails.save();
-    console.log(output._id);
+    // console.log(output._id);
     const finalData1 = {
       tdId: output._id,
       tenantRentAmount: data.tenantRentAmount,
       tenantLeaseStartDate: data.tenantLeaseStartDate,
       tenantLeaseEndDate: data.tenantLeaseEndDate,
     };
-    let tenantAgreementDetails = new TenantAgreementDetails(finalData1);
+    let tenantAgreementDetails = new TenentAgreement(finalData1);
     output1 = await tenantAgreementDetails.save();
 
     console.log(output1);
@@ -318,12 +318,21 @@ router.get("/get-all-settings", async (req, res) => {
 
 router.get("/get-door-nos", async (req, res) => {
   try {
-    const doorNoData = await ShopDetails.find({
-      $group: {
-        _id: "$shopId",
-        shopDoorNo: { $first: "$shopDoorNo" },
+    const doorNoData = await ShopDetails.aggregate([
+      {
+        $match: {
+          shopStatus: {
+            $eq: "Available",
+          },
+        },
       },
-    });
+      // {
+      //   $group: {
+      //     // _id: "$shopId",
+      //     // shopDoorNo: { $first: "$shopDoorNo" },
+      //   },
+      // },
+    ]);
     res.json(doorNoData);
   } catch (err) {
     console.error(err.message);
