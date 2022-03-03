@@ -1,8 +1,15 @@
 import React, { useState, Fragment, useEffect } from "react";
 import { Modal } from "react-bootstrap";
 import AddShopDetails from "./AddShopDetails";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { getAllLevels } from "../../actions/tenants";
 
-const ShopDetails = () => {
+const ShopDetails = ({ auth: { allLevels }, getAllLevels }) => {
+  useEffect(() => {
+    getAllLevels();
+  }, [getAllLevels]);
+  //console.log(allLevels);
   const [showEditModal, setShowEditModal] = useState(false);
   const handleEditModalClose = () => setShowEditModal(false);
   const onClickHandler = () => {
@@ -43,11 +50,16 @@ const ShopDetails = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
+                      {allLevels &&
+                        allLevels.map((levels) => {
+                          return (
+                            <tr>
+                              <td>{levels.shopFileNo}</td>
+                              <td>{levels.shopDoorNo}</td>
+                              <td>{levels.shopStatus}</td>
+                            </tr>
+                          );
+                        })}
                     </tbody>
                   </table>
                 </div>
@@ -90,4 +102,14 @@ const ShopDetails = () => {
   );
 };
 
-export default ShopDetails;
+ShopDetails.propTypes = {
+  getAllLevels: PropTypes.func.isRequired,
+};
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  staff: state.staff,
+});
+
+export default connect(mapStateToProps, {
+  getAllLevels,
+})(ShopDetails);

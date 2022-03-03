@@ -17,7 +17,7 @@ import AddTenantAgreement from "../dashboard/AddTenantAgreement";
 import TenantFilters from "../dashboard/TenantFilters";
 import TenantReport from "../dashboard/TenantReport";
 import ShopDetails from "../dashboard/ShopDetails";
-// import AllTenantShopDetails from "../dashboard/AllTenantShopDetails";
+import AllTenantShopDetails from "../dashboard/AllTenantShopDetails";
 
 const RoutesFile = () => {
   return (
@@ -37,8 +37,13 @@ const RoutesFile = () => {
           path="/add-agreement-details"
           component={AddTenantAgreement}
         />
-        {/* <PrivateRoute exact path="/all-tenant-shop-Details" component={AllTenantShopDetails} /> */}
-        <PrivateRoute exact
+        <PrivateRoute
+          exact
+          path="/all-tenant-shop-Details"
+          component={AllTenantShopDetails}
+        />
+        <PrivateRoute
+          exact
           path="/change-password"
           component={changePassword}
         />

@@ -39,9 +39,9 @@ const AddShopDetails = ({ AddShopDetailsform }) => {
     };
 
     AddShopDetailsform(finalData);
-    //setFormData({ ...formData, isSubmitted: true });
+    setFormData({ ...formData, isSubmitted: true });
 
-    // window.location.reload();
+    window.location.reload();
   };
 
   return (

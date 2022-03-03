@@ -7,7 +7,7 @@ const TenantDetails = new mongoose.Schema({
   },
   tenantDoorNo: {
     type: String,
-    required: true,
+    //  required: true,
   },
   tenantName: {
     type: String,
@@ -47,6 +47,11 @@ const TenantDetails = new mongoose.Schema({
   tenantstatus: {
     type: String,
     required: true,
+    default: "Active",
+  },
+  tenantdeactivereason: {
+    type: String,
+    //required: true,
   },
 });
 

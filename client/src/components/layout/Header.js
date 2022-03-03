@@ -84,8 +84,7 @@ const Header = ({ auth: { isAuthenticated, loading, user }, logout }) => {
                     <NavItem></NavItem>
                   )}
                 </NavItem>
-              
-                
+
                 <NavItem>
                   {!loading && isAuthenticated && user ? (
                     <Link to="/shop-Details">Shop Details</Link>
@@ -96,7 +95,7 @@ const Header = ({ auth: { isAuthenticated, loading, user }, logout }) => {
 
                 <NavItem>
                   {!loading && isAuthenticated && user ? (
-                    <Link to="/shop-Details">
+                    <Link to="/all-tenant-shop-Details">
                       All Tenants Shop Details
                     </Link>
                   ) : (
@@ -118,10 +117,13 @@ const Header = ({ auth: { isAuthenticated, loading, user }, logout }) => {
                       </Link>
 
                       <ul className="dropdown-menu second-level-menu ">
-                       <li>
-                        <Link to="#" onClick={() => handleTenantSettingModalShow()}>
-                          Tenant Setting 
-                        </Link>
+                        <li>
+                          <Link
+                            to="#"
+                            onClick={() => handleTenantSettingModalShow()}
+                          >
+                            Tenant Setting
+                          </Link>
                         </li>
                         <li>
                           <Link to="/change-password">Change Password</Link>
@@ -198,7 +200,6 @@ const Header = ({ auth: { isAuthenticated, loading, user }, logout }) => {
           <Modal.Body>
             <TenantSettings />
           </Modal.Body>
-         
         </Modal>
 
         {/* Logout Modal */}
