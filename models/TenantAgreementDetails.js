@@ -17,13 +17,10 @@ const TenantAgreementDetails = new mongoose.Schema({
     type: String,
     // required: true,
   },
-  tenantFileNo: {
+
+  AgreementStatus: {
     type: String,
-    // required: true,
-  },
-  tenantDoorNo: {
-    type: String,
-    // required: true,
+    default: "Active",
   },
 });
 

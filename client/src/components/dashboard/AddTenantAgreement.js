@@ -4,7 +4,11 @@ import { connect } from "react-redux";
 import { AddTenantAgreementform } from "../../actions/tenants";
 import Select from "react-select";
 import { Redirect } from "react-router-dom";
-const AddTenantAgreement = ({ user, loggedStaff, AddTenantAgreementform }) => {
+const AddTenantAgreement = ({
+  user,
+  AddTenantAgreementform,
+  tenants: { newtenantdetails },
+}) => {
   var today = new Date();
   var today2 = new Date();
 
@@ -35,6 +39,8 @@ const AddTenantAgreement = ({ user, loggedStaff, AddTenantAgreementform }) => {
     { value: "Cheque", label: "Cheque" },
   ];
 
+  console.log(newtenantdetails);
+
   //formData
   const [formData, setFormData] = useState({
     tenantRentAmount: "",
@@ -43,10 +49,8 @@ const AddTenantAgreement = ({ user, loggedStaff, AddTenantAgreementform }) => {
     tdId: "",
     tenantFileNo: "",
     tenantDoorNo: "",
-
     isSubmitted: false,
   });
-
   const {
     tenantRentAmount,
     tenantLeaseStartDate,
@@ -98,10 +102,9 @@ const AddTenantAgreement = ({ user, loggedStaff, AddTenantAgreementform }) => {
       tenantFileNo: tenantFileNo,
       tenantDoorNo: tenantDoorNo,
     };
-    console.log(finalData);
+    // console.log(finalData);
     AddTenantAgreementform(finalData);
     setFormData({ ...formData, isSubmitted: true });
-
     //  window.location.reload();
   };
   if (isSubmitted) {
@@ -118,42 +121,31 @@ const AddTenantAgreement = ({ user, loggedStaff, AddTenantAgreementform }) => {
               </h2>
             </div>
             <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-              <div className="col-lg-1 col-md-2 col-sm-1 col-12">
-                <label> File No :</label>
-              </div>
-
-              <div className="col-lg-5  col-md-4 col-sm-4 col-12">
-                {/* <input
-                  type="text"
-                  name="tenantFileNo"
-                  className="form-control"
-                  onChange={(e) => onInputChange(e)}
-                  required
-                /> */}
-                <label>{}</label>
-              </div>
-              <div className="col-lg-1 col-md-2 col-sm-4 col-12">
-                <label>Door no :</label>
-              </div>
-
-              <div className="col-lg-5  col-md-4 col-sm-4 col-12">
-                {/* <input
-                  type="text"
-                  name="tenantDoorNo"
-                  className="form-control"
-                  onChange={(e) => onInputChange(e)}
-                  required
-                /> */}
-                <label>{}</label>
-              </div>
+              {newtenantdetails &&
+                newtenantdetails.map((newtenantdetail) => {
+                  <div>
+                    <div className="col-lg-2 col-md-2 col-sm-4 col-12">
+                      <label>Door no :</label>
+                    </div>
+                    <div className="col-lg-4  col-md-4 col-sm-4 col-12">
+                      <label>{}</label>
+                    </div>
+                    <div className="col-lg-2 col-md-2 col-sm-1 col-12">
+                      <label> File No :</label>
+                    </div>
+                    <div className="col-lg-4  col-md-4 col-sm-4 col-12">
+                      <label>{}</label>
+                    </div>
+                  </div>;
+                })}
             </div>
-
+            <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3"></div>
             <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-              <div className="col-lg-1 col-md-2 col-sm-4 col-12">
+              <div className="col-lg-2 col-md-2 col-sm-4 col-12">
                 <label> Rent Amount:</label>
               </div>
 
-              <div className="col-lg-5  col-md-4 col-sm-4 col-12">
+              <div className="col-lg-3  col-md-4 col-sm-4 col-12">
                 <input
                   type="text"
                   name="tenantRentAmount"
@@ -165,11 +157,11 @@ const AddTenantAgreement = ({ user, loggedStaff, AddTenantAgreementform }) => {
             </div>
 
             <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-              <div className="col-lg-1 col-md-2 col-sm-4 col-12">
+              <div className="col-lg-2 col-md-2 col-sm-4 col-12">
                 <label> Lease Start Date:</label>
               </div>
 
-              <div className="col-lg-5  col-md-4 col-sm-4 col-12">
+              <div className="col-lg-4  col-md-4 col-sm-4 col-12">
                 <input
                   type="date"
                   placeholder="dd/mm/yyyy"
@@ -181,15 +173,15 @@ const AddTenantAgreement = ({ user, loggedStaff, AddTenantAgreementform }) => {
                   value={entryDate}
                   onChange={(e) => onDateChangeEntry(e)}
                   style={{
-                    width: "35%",
+                    width: "55%",
                   }}
                 />
               </div>
-              <div className="col-lg-1 col-md-2 col-sm-4 col-12">
+              <div className="col-lg-2 col-md-2 col-sm-4 col-12">
                 <label>Lease End Date:</label>
               </div>
 
-              <div className="col-lg-5  col-md-4 col-sm-4 col-12">
+              <div className="col-lg-4  col-md-4 col-sm-4 col-12">
                 <label></label>
               </div>
             </div>
@@ -224,11 +216,13 @@ const AddTenantAgreement = ({ user, loggedStaff, AddTenantAgreementform }) => {
 
 AddTenantAgreement.propTypes = {
   auth: PropTypes.object.isRequired,
+  tenants: PropTypes.object.isRequired,
   AddTenantAgreementform: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  tenants: state.tenants,
 });
 
 export default connect(mapStateToProps, {
