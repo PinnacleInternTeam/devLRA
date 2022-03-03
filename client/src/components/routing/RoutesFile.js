@@ -7,6 +7,7 @@ import PrivateRoute from "./PrivateRoute";
 import RouteDriver from "../dashboard/RouteDriver";
 
 //DashBoard
+import changePassword from "../auth/ChangePwd";
 import AllStaffDetails from "../dashboard/AllStaffDetails";
 import AddStaffFeedBack from "../dashboard/AddStaffFeedBack";
 
@@ -16,6 +17,8 @@ import AddTenantAgreement from "../dashboard/AddTenantAgreement";
 import TenantFilters from "../dashboard/TenantFilters";
 import TenantReport from "../dashboard/TenantReport";
 import ShopDetails from "../dashboard/ShopDetails";
+// import AllTenantShopDetails from "../dashboard/AllTenantShopDetails";
+
 const RoutesFile = () => {
   return (
     <section>
@@ -34,7 +37,12 @@ const RoutesFile = () => {
           path="/add-agreement-details"
           component={AddTenantAgreement}
         />
-        <PrivateRoute exact path="/shop-Details" component={ShopDetails} />
+        {/* <PrivateRoute exact path="/all-tenant-shop-Details" component={AllTenantShopDetails} /> */}
+        <PrivateRoute exact
+          path="/change-password"
+          component={changePassword}
+        />
+
         <PrivateRoute exact path="/route-driver" component={RouteDriver} />
         <Route component={NotFound} />
       </Switch>

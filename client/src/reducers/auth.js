@@ -3,9 +3,18 @@ import {
   AUTH_ERROR,
   REMOVE_ERROR,
   ALL_USERS,
+  CHANGE_PWD_FAIL,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
+
+  GET_ALL_LEVELS,
+  GET_ALL_TENANTS,
+  GET_ALL_SETTINGS,
+
+  MONTH_EXP_CNT,
+  YEAR_EXP_CNT,
+  EXP_REPORT,
 } from "../actions/types";
 
 const initialState = {
@@ -16,7 +25,14 @@ const initialState = {
   users: [],
   errorResponse: "",
   successResponse: "",
-  patient: null,
+ 
+  alllevels: [""],
+  alltenants: [""],
+  allTenantSetting: [""],
+
+  monthExpCnt: [],
+  yearExpCnt: [],
+  expReport: [],
 };
 
 const auth = (state = initialState, action) => {
@@ -64,6 +80,46 @@ const auth = (state = initialState, action) => {
         ...state,
         errorResponse: "",
         successResponse: "",
+      };
+    
+    case CHANGE_PWD_FAIL:
+      return {
+        ...state,
+        errorResponse: payload,
+        successResponse: "",
+      };
+
+      case GET_ALL_LEVELS:
+        return {
+          ...state,
+          allLevels: payload,
+        };
+  
+      case GET_ALL_TENANTS:
+        return {
+          ...state,
+          allTenants: payload,
+        };
+      case GET_ALL_SETTINGS:
+        return {
+          ...state,
+          allTenantSetting: payload,
+        };
+
+        case MONTH_EXP_CNT:
+      return {
+        ...state,
+        monthExpCnt: payload,
+      };
+    case YEAR_EXP_CNT:
+      return {
+        ...state,
+        yearExpCnt: payload,
+      };
+    case EXP_REPORT:
+      return {
+        ...state,
+        expReport: payload,
       };
 
     default:

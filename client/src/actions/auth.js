@@ -1,10 +1,11 @@
 import axios from "axios";
-// import { setAlert } from "./alert";
+import { setAlert } from "./alert";
 import {
   USER_LOADED,
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
+  CHANGE_PWD_FAIL,
   REMOVE_ERROR,
   ALL_USERS,
   LOGOUT,
@@ -90,6 +91,29 @@ export const getSearchUsersByFilter = (finalData) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,
+    });
+  }
+};
+
+// Change Password
+export const changePwd = (formData) => async (dispatch) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  try {
+    const res = await axios.post("/api/auth/change-pwd", formData, config);
+    dispatch({
+      type: LOGOUT,
+    });
+    dispatch(setAlert(res.data.msg, "danger"));
+  } catch (err) {
+    const errors = err.response.data.errors;
+    dispatch({
+      type: CHANGE_PWD_FAIL,
+      payload: errors[0].msg,
     });
   }
 };
