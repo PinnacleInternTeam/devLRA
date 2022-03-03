@@ -13,6 +13,7 @@ const TenantReport = ({ auth: { expReport }, getTenantReportYearMonth }) => {
     setShowEditModal(true);
     setUserData(tenants);
   };
+  console.log(userData);
   return (
     <Fragment>
       <div className="container container_align">
@@ -52,8 +53,6 @@ const TenantReport = ({ auth: { expReport }, getTenantReportYearMonth }) => {
                           <button
                             variant="success"
                             className="btn sub_form  "
-                            //   onClick={() => onSubmit()}
-
                             onClick={() => onRenewal(expReportVal, idx)}
                           >
                             Renewal

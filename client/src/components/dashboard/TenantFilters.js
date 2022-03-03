@@ -109,12 +109,13 @@ const TenantFilters = ({
             {/* brdr-clr-styles */}
             {/* <form> */}
             <div className="py-2">
-              <button
+              <Link
+                to="/tenant-report"
                 className="btn btn_more"
                 onClick={() => oldExpCountFetch()}
               >
                 {yearExpCnt}
-              </button>
+              </Link>
               {/* className="btn-rou" */}
             </div>
             <div className="py-3">
@@ -146,7 +147,7 @@ const TenantFilters = ({
                     <div style={{ color: "#fff" }}>
                       {" "}
                       <Link
-                        to="#"
+                        to="/tenant-report"
                         name="alphaSearch"
                         // className="btnLink"
                         onClick={() => onSelectChange(optFiltr.value)}
