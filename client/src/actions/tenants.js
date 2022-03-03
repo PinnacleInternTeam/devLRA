@@ -103,10 +103,23 @@ export const AddTenantAgreementform = (finalData) => async (dispatch) => {
 };
 
 export const deactiveTenantsDetails = (finalData) => async (dispatch) => {
-  // console.log("finalData");
   try {
     const res = await axios.post(
       "/api/tenants/deactive-tenant",
+      finalData,
+      config
+    );
+  } catch (err) {
+    dispatch({
+      type: TENANT_FEEDBACK_ERROR,
+    });
+  }
+};
+
+export const UpdateTenantSettingform = (finalData) => async (dispatch) => {
+  try {
+    const res = await axios.post(
+      "/api/tenants/update-tenant",
       finalData,
       config
     );
@@ -259,3 +272,27 @@ export const getAllDoorNos = () => async (dispatch) => {
     });
   }
 };
+
+export const getTenantReportOldExp =
+  (finalDataReportOld) => async (dispatch) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const res = await axios.post(
+        "/api/tenants/get-tenant-old-exp-report",
+        finalDataReportOld,
+        config
+      );
+      dispatch({
+        type: EXP_REPORT,
+        payload: res.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: AUTH_ERROR,
+      });
+    }
+  };

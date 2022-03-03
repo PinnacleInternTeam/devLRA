@@ -25,15 +25,6 @@ const AllTenantShopDetails = ({
   const onUpdate = (tenants, idx) => {
     setShowEditModal(true);
     setUserData(tenants);
-    // console.log(tenants);
-    // const finalData = {
-    //   recordId: tenants ? tenants._id : "",
-    //   tenantstatus: "Deactive",
-    // };
-
-    // editStaffDetails(finalData);
-
-    // window.location.reload();
   };
 
   return (
@@ -73,9 +64,9 @@ const AllTenantShopDetails = ({
                         <td>{tenants.tenantFirmName}</td>
                         <td>{tenants.tenantPhone}</td>
                         <td>{tenants.tenantDepositAmt}</td>
-                        <td>{tenants.tenantstatus}</td>
-                        <td>{}</td>
-                        <td>{}</td>
+                        <td>{tenants.tenantRentAmount}</td>
+                        <td>{tenants.tenantLeaseStartDate}</td>
+                        <td>{tenants.tenantLeaseEndDate}</td>
 
                         <td>
                           {tenants.tenantstatus &&
@@ -83,8 +74,6 @@ const AllTenantShopDetails = ({
                             <button
                               variant="success"
                               className="btn sub_form  "
-                              //   onClick={() => onSubmit()}
-
                               onClick={() => onUpdate(tenants, idx)}
                             >
                               Deactive

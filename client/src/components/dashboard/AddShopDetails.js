@@ -80,6 +80,11 @@ const AddShopDetails = ({ AddShopDetailsform }) => {
             variant="success"
             className="btn sub_form btn_continue Save float-right"
             onClick={() => onSubmit()}
+            style={
+              shopFileNo !== "" && shopDoorNo !== ""
+                ? { opacity: "1" }
+                : { opacity: "1", pointerEvents: "none" }
+            }
           >
             Save
           </button>

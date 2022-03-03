@@ -51,12 +51,12 @@ const ShopDetails = ({ auth: { allLevels }, getAllLevels }) => {
                     </thead>
                     <tbody>
                       {allLevels &&
-                        allLevels.map((levels) => {
+                        allLevels.map((allshops) => {
                           return (
                             <tr>
-                              <td>{levels.shopFileNo}</td>
-                              <td>{levels.shopDoorNo}</td>
-                              <td>{levels.shopStatus}</td>
+                              <td>{allshops.shopFileNo}</td>
+                              <td>{allshops.shopDoorNo}</td>
+                              <td>{allshops.shopStatus}</td>
                             </tr>
                           );
                         })}

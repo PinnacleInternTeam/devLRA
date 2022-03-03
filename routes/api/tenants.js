@@ -101,7 +101,6 @@ router.get("/get-tenant-report", async (req, res) => {
 router.post(
   "/deactive-tenant",
   // [check("tdId", "Invalid Request").not().isEmpty()],
-
   async (req, res) => {
     console.log("api");
     try {
@@ -124,30 +123,30 @@ router.post(
   }
 );
 
-// router.post(
-//   "/deactive-tenant",
-//   // [check("tdId", "Invalid Request").not().isEmpty()],
-//   async (req, res) => {
-//     console.log("hi api");
-//     try {
-//       let data = req.body;
-//       console.log(data);
-//       const updatedetails = await Tenantdetails.updateOne(
-//         { _id: data.tdId },
-//         {
-//           $set: {
-//             tenantstatus: data.tenantstatus,
-//           },
-//         }
-//       );
-//       //console.log(data);
-//       console.log(updatedetails);
-//       res.json(updatedetails);
-//     } catch (error) {
-//       res.status(500).json({ errors: [{ msg: "Server Error" }] });
-//     }
-//   }
-// );
+router.post(
+  "/update-tenant",
+  // [check("tdId", "Invalid Request").not().isEmpty()],
+  async (req, res) => {
+    try {
+      let data = req.body;
+      // console.log(data);
+      const updateagreementdetails = await TenantSettings.updateOne(
+        { _id: data.recordId },
+        {
+          $set: {
+            hikePercentage: data.hikePercentage,
+            stampDuty: data.stampDuty,
+            leaseTimePeriod: data.leaseTimePeriod,
+          },
+        }
+      );
+      // console.log(updateagreementdetails);
+      res.json(updateagreementdetails);
+    } catch (error) {
+      res.status(500).json({ errors: [{ msg: "Server Error" }] });
+    }
+  }
+);
 
 // Get Exp Month Count
 router.get("/get-month-exp-count", async (req, res) => {
@@ -260,12 +259,14 @@ router.post("/get-previous-years-exp", async (req, res) => {
 router.post("/get-tenant-exp-report", async (req, res) => {
   const { monthSearch, yearSearch } = req.body;
   var monthVal = monthSearch;
-  if (monthSearch < 10 && monthSearch.length === 1) {
+  if (monthSearch < 10 && monthSearch.toString().length === 1) {
     var monthVal = "0" + monthSearch;
   }
   var yearMonth = yearSearch + "-" + monthVal;
 
   try {
+    const tenantSettingsData = await TenantSettings.find({});
+    console.log(tenantSettingsData);
     const tenantExpReport = await TenantDetails.aggregate([
       {
         $lookup: {
@@ -275,12 +276,55 @@ router.post("/get-tenant-exp-report", async (req, res) => {
           as: "output",
         },
       },
+      { $unwind: "$output" },
       {
         $project: {
           tenantName: "$tenantName",
           tenantDoorNo: "$tenantDoorNo",
           tenantFileNo: "$tenantFileNo",
           tenantLeaseEndDate: "$output.tenantLeaseEndDate",
+          chargesCal: {
+            $add: [
+              {
+                $divide: [
+                  {
+                    $multiply: [
+                      "$output.tenantRentAmount",
+                      tenantSettingsData[0].hikePercentage,
+                    ],
+                  },
+                  100,
+                ],
+              },
+              "$output.tenantRentAmount",
+            ],
+          },
+          stampDuty: {
+            $divide: [
+              {
+                $multiply: [
+                  {
+                    $add: [
+                      {
+                        $divide: [
+                          {
+                            $multiply: [
+                              "$output.tenantRentAmount",
+                              tenantSettingsData[0].hikePercentage,
+                            ],
+                          },
+                          100,
+                        ],
+                      },
+                      "$output.tenantRentAmount",
+                    ],
+                  },
+                  tenantSettingsData[0].stampDuty,
+                ],
+              },
+              100,
+            ],
+          },
         },
       },
       {
@@ -298,14 +342,40 @@ router.post("/get-tenant-exp-report", async (req, res) => {
 
 router.get("/get-all-tenants", async (req, res) => {
   try {
-    const tenanatData = await TenantDetails.find({});
+    const tenanatData = await TenantDetails.aggregate([
+      {
+        $lookup: {
+          from: "tenantagreementsettings",
+          localField: "_id",
+          foreignField: "tdId",
+          as: "output",
+        },
+      },
+      {
+        $project: {
+          tenantName: "$tenantName",
+          tenantDoorNo: "$tenantDoorNo",
+          tenantFileNo: "$tenantFileNo",
+          tenantPhone: "$tenantPhone",
+          tenantFirmName: "$tenantFirmName",
+          tenantAdharNo: "$tenantAdharNo",
+          tenantPanNo: "$tenantPanNo",
+          tenantDepositAmt: "$tenantDepositAmt",
+          tenantPaymentMode: "$tenantPaymentMode",
+          tenantChequenoOrDdno: "$tenantChequenoOrDdno",
+          tenantstatus: "$tenantstatus",
+          tenantRentAmount: "$output.tenantRentAmount",
+          tenantLeaseEndDate: "$output.tenantLeaseEndDate",
+          tenantLeaseStartDate: "$output.tenantLeaseStartDate",
+        },
+      },
+    ]);
     res.json(tenanatData);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Internal Server Error.");
   }
 });
-
 router.get("/get-all-settings", async (req, res) => {
   try {
     const tenanatSettingData = await TenantSettings.find({});
@@ -326,14 +396,86 @@ router.get("/get-door-nos", async (req, res) => {
           },
         },
       },
-      // {
-      //   $group: {
-      //     // _id: "$shopId",
-      //     // shopDoorNo: { $first: "$shopDoorNo" },
-      //   },
-      // },
     ]);
     res.json(doorNoData);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Internal Server Error.");
+  }
+});
+
+router.post("/get-tenant-exp-old-report", async (req, res) => {
+  const { yearSearch } = req.body;
+  var lastDate = new Date(yearSearch, 0, 1).toISOString().split("T")[0];
+  try {
+    const tenantSettingsData = await TenantSettings.find({});
+    const tenantExpReport = await TenantDetails.aggregate([
+      {
+        $lookup: {
+          from: "tenantagreementsettings",
+          localField: "_id",
+          foreignField: "tdId",
+          as: "output",
+        },
+      },
+      { $unwind: "$output" },
+      {
+        $project: {
+          tenantName: "$tenantName",
+          tenantDoorNo: "$tenantDoorNo",
+          tenantFileNo: "$tenantFileNo",
+          tenantLeaseEndDate: "$output.tenantLeaseEndDate",
+          chargesCal: {
+            $add: [
+              {
+                $divide: [
+                  {
+                    $multiply: [
+                      "$output.tenantRentAmount",
+                      tenantSettingsData[0].hikePercentage,
+                    ],
+                  },
+                  100,
+                ],
+              },
+              "$output.tenantRentAmount",
+            ],
+          },
+          stampDuty: {
+            $divide: [
+              {
+                $multiply: [
+                  {
+                    $add: [
+                      {
+                        $divide: [
+                          {
+                            $multiply: [
+                              "$output.tenantRentAmount",
+                              tenantSettingsData[0].hikePercentage,
+                            ],
+                          },
+                          100,
+                        ],
+                      },
+                      "$output.tenantRentAmount",
+                    ],
+                  },
+                  tenantSettingsData[0].stampDuty,
+                ],
+              },
+              100,
+            ],
+          },
+        },
+      },
+      {
+        $match: {
+          tenantLeaseEndDate: { $lte: lastDate },
+        },
+      },
+    ]);
+    res.json(tenantExpReport);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Internal Server Error.");
