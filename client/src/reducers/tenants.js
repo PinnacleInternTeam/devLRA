@@ -1,30 +1,57 @@
-import { STAFF_FEEDBACK_INIT, GET_DOORNOS } from "../actions/types";
+import {
+  USER_LOADED,
+  AUTH_ERROR,
+  REMOVE_ERROR,
+  ALL_USERS,
+  CHANGE_PWD_FAIL,
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
+  LOGOUT,
+  GET_ALL_LEVELS,
+  GET_ALL_TENANTS,
+  GET_ALL_SETTINGS,
+  MONTH_EXP_CNT,
+  YEAR_EXP_CNT,
+  EXP_REPORT,
+  GET_DOORNOS,
+} from "../actions/types";
 
 const initialState = {
+  token: localStorage.getItem("token"),
+  isAuthenticated: null,
   loading: true,
-  staffPerformance: [],
-  error: {},
-  staff: null,
+  user: null,
+  users: [],
+  errorResponse: "",
+  successResponse: "",
+
+  alllevels: [""],
+  alltenants: [""],
+  allTenantSetting: [""],
   allDoorNos: [""],
-  newtenantdetails: [""],
+
+  monthExpCnt: [],
+  yearExpCnt: [],
+  expReport: [],
 };
-const tennats = (state = initialState, action) => {
+
+const tenants = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case EXP_REPORT:
+      return {
+        ...state,
+        expReport: payload,
+      };
     case GET_DOORNOS:
       return {
         ...state,
         allDoorNos: payload,
-      };
-    case NEW_TENENTDETAILS:
-      return {
-        ...state,
-        newtenantdetails: payload,
       };
     default:
       return state;
   }
 };
 
-export default tennats;
+export default tenants;
