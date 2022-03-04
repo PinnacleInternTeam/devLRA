@@ -104,7 +104,7 @@ const TenantFilters = ({
   ) : (
     <Fragment>
       <div className="container_align top_menu">
-        <div className="row ">
+        <div className="row pb-5">
           <div className="col-lg-12 col-md-1 col-sm-1 col-1 text-center ">
             {/* brdr-clr-styles */}
             {/* <form> */}
