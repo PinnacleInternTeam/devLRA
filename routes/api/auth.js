@@ -57,7 +57,7 @@ router.post(
         userName: userName,
        
       });
-      console.log(userDetails);
+    
       if (!userDetails) {
         return res.status(STATUS_CODE_400).json({
           errors: [{ msg: INVALID_CREDENTIALS }],

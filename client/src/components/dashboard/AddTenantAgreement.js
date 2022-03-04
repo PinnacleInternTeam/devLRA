@@ -39,7 +39,7 @@ const AddTenantAgreement = ({
     { value: "Cheque", label: "Cheque" },
   ];
 
-  console.log(newtenantdetails);
+ 
 
   //formData
   const [formData, setFormData] = useState({

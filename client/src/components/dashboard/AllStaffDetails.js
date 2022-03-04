@@ -47,7 +47,7 @@ const AllStaffDetails = ({
     getAllUsers();
   }, [getAllUsers]);
 
-  console.log(users);
+  
 
   const [showModal, setShowModal] = useState(false);
   const handleViewModalClose = () => setShowModal(false);
