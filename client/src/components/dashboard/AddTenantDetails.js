@@ -1,11 +1,23 @@
 import React, { useState, Fragment, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { AddTenantDetailsform } from "../../actions/tenants";
+import {
+  AddTenantDetailsform,
+  getAllDoorNos,
+  getFileNoData,
+} from "../../actions/tenants";
 import Select from "react-select";
 import { Redirect } from "react-router-dom";
 
-const AddTenantDetails = ({ AddTenantDetailsform }) => {
+const AddTenantDetails = ({
+  tenants: { allDoorNos },
+  getAllDoorNos,
+  AddTenantDetailsform,
+}) => {
+  useEffect(() => {
+    getAllDoorNos();
+  }, [getAllDoorNos]);
+
   const PaymentMethods = [
     { value: "Cash", label: "Cash" },
     { value: "Cheque", label: "Cheque" },
@@ -24,6 +36,7 @@ const AddTenantDetails = ({ AddTenantDetailsform }) => {
     tenantDepositAmt: "",
     tenantPaymentMode: "",
     tenantBankName: "",
+    tenantchequeDate: "",
     tenantRentAmount: "",
     tenantLeaseStartDate: "",
     tenantLeaseEndDate: "",
@@ -44,19 +57,17 @@ const AddTenantDetails = ({ AddTenantDetailsform }) => {
     tenantChequenoOrDdno,
     tenantBankName,
     tenantRentAmount,
+    tenantchequeDate,
     tenantLeaseStartDate,
     tenantLeaseEndDate,
     isSubmitted,
   } = formData;
 
-  //For setting mindate as todays date
-  var today2 = yyyy + "-" + mm + "-" + dd;
-
   const onInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const [entryDate, setEntryDate] = useState(today2);
+  const [entryDate, setEntryDate] = useState("");
   const [leaseEndDate, setLeaseEndDate] = useState();
   const [newLeaseEndDate, setNewLeaseEndDate] = useState();
 
@@ -64,44 +75,53 @@ const AddTenantDetails = ({ AddTenantDetailsform }) => {
     setEntryDate(e.target.value);
     var newDate = e.target.value;
     var calDate = new Date(newDate);
-    var dd1 = calDate.getDate() - 1;
-    var mm1 = new Date(calDate.setMonth(calDate.getMonth() + 11));
-    var yyyy1 = mm1.getFullYear();
-    var mm2 = mm1.getMonth() + 1;
+
+    var leaseMonth = 11;
+
+    //Calculating lease end date
+    var dateData = calDate.getDate();
+    calDate.setMonth(calDate.getMonth() + +leaseMonth);
+    if (calDate.getDate() != dateData) {
+      calDate.setDate(0);
+    }
+    var dd1 = calDate.getDate();
+    var mm2 = calDate.getMonth() + 1;
+    var yyyy1 = calDate.getFullYear();
     if (dd1 < 10) {
       dd1 = "0" + dd1;
     }
+
     if (mm2 < 10) {
       mm2 = "0" + mm2;
     }
-    // var yesterdayDt = yyyy1 + "-" + mm2 + "-" + dd1;
     var leaseEndDate = dd1 + "-" + mm2 + "-" + yyyy1;
     setLeaseEndDate(leaseEndDate);
     var newLeaseEndDate = yyyy1 + "-" + mm2 + "-" + dd1;
-    // console.log(newLeaseEndDate);
     setNewLeaseEndDate(newLeaseEndDate);
   };
 
-  var today = new Date();
-  var today2 = new Date();
-
-  var dd = today.getDate();
-  var mm = today.getMonth() + 1;
-  var yyyy = today.getFullYear();
-
-  var todayDatedmy = dd + "-" + mm + "-" + yyyy;
   const [showHide, setShowHide] = useState({
     showChequenoSection: false,
   });
   const { showChequenoSection } = showHide;
+  const [doorNo, getDoorNoData] = useState();
+  const [shopfileNo, setFileNoData] = useState();
 
   const onDoorNoChange = (e) => {
-    if (e) {
-      setFormData({
-        ...formData,
-        sdDesig: e.value,
-      });
-    }
+    var shopfileNumber = "";
+    getDoorNoData(e.value);
+
+    allDoorNos.map((doorno) => {
+      if (doorno.shopDoorNo === e.value) {
+        shopfileNumber = doorno.shopFileNo;
+      }
+    });
+    setFileNoData(shopfileNumber);
+  };
+
+  const [startSelectedDate, setChequeDate] = useState("");
+  const onDateChange = (e) => {
+    setChequeDate(e.target.value);
   };
 
   const onPaymentModeChange = (e) => {
@@ -123,12 +143,20 @@ const AddTenantDetails = ({ AddTenantDetailsform }) => {
       });
     }
   };
+  const shopdoorNo = [];
+  allDoorNos.map((doorno) =>
+    shopdoorNo.push({
+      label: doorno.shopDoorNo,
+      value: doorno.shopDoorNo,
+    })
+  );
 
   const onSubmit = () => {
-    // var
     const finalData = {
-      tenantFileNo: tenantFileNo,
-      tenantDoorNo: tenantDoorNo,
+      // tenantFileNo: tenantFileNo,
+      tenantFileNo: shopfileNo,
+      // tenantDoorNo: tenantDoorNo,
+      tenantDoorNo: doorNo,
       tenantName: tenantName,
       tenantPhone: tenantPhone,
       tenantFirmName: tenantFirmName,
@@ -139,6 +167,7 @@ const AddTenantDetails = ({ AddTenantDetailsform }) => {
       tenantPaymentMode: tenantPaymentMode,
       tenantChequenoOrDdno: tenantChequenoOrDdno,
       tenantBankName: tenantBankName,
+      tenantchequeDate: startSelectedDate,
       tenantRentAmount: tenantRentAmount,
       tenantLeaseStartDate: entryDate,
       tenantLeaseEndDate: newLeaseEndDate,
@@ -151,6 +180,7 @@ const AddTenantDetails = ({ AddTenantDetailsform }) => {
   // if (isSubmitted) {
   //   return <Redirect to="/add-agreement-details" />;
   // }
+
   return (
     <Fragment>
       <div className="container container_align">
@@ -164,8 +194,8 @@ const AddTenantDetails = ({ AddTenantDetailsform }) => {
             </div>
             <div className="col-lg-2  col-md-4 col-sm-4 col-12">
               <Select
-                name="designationnames"
-                // options={DesignationName}
+                name="tenantDoorNo"
+                options={shopdoorNo}
                 isSearchable={false}
                 placeholder="Select"
                 onChange={(e) => onDoorNoChange(e)}
@@ -184,15 +214,16 @@ const AddTenantDetails = ({ AddTenantDetailsform }) => {
             <div className="col-lg-1 col-md-2 col-sm-1 col-12">
               <label> File No :</label>
             </div>
-
             <div className="col-lg-2 col-md-4 col-sm-4 col-12">
-              <input
+              {/* <input
                 type="text"
                 name="tenantFileNo"
+                value={shopfileNo}
                 className="form-control"
                 onChange={(e) => onInputChange(e)}
                 required
-              />
+              /> */}
+              <label>{shopfileNo}</label>
             </div>
           </div>
           <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
@@ -215,7 +246,7 @@ const AddTenantDetails = ({ AddTenantDetailsform }) => {
 
             <div className="col-lg-4 col-md-4 col-sm-4 col-12">
               <input
-                type="text"
+                type="number"
                 name="tenantPhone"
                 className="form-control"
                 onChange={(e) => onInputChange(e)}
@@ -264,7 +295,7 @@ const AddTenantDetails = ({ AddTenantDetailsform }) => {
 
             <div className="col-lg-4 col-md-4 col-sm-4 col-12">
               <input
-                type="text"
+                type="number"
                 name="tenantAdharNo"
                 className="form-control"
                 onChange={(e) => onInputChange(e)}
@@ -292,7 +323,7 @@ const AddTenantDetails = ({ AddTenantDetailsform }) => {
 
             <div className="col-lg-2  col-md-4 col-sm-4 col-12">
               <input
-                type="text"
+                type="number"
                 name="tenantDepositAmt"
                 className="form-control"
                 onChange={(e) => onInputChange(e)}
@@ -360,11 +391,10 @@ const AddTenantDetails = ({ AddTenantDetailsform }) => {
                 <input
                   type="date"
                   placeholder="dd/mm/yyyy"
-                  dateFormat="dd-MM-yyyy"
                   className="form-control cpp-input datevalidation"
                   name="tenantchequeDate"
-                  // value={startSelectedDate}
-                  // onChange={(e) => onDateChange(e)}
+                  value={startSelectedDate}
+                  onChange={(e) => onDateChange(e)}
                   style={{
                     width: "105%",
                   }}
@@ -381,7 +411,7 @@ const AddTenantDetails = ({ AddTenantDetailsform }) => {
 
             <div className="col-lg-3  col-md-4 col-sm-4 col-12">
               <input
-                type="text"
+                type="number"
                 name="tenantRentAmount"
                 className="form-control"
                 onChange={(e) => onInputChange(e)}
@@ -399,9 +429,6 @@ const AddTenantDetails = ({ AddTenantDetailsform }) => {
               <input
                 type="date"
                 placeholder="dd/mm/yyyy"
-                dateFormat="yyyy-MM-dd"
-                //   min={yesterdayDt}
-                //   max={today2}
                 className="form-control cpp-input datevalidation"
                 name="tenantLeaseStartDate"
                 value={entryDate}
@@ -426,11 +453,11 @@ const AddTenantDetails = ({ AddTenantDetailsform }) => {
               className="btn sub_form btn_continue Save float-right"
               onClick={() => onSubmit()}
               style={
-                tenantFileNo !== "" &&
-                // tenantDoorNo !== "" &&
+                tenantDoorNo !== "" &&
                 tenantName !== "" &&
                 tenantPhone !== "" &&
-                tenantFirmName !== "" &&
+                // tenantFirmName !== "" &&
+                tenantPaymentMode !== "" &&
                 tenantDepositAmt !== "" &&
                 tenantAdharNo !== "" &&
                 tenantAddr !== "" &&
@@ -450,13 +477,19 @@ const AddTenantDetails = ({ AddTenantDetailsform }) => {
 
 AddTenantDetails.propTypes = {
   auth: PropTypes.object.isRequired,
+  tenants: PropTypes.object.isRequired,
   AddTenantDetailsform: PropTypes.func.isRequired,
+  getAllDoorNos: PropTypes.func.isRequired,
+  getFileNoData: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  tenants: state.tenants,
 });
 
 export default connect(mapStateToProps, {
   AddTenantDetailsform,
+  getAllDoorNos,
+  // getFileNoData,
 })(AddTenantDetails);
