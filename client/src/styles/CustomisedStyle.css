@@ -2933,3 +2933,9 @@ to be able to see the preview of the image. */
 .card:focus::after {
   transform: scale3d(1, 1, 1);
 }
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

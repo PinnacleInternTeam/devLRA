@@ -27,3 +27,5 @@ export const NEW_TENENTDETAILS = "NEW_TENENTDETAILS";
 export const MONTH_EXP_CNT = "MONTH_EXP_CNT";
 export const YEAR_EXP_CNT = "YEAR_EXP_CNT";
 export const EXP_REPORT = "EXP_REPORT";
+export const GET_DELAYS = "GET_DELAYS";
+export const GET_DOORNUMBER = "GET_DOORNUMBER";
