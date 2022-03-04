@@ -105,10 +105,10 @@ const TenantFilters = ({
     <Fragment>
       <div className="container_align top_menu">
         <div className="row ">
-          <div className="col-lg-12 py-4 col-md-1 col-sm-1 col-1 text-center ">
+          <div className="col-lg-12 col-md-1 col-sm-1 col-1 text-center ">
             {/* brdr-clr-styles */}
             {/* <form> */}
-            <div className="py-2">
+            <div className="">
               <Link
                 to="/tenant-report"
                 className="btn btn_more"

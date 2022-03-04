@@ -156,9 +156,9 @@ router.get("/get-month-exp-count", async (req, res) => {
       {
         $match: {
           tenantLeaseEndDate: { $regex: new RegExp("^" + yearVal, "i") },
+          AgreementStatus: { $ne: "Renewed" },
         },
       },
-
       {
         $group: {
           _id: {
@@ -190,6 +190,7 @@ router.post("/get-month-exp-count-filter", async (req, res) => {
       {
         $match: {
           tenantLeaseEndDate: { $regex: new RegExp("^" + selectedY, "i") },
+          AgreementStatus: { $ne: "Renewed" },
         },
       },
 
@@ -266,7 +267,6 @@ router.post("/get-tenant-exp-report", async (req, res) => {
 
   try {
     const tenantSettingsData = await TenantSettings.find({});
-    console.log(tenantSettingsData);
     const tenantExpReport = await TenantDetails.aggregate([
       {
         $lookup: {
@@ -283,6 +283,9 @@ router.post("/get-tenant-exp-report", async (req, res) => {
           tenantDoorNo: "$tenantDoorNo",
           tenantFileNo: "$tenantFileNo",
           tenantLeaseEndDate: "$output.tenantLeaseEndDate",
+          AgreementStatus: "$output.AgreementStatus",
+          tenantstatus: "$tenantstatus",
+          tdId: "$output.tdId",
           chargesCal: {
             $add: [
               {
@@ -330,6 +333,7 @@ router.post("/get-tenant-exp-report", async (req, res) => {
       {
         $match: {
           tenantLeaseEndDate: { $regex: new RegExp("^" + yearMonth, "i") },
+          AgreementStatus: { $ne: "Renewed" },
         },
       },
     ]);
@@ -425,6 +429,9 @@ router.post("/get-tenant-old-exp-report", async (req, res) => {
           tenantDoorNo: "$tenantDoorNo",
           tenantFileNo: "$tenantFileNo",
           tenantLeaseEndDate: "$output.tenantLeaseEndDate",
+          AgreementStatus: "$output.AgreementStatus",
+          tenantstatus: "$tenantstatus",
+          tdId: "$output.tdId",
           chargesCal: {
             $add: [
               {

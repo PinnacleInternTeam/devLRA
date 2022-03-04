@@ -42,69 +42,111 @@ const RenewTenentAgreement = ({ user, tenants }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const [showEditModal, setShowEditModal] = useState(false);
-  const onSubmit = (tenants, idx) => {
+  // const onSubmit = (tenants, idx) => {
+  //   const finalData = {
+  //     recordId: tenants ? tenants._id : "",
+  //     tenantstatus: "Deactive",
+  //     tenantdeactivereason: tenantdeactivereason,
+  //   };
+
+  //   deactiveTenantsDetails(finalData);
+  //   setShowEditModal(false);
+  //   window.location.reload();
+  //   // onAbsentModalChange(true);
+  //   // setFormData({ ...formData, isSubmitted: true });
+  // };
+
+  const onSubmit = () => {
     const finalData = {
-      recordId: tenants ? tenants._id : "",
-      tenantstatus: "Deactive",
-      tenantdeactivereason: tenantdeactivereason,
+      tenantRentAmount: tenants.chargesCal,
+      tenantFileNo: tenants.tenantFileNo,
+      tenantLeaseStartDate: entryDate,
+      tenantLeaseEndDate: newLeaseEndDate,
+      tdId: tenants.tdId,
+      AgreementStatus: "Active",
     };
-    // console.log(finalData);
-
-    deactiveTenantsDetails(finalData);
-
-    // editStaffDetails(finalData);
-    setShowEditModal(false);
+    // AddTenantDetailsform(finalData);
+    setFormData({ ...formData, isSubmitted: true });
     window.location.reload();
-    // onAbsentModalChange(true);
-    // setFormData({ ...formData, isSubmitted: true });
   };
 
   //   if (isSubmitted) {
   //     return <Redirect to="/all-staff-details" />;
   //   }
+  const [entryDate, setEntryDate] = useState("");
+  const [leaseEndDate, setLeaseEndDate] = useState();
+  const [newLeaseEndDate, setNewLeaseEndDate] = useState();
+  const onDateChangeEntry = (e) => {
+    setEntryDate(e.target.value);
+    var newDate = e.target.value;
+    var calDate = new Date(newDate);
+
+    var leaseMonth = 11;
+
+    //Calculating lease end date
+    var dateData = calDate.getDate();
+    calDate.setMonth(calDate.getMonth() + +leaseMonth);
+    if (calDate.getDate() != dateData) {
+      calDate.setDate(0);
+    }
+    var dd1 = calDate.getDate();
+    var mm2 = calDate.getMonth() + 1;
+    var yyyy1 = calDate.getFullYear();
+    if (dd1 < 10) {
+      dd1 = "0" + dd1;
+    }
+
+    if (mm2 < 10) {
+      mm2 = "0" + mm2;
+    }
+    var leaseEndDate = dd1 + "-" + mm2 + "-" + yyyy1;
+    setLeaseEndDate(leaseEndDate);
+    var newLeaseEndDate = yyyy1 + "-" + mm2 + "-" + dd1;
+    setNewLeaseEndDate(newLeaseEndDate);
+  };
 
   return (
     <Fragment>
       <section className="sub_reg">
         <div className="row">
-          <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-            <div className="col-lg-3 col-md-2 col-sm-4 col-12">
-              <label>Door no :</label>
-            </div>
-            <div className="col-lg-3  col-md-4 col-sm-4 col-12">
-              <label>{tenants.tenantDoorNo}</label>
-            </div>
-            <div className="col-lg-3 col-md-2 col-sm-1 col-12">
-              <label> File No :</label>
-            </div>
-            <div className="col-lg-3  col-md-4 col-sm-4 col-12">
-              <label>{tenants.tenantFileNo}</label>
-            </div>
+          <div className="col-lg-2 col-md-2 col-sm-4 col-12">
+            <label>Door no:</label>
+          </div>
+          <div className="col-lg-4  col-md-4 col-sm-4 col-12">
+            <label>{tenants.tenantDoorNo}</label>
+          </div>
+          <div className="col-lg-2 col-md-2 col-sm-1 col-12">
+            <label> File No:</label>
+          </div>
+          <div className="col-lg-4  col-md-4 col-sm-4 col-12">
+            <label>{tenants.tenantFileNo}</label>
           </div>
         </div>
-        <div className="row">
-          <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-            <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-              <label> Rent Amount:</label>
-            </div>
+        <div className="row py-2">
+          <div className="col-lg-6 col-md-2 col-sm-4 col-12">
+            <label> Rent Amount:</label>
+          </div>
 
-            <div className="col-lg-3  col-md-4 col-sm-4 col-12">
-              <input
-                type="text"
-                name="tenantRentAmount"
-                className="form-control"
-                onChange={(e) => onInputChange(e)}
-                required
-              />
-            </div>
+          <div className="col-lg-6  col-md-4 col-sm-4 col-12">
+            <input
+              type="text"
+              name="tenantRentAmount"
+              className="form-control"
+              value={tenants.chargesCal}
+              onChange={(e) => onInputChange(e)}
+              required
+              style={{
+                width: "70%",
+              }}
+            />
           </div>
         </div>
-        <div className="row">
+        <div className="row py-2">
           <div className="col-lg-6 col-md-2 col-sm-4 col-12">
             <label> Lease Start Date:</label>
           </div>
 
-          <div className="col-lg-6  col-md-4 col-sm-4 col-12">
+          <div className="col-lg-6 col-md-4 col-sm-4 col-12">
             <input
               type="date"
               placeholder="dd/mm/yyyy"
@@ -113,24 +155,24 @@ const RenewTenentAgreement = ({ user, tenants }) => {
               //   max={today2}
               className="form-control cpp-input datevalidation"
               name="tenantLeaseStartDate"
-              // value={entryDate}
-              // onChange={(e) => onDateChangeEntry(e)}
+              // value={tenants.tenantLeaseEndDate}
+              onChange={(e) => onDateChangeEntry(e)}
               style={{
-                width: "55%",
+                width: "70%",
               }}
             />
           </div>
         </div>
-        <div className="row">
+        <div className="row py-2">
           <div className="col-lg-6 col-md-2 col-sm-4 col-12">
             <label>Lease End Date:</label>
           </div>
 
           <div className="col-lg-6  col-md-4 col-sm-4 col-12">
-            <label></label>
+            <label>{leaseEndDate}</label>
           </div>
         </div>
-        <div className="row">
+        <div className="row py-2">
           <div className="col-lg-8 Savebutton" size="lg">
             <button
               variant="success"

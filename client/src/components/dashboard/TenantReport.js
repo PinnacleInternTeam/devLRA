@@ -17,7 +17,7 @@ const TenantReport = ({ auth: { expReport }, getTenantReportYearMonth }) => {
   return (
     <Fragment>
       <div className="container container_align">
-        <section className="body">
+        <section className="sub_reg">
           <div className="col-lg-5 col-md-12 col-sm-12 col-12">
             <h2 className="heading_color">Tenant Reports for{} </h2>
           </div>
@@ -49,15 +49,19 @@ const TenantReport = ({ auth: { expReport }, getTenantReportYearMonth }) => {
                         <td>{expReportVal.tenantLeaseEndDate}</td>
                         <td>{expReportVal.chargesCal.toFixed(2)}</td>
                         <td>{expReportVal.stampDuty.toFixed(2)}</td>
-                        <td>
-                          <button
-                            variant="success"
-                            className="btn sub_form  "
-                            onClick={() => onRenewal(expReportVal, idx)}
-                          >
-                            Renewal
-                          </button>
-                        </td>
+                        {expReportVal.AgreementStatus === "Expired" ? (
+                          <td>
+                            <button
+                              variant="success"
+                              className="btn sub_form"
+                              onClick={() => onRenewal(expReportVal, idx)}
+                            >
+                              Renewal
+                            </button>
+                          </td>
+                        ) : (
+                          <td></td>
+                        )}
                       </tr>
                     );
                   })}
@@ -75,7 +79,10 @@ const TenantReport = ({ auth: { expReport }, getTenantReportYearMonth }) => {
         >
           <Modal.Header>
             <div className="col-lg-10">
-              <h4 className="modal-title text-center">
+              <h4
+                className="modal-title text-center"
+                style={{ fontWeight: "bold" }}
+              >
                 Renewal Tenant Agreement
               </h4>
             </div>
