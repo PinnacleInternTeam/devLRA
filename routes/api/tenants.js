@@ -506,7 +506,13 @@ router.post("/get-tenant-old-exp-report", async (req, res) => {
 
 router.get("/get-door-number", async (req, res) => {
   try {
-    const doorNoData = await ShopDetails.find({});
+    const doorNoData = await ShopDetails.find({
+      $match: {
+        shopStatus: {
+          $eq: "Used",
+        },
+      },
+    });
 
     res.json(doorNoData);
   } catch (err) {
