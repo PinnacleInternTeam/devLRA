@@ -377,6 +377,13 @@ router.get("/get-all-tenants", async (req, res) => {
           tenantLeaseStartDate: "$output.tenantLeaseStartDate",
         },
       },
+      {
+        $match: {
+          tenantstatus: {
+            $eq: "Active",
+          },
+        },
+      },
     ]);
     res.json(tenanatData);
   } catch (err) {
