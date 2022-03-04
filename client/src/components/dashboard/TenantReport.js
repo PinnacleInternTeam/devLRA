@@ -13,7 +13,7 @@ const TenantReport = ({ auth: { expReport }, getTenantReportYearMonth }) => {
     setShowEditModal(true);
     setUserData(tenants);
   };
-  console.log(userData);
+ 
   return (
     <Fragment>
       <div className="container container_align">

@@ -16,7 +16,7 @@ export const AddTenantDetailsform = (finalData) => async (dispatch) => {
     dispatch({
       type: TENANT_ADD_INIT,
     });
-    // console.log(finalData);
+
     await axios.post("/api/staff/add-tenant-details", finalData, config);
   } catch (err) {
     dispatch({
@@ -30,7 +30,7 @@ export const AddTenantSettingform = (finalData) => async (dispatch) => {
     dispatch({
       type: TENANT_ADD_INIT,
     });
-    // console.log(finalData);
+  
     await axios.post("/api/staff/add-tenant-settings", finalData, config);
   } catch (err) {
     dispatch({
@@ -44,7 +44,7 @@ export const AddTenantSettingsform = (finalData) => async (dispatch) => {
     dispatch({
       type: TENANT_ADD_INIT,
     });
-    // console.log(finalData);
+  
     await axios.post("/api/staff/add-tenant-settings", finalData, config);
   } catch (err) {
     dispatch({

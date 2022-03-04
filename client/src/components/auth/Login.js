@@ -19,7 +19,7 @@ const Login = ({
 
   const [formData, setFormData] = useState({
     userName: "dev",
-    password: "dev@123",
+    password: "Dev@123",
   });
 
   const { userName, password } = formData;

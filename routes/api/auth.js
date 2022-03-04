@@ -66,7 +66,7 @@ router.post(
 
       //Match The Passwords
       const isMatch = await bcrypt.compare(password, userDetails.password);
-      console.log(isMatch);
+     
       if (!isMatch) {
         return res
           .status(STATUS_CODE_400)

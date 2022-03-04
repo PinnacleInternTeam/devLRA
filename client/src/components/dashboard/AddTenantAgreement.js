@@ -30,7 +30,7 @@ const AddTenantAgreement = ({
   }
   var todayDatedmy = dd + "-" + mm + "-" + yyyy;
   var yesterdayDt = yyyy1 + "-" + mm1 + "-" + dd1;
-  //console.log(yesterdayDt);
+ 
   //For setting mindate as todays date
   var today2 = yyyy + "-" + mm + "-" + dd;
 
@@ -102,7 +102,7 @@ const AddTenantAgreement = ({
       tenantFileNo: tenantFileNo,
       tenantDoorNo: tenantDoorNo,
     };
-    // console.log(finalData);
+   
     AddTenantAgreementform(finalData);
     setFormData({ ...formData, isSubmitted: true });
     //  window.location.reload();

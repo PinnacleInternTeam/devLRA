@@ -170,7 +170,7 @@ const AddTenantDetails = ({
       tenantLeaseEndDate: newLeaseEndDate,
       shopId: shopId,
     };
-    // console.log(finalData);
+
     AddTenantDetailsform(finalData);
     setFormData({ ...formData, isSubmitted: true });
     window.location.reload();

@@ -2,11 +2,6 @@ const mongoose = require("mongoose");
 const config = require("config");
 const db = config.get("mongoURI");
 
-// const app = express();
-// mongoose.connect("mongodb://localhost:27017/trail").then(() => {
-//   console.log("MongoDB Connected...");
-// });
-
 const connectDB = async () => {
   try {
     await mongoose.connect(db, {

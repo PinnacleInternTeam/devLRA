@@ -69,7 +69,7 @@ router.post("/add-tenant-settings", async (req, res) => {
 
 router.post("/add-shop-details", async (req, res) => {
   let data = req.body;
-  // console.log(data);
+
   try {
     let shopDetails = new ShopDetails(data);
     output = await shopDetails.save();
@@ -110,7 +110,7 @@ router.post(
   "/deactive-tenant",
   // [check("tdId", "Invalid Request").not().isEmpty()],
   async (req, res) => {
-    console.log("api");
+  
     try {
       let data = req.body;
 
@@ -137,7 +137,7 @@ router.post(
   async (req, res) => {
     try {
       let data = req.body;
-      // console.log(data);
+   
       const updateagreementdetails = await TenantSettings.updateOne(
         { _id: data.recordId },
         {
@@ -148,7 +148,7 @@ router.post(
           },
         }
       );
-      // console.log(updateagreementdetails);
+      
       res.json(updateagreementdetails);
     } catch (error) {
       res.status(500).json({ errors: [{ msg: "Server Error" }] });
@@ -227,7 +227,7 @@ router.post("/get-month-exp-count-filter", async (req, res) => {
 
 router.post("/add-agreement-details", async (req, res) => {
   let data = req.body;
-  console.log(data);
+ 
   try {
     let tenantAgreementDetails = new TenantAgreementDetails(data);
     output = await tenantAgreementDetails.save();

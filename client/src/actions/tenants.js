@@ -39,7 +39,7 @@ export const AddTenantDetailsform = (finalData) => async (dispatch) => {
       payload: res.data,
     });
 
-    // console.log(res.data);
+  
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,
@@ -52,7 +52,7 @@ export const AddTenantSettingsform = (finalData) => async (dispatch) => {
     dispatch({
       type: TENANT_ADD_INIT,
     });
-    // console.log(finalData);
+  
     await axios.post("/api/tenants/add-tenant-settings", finalData, config);
   } catch (err) {
     dispatch({
@@ -66,7 +66,7 @@ export const AddTenantSettingform = (finalData) => async (dispatch) => {
     dispatch({
       type: TENANT_ADD_INIT,
     });
-    // console.log(finalData);
+   
     await axios.post("/api/tenants/add-tenant-settings", finalData, config);
   } catch (err) {
     dispatch({
@@ -89,7 +89,7 @@ export const AddShopDetailsform = (finalData) => async (dispatch) => {
 };
 
 export const AddTenantAgreementform = (finalData) => async (dispatch) => {
-  // console.log(finalData);
+ 
   try {
     dispatch({
       type: AGREEMENT_ADD_INIT,

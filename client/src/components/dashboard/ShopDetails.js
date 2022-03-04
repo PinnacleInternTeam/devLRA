@@ -9,7 +9,7 @@ const ShopDetails = ({ auth: { allLevels }, getAllLevels }) => {
   useEffect(() => {
     getAllLevels();
   }, [getAllLevels]);
-  //console.log(allLevels);
+
   const [showEditModal, setShowEditModal] = useState(false);
   const handleEditModalClose = () => setShowEditModal(false);
   const onClickHandler = () => {

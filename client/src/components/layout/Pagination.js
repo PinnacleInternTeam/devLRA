@@ -7,7 +7,7 @@ const Pagination = ({ dataPerPage, totalData, paginate, currentPage }) => {
   for (let i = 1; i <= Math.ceil(totalData / dataPerPage); i++) {
     pageNumber.push(i);
   }
-  // console.log(pageNumber);
+ 
 
   if (pageNumber.length > 10) {
     excracted = pageNumber.slice(currentPage - 1, currentPage + 10);
