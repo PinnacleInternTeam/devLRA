@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+ObjectId = mongoose.Schema.ObjectId;
 
 const TenantDetails = new mongoose.Schema({
   tenantFileNo: {
@@ -7,7 +8,7 @@ const TenantDetails = new mongoose.Schema({
   },
   tenantDoorNo: {
     type: String,
-    //  required: true,
+    required: true,
   },
   tenantName: {
     type: String,
@@ -47,7 +48,10 @@ const TenantDetails = new mongoose.Schema({
   tenantstatus: {
     type: String,
     required: true,
-    default: "Active",
+    default: "Active", //Active,Deactive
+  },
+  shopId: {
+    type: ObjectId,
   },
   tenantdeactivereason: {
     type: String,
