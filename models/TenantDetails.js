@@ -4,7 +4,6 @@ ObjectId = mongoose.Schema.ObjectId;
 const TenantDetails = new mongoose.Schema({
   tenantFileNo: {
     type: String,
-    required: true,
   },
   tenantDoorNo: {
     type: String,
@@ -20,7 +19,6 @@ const TenantDetails = new mongoose.Schema({
   },
   tenantFirmName: {
     type: String,
-    required: true,
   },
   tenantAddr: {
     type: String,
@@ -43,6 +41,12 @@ const TenantDetails = new mongoose.Schema({
     required: true,
   },
   tenantChequenoOrDdno: {
+    type: String,
+  },
+  tenantBankName: {
+    type: String,
+  },
+  tenantchequeDate: {
     type: String,
   },
   tenantstatus: {
