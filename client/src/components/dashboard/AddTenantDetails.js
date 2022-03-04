@@ -434,7 +434,7 @@ const AddTenantDetails = ({
             </div>
           </div>
 
-          <div className="col-lg-6 Savebutton " size="lg">
+          <div className="col-lg-12 Savebutton " size="lg">
             <button
               variant="success"
               className="btn sub_form btn_continue Save float-right"
