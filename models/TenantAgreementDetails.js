@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
+ObjectId = mongoose.Schema.ObjectId;
 
 const TenantAgreementDetails = new mongoose.Schema({
   tdId: {
-    type: String,
+    type: ObjectId,
     // required: true,
   },
   tenantRentAmount: {
@@ -20,7 +21,7 @@ const TenantAgreementDetails = new mongoose.Schema({
 
   AgreementStatus: {
     type: String,
-    default: "Active",
+    default: "Active", //Active,Expired, Renewed
   },
 });
 
