@@ -5,36 +5,124 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getAllTenants } from "../../actions/tenants";
 import { Modal } from "react-bootstrap";
-
+import Select from "react-select";
+import Pagination from "../layout/Pagination";
+import {
+  getAllTenanatDoornoFilter,
+  getAllDoorNumbers,
+} from "../../actions/tenants";
 const AllTenantShopDetails = ({
   editStaffDetails,
   auth: { allTenants },
   getAllTenants,
+  getAllTenanatDoornoFilter,
+  tenants: { allDoorNumber },
+  getAllDoorNumbers,
 }) => {
   useEffect(() => {
     getAllTenants();
   }, [getAllTenants]);
 
+  useEffect(() => {
+    getAllDoorNumbers();
+  }, [getAllDoorNumbers]);
+
   const [formData, setFormData] = useState({
     isSubmitted: false,
   });
-  const [showEditModal, setShowEditModal] = useState(false);
-  const handleEditModalClose = () => setShowEditModal(false);
+  const [showDeactiveModal, setShowDeactiveModal] = useState(false);
+  const handleEditModalClose = () => setShowDeactiveModal(false);
 
   const [userData, setUserData] = useState(null);
   const onUpdate = (tenants, idx) => {
-    setShowEditModal(true);
+    setShowDeactiveModal(true);
     setUserData(tenants);
   };
+
+  const shopdoorNo = [];
+  allDoorNumber.map((doorno) =>
+    shopdoorNo.push({
+      label: doorno.shopDoorNo,
+      value: doorno.shopDoorNo,
+    })
+  );
+
+  const [doorNo, getDoorNoData] = useState();
+
+  const onDoorNoChange = (e) => {
+    getDoorNoData(e.value);
+
+    const finalData = {
+      doornoSearch: e.value,
+    };
+
+    getAllTenanatDoornoFilter(finalData);
+  };
+
+  const onClickReset = () => {
+    // allDoorNos.map((doorno) =>
+    //   shopdoorNo.push({
+    //     label: "Select",
+    //     value: "Select",
+    //   })
+    // );
+
+    getAllTenants();
+  };
+
+  //pagination code
+  const [currentData, setCurrentData] = useState(1);
+  const [dataPerPage] = useState(10);
+  //Get Current Data
+  const indexOfLastData = currentData * dataPerPage;
+  const indexOfFirstData = indexOfLastData - dataPerPage;
+  const currentDatas =
+    allTenants && allTenants.slice(indexOfFirstData, indexOfLastData);
+  //change page
+  const paginate = (nmbr) => {
+    setCurrentData(nmbr);
+  };
+  //pagination code ends
 
   return (
     <Fragment>
       <div className="container container_align">
         <section className="sub_reg">
-          <div className="col-lg-5 col-md-12 col-sm-12 col-12">
-            <h2 className="heading_color">All Tenants Shop Details</h2>
+          <div className="row col-lg-12 col-md-12 col-sm-12 col-12">
+            <div className="col-lg-5 col-md-11 col-sm-11 col-11 ">
+              <h2 className="heading_color">All Tenants Shop Details</h2>
+            </div>
+            <div className="col-lg-3 col-md-11 col-sm-11 col-11 py-4">
+              <Select
+                name="tenantDoorNo"
+                options={shopdoorNo}
+                isSearchable={true}
+                placeholder="Select DoorNo"
+                onChange={(e) => onDoorNoChange(e)}
+                theme={(theme) => ({
+                  ...theme,
+                  height: 26,
+                  minHeight: 26,
+                  borderRadius: 1,
+                  colors: {
+                    ...theme.colors,
+                    primary: "black",
+                  },
+                })}
+              />
+            </div>
+            <div className="col-lg-1 col-md-2 col-sm-12 col-12 pt-4">
+              <img
+                className="img_icon_size log"
+                onClick={() => onClickReset()}
+                src={require("../../static/images/refresh-icon.png")}
+                alt="refresh"
+                title="Refresh"
+              />
+            </div>
           </div>
-          <div className="body-inner no-padding  table-responsive fixTableHead">
+
+          <div className="body-inner no-padding  table-responsive ">
             <table
               className="table table-bordered table-striped table-hover"
               id="datatable2"
@@ -54,8 +142,8 @@ const AllTenantShopDetails = ({
                 </tr>
               </thead>
               <tbody>
-                {allTenants &&
-                  allTenants.map((tenants, idx) => {
+                {currentDatas &&
+                  currentDatas.map((tenants, idx) => {
                     return (
                       <tr key={idx}>
                         <td>{tenants.tenantName}</td>
@@ -87,10 +175,27 @@ const AllTenantShopDetails = ({
                   })}
               </tbody>
             </table>
+            <div className="row">
+              <div className="col-lg-6 col-md-6 col-sm-12 col-12 no_padding">
+                {allTenants && allTenants.length !== 0 ? (
+                  <Pagination
+                    dataPerPage={dataPerPage}
+                    totalData={allTenants.length}
+                    paginate={paginate}
+                    currentPage={currentData}
+                  />
+                ) : (
+                  <Fragment />
+                )}
+              </div>
+              <div className="col-lg-6 col-md-6 col-sm-12 col-12 align_right">
+                <label>No of Users : {allTenants && allTenants.length}</label>
+              </div>
+            </div>
           </div>
         </section>
         <Modal
-          show={showEditModal}
+          show={showDeactiveModal}
           backdrop="static"
           keyboard={false}
           size="md"
@@ -127,13 +232,19 @@ const AllTenantShopDetails = ({
 AllTenantShopDetails.propTypes = {
   // editStaffDetails: PropTypes.func.isRequired,
   getAllTenants: PropTypes.func.isRequired,
+  getAllTenanatDoornoFilter: PropTypes.func.isRequired,
+  tenants: PropTypes.object.isRequired,
+  getAllDoorNumbers: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  tenants: state.tenants,
 });
 
 export default connect(mapStateToProps, {
   // editStaffDetails,
   getAllTenants,
+  getAllTenanatDoornoFilter,
+  getAllDoorNumbers,
 })(AllTenantShopDetails);

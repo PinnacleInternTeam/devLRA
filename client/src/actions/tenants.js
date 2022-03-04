@@ -16,6 +16,8 @@ import {
   GET_ALL_LEVELS,
   GET_ALL_TENANTS,
   GET_ALL_SETTINGS,
+  GET_DELAYS,
+  GET_DOORNUMBER,
 } from "./types";
 
 const config = {
@@ -74,7 +76,6 @@ export const AddTenantSettingform = (finalData) => async (dispatch) => {
 };
 
 export const AddShopDetailsform = (finalData) => async (dispatch) => {
-  console.log(finalData);
   try {
     dispatch({
       type: SHOP_ADD_INIT,
@@ -273,6 +274,19 @@ export const getAllDoorNos = () => async (dispatch) => {
   }
 };
 
+export const getAllDoorNumbers = () => async (dispatch) => {
+  try {
+    const res = await axios.get("/api/tenants/get-door-number");
+    dispatch({
+      type: GET_DOORNUMBER,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: AUTH_ERROR,
+    });
+  }
+};
 export const getTenantReportOldExp =
   (finalDataReportOld) => async (dispatch) => {
     const config = {
@@ -296,3 +310,27 @@ export const getTenantReportOldExp =
       });
     }
   };
+
+export const getAllTenanatDoornoFilter = (finalData) => async (dispatch) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  console.log(finalData);
+  try {
+    const res = await axios.post(
+      "/api/tenants/filter-tenant-doorno-pref",
+      finalData,
+      config
+    );
+    dispatch({
+      type: GET_ALL_TENANTS,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: AUTH_ERROR,
+    });
+  }
+};

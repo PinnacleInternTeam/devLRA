@@ -29,8 +29,8 @@ const DeactiveTenantDetails = ({ tenants, deactiveTenantsDetails }) => {
 
   return (
     <Fragment>
-      <div className="col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-        <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
+      <div className="col-lg-12 col-md-9 col-sm-9 col-12 ">
+        <div className="row col-lg-12 col-md-9 col-sm-9 col-12 ">
           <div className="col-lg-12 col-md-4 col-sm-4 col-12">
             <label>Reason For Deactivation:</label>
           </div>
@@ -46,26 +46,26 @@ const DeactiveTenantDetails = ({ tenants, deactiveTenantsDetails }) => {
               required
             ></textarea>
           </div>
-        </div>
-        <div className="row col-lg-12 col-md-4 col-sm-4 col-12 ">
-          <label>Are You Sure You Want to Deactivate??</label>
-        </div>
-        <div
-          className="col-lg-12 col-md-9 col-sm-9 col-12 Savebutton"
-          size="lg"
-        >
-          <button
-            variant="success"
-            className="btn sub_form btn_continue Save float-right "
-            onClick={() => onSubmit(tenants)}
-            style={
-              tenantdeactivereason !== ""
-                ? { opacity: "1" }
-                : { opacity: "1", pointerEvents: "none" }
-            }
+          <div className="col-lg-12 col-md-4 col-sm-4 col-12 py-2">
+            <label>Are You Sure You Want to Deactivate??</label>
+          </div>
+          <div
+            className="col-lg-12 col-md-9 col-sm-9 col-12 Savebutton"
+            size="lg"
           >
-            Save
-          </button>
+            <button
+              variant="success"
+              className="btn sub_form btn_continue Save float-right "
+              onClick={() => onSubmit(tenants)}
+              style={
+                tenantdeactivereason !== ""
+                  ? { opacity: "1" }
+                  : { opacity: "1", pointerEvents: "none" }
+              }
+            >
+              Save
+            </button>
+          </div>
         </div>
       </div>
     </Fragment>

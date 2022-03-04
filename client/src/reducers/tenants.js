@@ -1,12 +1,4 @@
 import {
-  USER_LOADED,
-  AUTH_ERROR,
-  REMOVE_ERROR,
-  ALL_USERS,
-  CHANGE_PWD_FAIL,
-  LOGIN_SUCCESS,
-  LOGIN_FAIL,
-  LOGOUT,
   GET_ALL_LEVELS,
   GET_ALL_TENANTS,
   GET_ALL_SETTINGS,
@@ -14,6 +6,7 @@ import {
   YEAR_EXP_CNT,
   EXP_REPORT,
   GET_DOORNOS,
+  GET_DOORNUMBER,
 } from "../actions/types";
 
 const initialState = {
@@ -29,7 +22,7 @@ const initialState = {
   alltenants: [""],
   allTenantSetting: [""],
   allDoorNos: [""],
-
+  allDoorNumber: [""],
   monthExpCnt: [],
   yearExpCnt: [],
   expReport: [],
@@ -48,6 +41,11 @@ const tenants = (state = initialState, action) => {
       return {
         ...state,
         allDoorNos: payload,
+      };
+    case GET_DOORNUMBER:
+      return {
+        ...state,
+        allDoorNumber: payload,
       };
     default:
       return state;

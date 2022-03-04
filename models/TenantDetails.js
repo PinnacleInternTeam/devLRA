@@ -1,13 +1,13 @@
 const mongoose = require("mongoose");
+ObjectId = mongoose.Schema.ObjectId;
 
 const TenantDetails = new mongoose.Schema({
   tenantFileNo: {
     type: String,
-    required: true,
   },
   tenantDoorNo: {
     type: String,
-    //  required: true,
+    required: true,
   },
   tenantName: {
     type: String,
@@ -19,7 +19,6 @@ const TenantDetails = new mongoose.Schema({
   },
   tenantFirmName: {
     type: String,
-    required: true,
   },
   tenantAddr: {
     type: String,
@@ -44,10 +43,19 @@ const TenantDetails = new mongoose.Schema({
   tenantChequenoOrDdno: {
     type: String,
   },
+  tenantBankName: {
+    type: String,
+  },
+  tenantchequeDate: {
+    type: String,
+  },
   tenantstatus: {
     type: String,
     required: true,
-    default: "Active",
+    default: "Active", //Active,Deactive
+  },
+  shopId: {
+    type: ObjectId,
   },
   tenantdeactivereason: {
     type: String,

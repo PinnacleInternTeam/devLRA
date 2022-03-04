@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { Container, Navbar, Nav, NavItem, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
@@ -7,8 +7,18 @@ import { logout } from "../../actions/auth";
 import Login from "../auth/Login";
 import "react-datepicker/dist/react-datepicker.css";
 import TenantSettings from "../dashboard/TenantSettings";
+import { getAllSettings } from "../../actions/tenants";
 
-const Header = ({ auth: { isAuthenticated, loading, user }, logout }) => {
+const Header = ({
+  auth: { isAuthenticated, loading, user, allTenantSetting },
+  logout,
+
+  getAllSettings,
+}) => {
+  useEffect(() => {
+    getAllSettings();
+  }, [getAllSettings]);
+
   const [showLogin, setShowLogin] = useState(false);
   const [showLogout, setShowLogout] = useState(false);
 
@@ -239,10 +249,11 @@ const Header = ({ auth: { isAuthenticated, loading, user }, logout }) => {
 Header.propTypes = {
   logout: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
+  getAllSettings: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { logout })(Header);
+export default connect(mapStateToProps, { logout, getAllSettings })(Header);

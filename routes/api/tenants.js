@@ -23,12 +23,22 @@ router.post("/add-tenant-details", async (req, res) => {
     tenantPaymentMode: data.tenantPaymentMode,
     tenantChequenoOrDdno: data.tenantChequenoOrDdno,
     tenantBankName: data.tenantBankName,
+    tenantchequeDate: data.tenantchequeDate,
+    shopId: data.shopId,
   };
 
   try {
     let tenantDetails = new TenantDetails(finalData);
     output = await tenantDetails.save();
-    // console.log(output._id);
+    const updateStatus = await ShopDetails.updateOne(
+      { _id: output.shopId },
+      {
+        $set: {
+          shopStatus: "Used",
+        },
+      }
+    );
+    res.json(updateStatus);
     const finalData1 = {
       tdId: output._id,
       tenantRentAmount: data.tenantRentAmount,
@@ -37,8 +47,6 @@ router.post("/add-tenant-details", async (req, res) => {
     };
     let tenantAgreementDetails = new TenentAgreement(finalData1);
     output1 = await tenantAgreementDetails.save();
-
-    console.log(output1);
     // res.send(output);
     // res.send(output1);
   } catch (err) {
@@ -369,6 +377,13 @@ router.get("/get-all-tenants", async (req, res) => {
           tenantLeaseStartDate: "$output.tenantLeaseStartDate",
         },
       },
+      {
+        $match: {
+          tenantstatus: {
+            $eq: "Active",
+          },
+        },
+      },
     ]);
     res.json(tenanatData);
   } catch (err) {
@@ -481,4 +496,109 @@ router.post("/get-tenant-old-exp-report", async (req, res) => {
     res.status(500).send("Internal Server Error.");
   }
 });
+
+router.get("/get-door-number", async (req, res) => {
+  try {
+    const doorNoData = await ShopDetails.find({});
+
+    res.json(doorNoData);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Internal Server Error.");
+  }
+});
+
+router.post("/filter-tenant-doorno-pref", async (req, res) => {
+  const { doornoSearch } = req.body;
+
+  try {
+    const allTenantDoornofilter = await TenantDetails.aggregate([
+      {
+        $lookup: {
+          from: "tenantagreementsettings",
+          localField: "_id",
+          foreignField: "tdId",
+          as: "output",
+        },
+      },
+      {
+        $project: {
+          tenantName: "$tenantName",
+          tenantDoorNo: "$tenantDoorNo",
+          tenantFileNo: "$tenantFileNo",
+          tenantPhone: "$tenantPhone",
+          tenantFirmName: "$tenantFirmName",
+          tenantAdharNo: "$tenantAdharNo",
+          tenantPanNo: "$tenantPanNo",
+          tenantDepositAmt: "$tenantDepositAmt",
+          tenantPaymentMode: "$tenantPaymentMode",
+          tenantChequenoOrDdno: "$tenantChequenoOrDdno",
+          tenantstatus: "$tenantstatus",
+          tenantRentAmount: "$output.tenantRentAmount",
+          tenantLeaseEndDate: "$output.tenantLeaseEndDate",
+          tenantLeaseStartDate: "$output.tenantLeaseStartDate",
+        },
+      },
+      {
+        $match: {
+          tenantDoorNo: {
+            $eq: doornoSearch,
+          },
+          tenantstatus: {
+            $eq: "Active",
+          },
+        },
+      },
+    ]);
+    res.json(allTenantDoornofilter);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Internal Server Error.");
+  }
+});
+
+router.get("/get-all-tenants", async (req, res) => {
+  try {
+    const tenanatData = await TenantDetails.aggregate([
+      {
+        $lookup: {
+          from: "tenantagreementsettings",
+          localField: "_id",
+          foreignField: "tdId",
+          as: "output",
+        },
+      },
+      {
+        $project: {
+          tenantName: "$tenantName",
+          tenantDoorNo: "$tenantDoorNo",
+          tenantFileNo: "$tenantFileNo",
+          tenantPhone: "$tenantPhone",
+          tenantFirmName: "$tenantFirmName",
+          tenantAdharNo: "$tenantAdharNo",
+          tenantPanNo: "$tenantPanNo",
+          tenantDepositAmt: "$tenantDepositAmt",
+          tenantPaymentMode: "$tenantPaymentMode",
+          tenantChequenoOrDdno: "$tenantChequenoOrDdno",
+          tenantstatus: "$tenantstatus",
+          tenantRentAmount: "$output.tenantRentAmount",
+          tenantLeaseEndDate: "$output.tenantLeaseEndDate",
+          tenantLeaseStartDate: "$output.tenantLeaseStartDate",
+        },
+      },
+      {
+        $match: {
+          tenantstatus: {
+            $eq: "Active",
+          },
+        },
+      },
+    ]);
+    res.json(tenanatData);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Internal Server Error.");
+  }
+});
+
 module.exports = router;

@@ -1,13 +1,8 @@
 import React, { useState, Fragment, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import {
-  AddTenantDetailsform,
-  getAllDoorNos,
-  getFileNoData,
-} from "../../actions/tenants";
+import { AddTenantDetailsform, getAllDoorNos } from "../../actions/tenants";
 import Select from "react-select";
-import { Redirect } from "react-router-dom";
 
 const AddTenantDetails = ({
   tenants: { allDoorNos },
@@ -81,7 +76,7 @@ const AddTenantDetails = ({
     //Calculating lease end date
     var dateData = calDate.getDate();
     calDate.setMonth(calDate.getMonth() + +leaseMonth);
-    if (calDate.getDate() != dateData) {
+    if (calDate.getDate() !== dateData) {
       calDate.setDate(0);
     }
     var dd1 = calDate.getDate();
@@ -106,17 +101,21 @@ const AddTenantDetails = ({
   const { showChequenoSection } = showHide;
   const [doorNo, getDoorNoData] = useState();
   const [shopfileNo, setFileNoData] = useState();
+  const [shopId, setShopID] = useState();
 
   const onDoorNoChange = (e) => {
     var shopfileNumber = "";
+    var shopdetailsId = "";
     getDoorNoData(e.value);
 
     allDoorNos.map((doorno) => {
       if (doorno.shopDoorNo === e.value) {
         shopfileNumber = doorno.shopFileNo;
+        shopdetailsId = doorno._id;
       }
     });
     setFileNoData(shopfileNumber);
+    setShopID(shopdetailsId);
   };
 
   const [startSelectedDate, setChequeDate] = useState("");
@@ -153,9 +152,7 @@ const AddTenantDetails = ({
 
   const onSubmit = () => {
     const finalData = {
-      // tenantFileNo: tenantFileNo,
       tenantFileNo: shopfileNo,
-      // tenantDoorNo: tenantDoorNo,
       tenantDoorNo: doorNo,
       tenantName: tenantName,
       tenantPhone: tenantPhone,
@@ -171,15 +168,13 @@ const AddTenantDetails = ({
       tenantRentAmount: tenantRentAmount,
       tenantLeaseStartDate: entryDate,
       tenantLeaseEndDate: newLeaseEndDate,
+      shopId: shopId,
     };
     // console.log(finalData);
     AddTenantDetailsform(finalData);
     setFormData({ ...formData, isSubmitted: true });
     window.location.reload();
   };
-  // if (isSubmitted) {
-  //   return <Redirect to="/add-agreement-details" />;
-  // }
 
   return (
     <Fragment>
@@ -215,14 +210,6 @@ const AddTenantDetails = ({
               <label> File No :</label>
             </div>
             <div className="col-lg-2 col-md-4 col-sm-4 col-12">
-              {/* <input
-                type="text"
-                name="tenantFileNo"
-                value={shopfileNo}
-                className="form-control"
-                onChange={(e) => onInputChange(e)}
-                required
-              /> */}
               <label>{shopfileNo}</label>
             </div>
           </div>
@@ -453,10 +440,9 @@ const AddTenantDetails = ({
               className="btn sub_form btn_continue Save float-right"
               onClick={() => onSubmit()}
               style={
-                tenantDoorNo !== "" &&
+                // tenantDoorNo !== "" &&
                 tenantName !== "" &&
                 tenantPhone !== "" &&
-                // tenantFirmName !== "" &&
                 tenantPaymentMode !== "" &&
                 tenantDepositAmt !== "" &&
                 tenantAdharNo !== "" &&
@@ -491,5 +477,4 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   AddTenantDetailsform,
   getAllDoorNos,
-  // getFileNoData,
 })(AddTenantDetails);
