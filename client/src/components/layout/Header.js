@@ -65,7 +65,7 @@ const Header = ({
               <img
                 className="log_size"
                 alt="Pinnacle Media"
-                src={require("../../static/images/pmLogo_wh.png")}
+                src={require("../../static/images/lraLogo_wh.png")}
               />
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />

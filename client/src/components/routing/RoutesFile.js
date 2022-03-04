@@ -8,13 +8,9 @@ import RouteDriver from "../dashboard/RouteDriver";
 
 //DashBoard
 import changePassword from "../auth/ChangePwd";
-import AllStaffDetails from "../dashboard/AllStaffDetails";
-import AddStaffFeedBack from "../dashboard/AddStaffFeedBack";
 
 import AddTenantDetails from "../dashboard/AddTenantDetails";
 import TenantSettings from "../dashboard/TenantSettings";
-import AddTenantAgreement from "../dashboard/AddTenantAgreement";
-import TenantFilters from "../dashboard/TenantFilters";
 import TenantReport from "../dashboard/TenantReport";
 import ShopDetails from "../dashboard/ShopDetails";
 import AllTenantShopDetails from "../dashboard/AllTenantShopDetails";
@@ -30,13 +26,8 @@ const RoutesFile = () => {
         />
         <PrivateRoute exact path="/tenant-report" component={TenantReport} />
         <PrivateRoute exact path="/tenant-setting" component={TenantSettings} />
-
         <PrivateRoute exact path="/shop-Details" component={ShopDetails} />
-        <PrivateRoute
-          exact
-          path="/add-agreement-details"
-          component={AddTenantAgreement}
-        />
+        
         <PrivateRoute
           exact
           path="/all-tenant-shop-Details"
