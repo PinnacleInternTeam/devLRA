@@ -85,15 +85,7 @@ const Header = ({
                     <NavItem></NavItem>
                   )}
                 </NavItem>
-                <NavItem>
-                  {!loading && isAuthenticated && user ? (
-                    <Link to="/add-agreement-details">
-                      Add agreement Details
-                    </Link>
-                  ) : (
-                    <NavItem></NavItem>
-                  )}
-                </NavItem>
+               
 
                 <NavItem>
                   {!loading && isAuthenticated && user ? (
