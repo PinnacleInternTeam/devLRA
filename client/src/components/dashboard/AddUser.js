@@ -338,7 +338,7 @@ const AddUser = ({ AddUserDetailsform }) => {
           </div>
 
           <div className="col-lg-6 col-md-9 col-sm-9 col-12 py-4">
-            <label className="">Username</label>
+            <label className="">Confirm Password</label>
 
             <div>
               <input

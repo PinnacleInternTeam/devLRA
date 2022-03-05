@@ -9,11 +9,9 @@ const UserDetails = require("../../models/UserDetails");
 
 const {
   SERVER_ERROR,
-  USERNAME_REQUIRED_INVALID,
+  EMAIL_REQUIRED_INVALID,
   PASSWORD_INVALID,
-  NAME,
   EMAIL,
-  USERNAME,
   PASSWORD,
   USER_EXISTS,
   INVALID_CREDENTIALS,
@@ -39,7 +37,7 @@ const {
 router.post(
   LOGIN,
   [
-    check(USERNAME, USERNAME_REQUIRED_INVALID).exists(),
+    check(EMAIL, EMAIL_REQUIRED_INVALID).exists(),
     check(PASSWORD, PASSWORD_INVALID).exists(),
   ],
 
@@ -50,12 +48,12 @@ router.post(
     // }
 
     //retriving Data
-    const { userName, password } = req.body;
+    const { userEmail, password } = req.body;
 
     try {
-      //userName Check In DB
+      //userEmail Check In DB
       let userDetails = await UserDetails.findOne({
-        userName: userName,
+        userEmail: userEmail,
       });
 
       if (!userDetails) {
