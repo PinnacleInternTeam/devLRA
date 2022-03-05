@@ -25,7 +25,7 @@ const optName = [
   { value: "07", label: "Jul" },
   { value: "08", label: "Aug" },
   { value: "09", label: "Sep" },
-  { value: "09", label: "Oct" },
+  { value: "10", label: "Oct" },
   { value: "11", label: "Nov" },
   { value: "12", label: "Dec" },
 ];
@@ -57,7 +57,7 @@ const TenantFilters = ({
   }, [getTenantReportYearMonth]);
 
   const [searchData, setSearchData] = useState({
-    monthSearch: "",
+    monthSearch: new Date().getMonth() + 1,
     yearSearch: "",
   });
 
@@ -89,7 +89,7 @@ const TenantFilters = ({
         yearSearch: new Date(startMonthDate).getFullYear(),
       };
       getTenantReportYearMonth(finalDataReport);
-      <Redirect to="/tenant-report" />;
+      // <Redirect to="/tenant-report" />;
     }
   };
   const oldExpCountFetch = () => {
@@ -97,7 +97,7 @@ const TenantFilters = ({
       yearSearch: new Date(startMonthDate).getFullYear(),
     };
     getTenantReportOldExp(finalDataReportOld);
-    <Redirect to="/tenant-report" />;
+    // <Redirect to="/tenant-report" />;
   };
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
@@ -151,7 +151,15 @@ const TenantFilters = ({
                         name="alphaSearch"
                         // className="btnLink"
                         onClick={() => onSelectChange(optFiltr.value)}
-                        style={{ fontWeight: "bold", fontSize: "19px" }}
+                        style={
+                          Number(monthSearch) === Number(optFiltr.value)
+                            ? {
+                                fontWeight: "bold",
+                                fontSize: "22px",
+                                color: "teal",
+                              }
+                            : { fontWeight: "bold", fontSize: "19px" }
+                        }
                       >
                         {optFiltr.label}
                       </Link>{" "}

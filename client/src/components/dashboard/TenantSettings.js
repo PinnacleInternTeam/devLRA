@@ -10,7 +10,7 @@ import { getAllSettings } from "../../actions/tenants";
 const TenantSettings = ({
   AddTenantSettingform,
   UpdateTenantSettingform,
-  auth: { allTenantSetting },
+  tenants: { allTenantSetting },
   getAllSettings,
 }) => {
   useEffect(() => {
@@ -156,7 +156,7 @@ TenantSettings.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  auth: state.auth,
+  tenants: state.tenants,
 });
 
 export default connect(mapStateToProps, {

@@ -139,24 +139,36 @@ router.post(
   async (req, res) => {
     try {
       let data = req.body;
-
       const updatedetails = await TenantDetails.updateOne(
         { _id: data.recordId },
         {
           $set: {
             tenantstatus: data.tenantstatus,
             tenantdeactivereason: data.tenantdeactivereason,
+            tenantEnteredBy: data.tenantEnteredBy,
+            tenantDate: data.tenantDate,
           },
         }
       );
-      const shopdetails = await ShopDetails.updateOne(
+      // res.json(updatedetails);
+      const updateHistoryStatus = await TenentHistories.updateOne(
         { tdId: data.recordId },
         {
-          $set: { shopStatus: "Available" },
+          $set: {
+            thStatus: "Deactive",
+          },
         }
       );
-      res.json(updatedetails);
-      res.json(shopdetails);
+
+      const shopDoorNoUpdate = await ShopDetails.updateOne(
+        { tdId: data.recordId },
+        {
+          $set: {
+            shopStatus: "Available",
+          },
+        }
+      );
+      res.json(shopDoorNoUpdate);
     } catch (error) {
       res.status(500).json({ errors: [{ msg: "Server Error" }] });
     }
@@ -289,6 +301,7 @@ router.post("/get-previous-years-exp", async (req, res) => {
   try {
     const MonthExpCntData = await TenentAgreement.find({
       tenantLeaseEndDate: { $lt: firstDay },
+      AgreementStatus: { $ne: "Renewed" },
     }).count();
     res.json(MonthExpCntData);
   } catch (err) {
@@ -326,7 +339,7 @@ router.post("/get-tenant-exp-report", async (req, res) => {
           AgreementStatus: "$output.AgreementStatus",
           tenantstatus: "$tenantstatus",
           tdId: "$output.tdId",
-          agreementId: "$_id",
+          agreementId: "$output._id",
           chargesCal: {
             $add: [
               {
@@ -480,7 +493,7 @@ router.post("/get-tenant-old-exp-report", async (req, res) => {
           AgreementStatus: "$output.AgreementStatus",
           tenantstatus: "$tenantstatus",
           tdId: "$output.tdId",
-          agreementId: "$_id",
+          agreementId: "$output._id",
           chargesCal: {
             $add: [
               {
@@ -670,7 +683,6 @@ router.post("/renew-tenant-details", async (req, res) => {
     tenantLeaseEndDate: data.tenantLeaseEndDate,
     AgreementStatus: data.AgreementStatus,
   };
-
   try {
     let tenantAgreementDetails = new TenentAgreement(finalDataTA);
     output = await tenantAgreementDetails.save();

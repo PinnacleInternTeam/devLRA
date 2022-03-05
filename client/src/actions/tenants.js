@@ -315,7 +315,6 @@ export const getAllTenanatDoornoFilter = (finalData) => async (dispatch) => {
       "Content-Type": "application/json",
     },
   };
-  console.log(finalData);
   try {
     const res = await axios.post(
       "/api/tenants/filter-tenant-doorno-pref",
@@ -326,6 +325,17 @@ export const getAllTenanatDoornoFilter = (finalData) => async (dispatch) => {
       type: GET_ALL_TENANTS,
       payload: res.data,
     });
+  } catch (err) {
+    dispatch({
+      type: AUTH_ERROR,
+    });
+  }
+};
+
+export const RenewTenantDetailsform = (finalData) => async (dispatch) => {
+  try {
+    console.log(finalData);
+    await axios.post("/api/tenants/renew-tenant-details", finalData, config);
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,

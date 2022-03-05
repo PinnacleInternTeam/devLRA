@@ -4,7 +4,11 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { deactiveTenantsDetails } from "../../actions/tenants";
 
-const DeactiveTenantDetails = ({ tenants, deactiveTenantsDetails }) => {
+const DeactiveTenantDetails = ({
+  auth: { user },
+  tenants,
+  deactiveTenantsDetails,
+}) => {
   const [formData, setFormData] = useState({
     tenantdeactivereason: "",
     isSubmitted: false,
@@ -17,11 +21,28 @@ const DeactiveTenantDetails = ({ tenants, deactiveTenantsDetails }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  //For setting mindate as todays date
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth() + 1;
+  var yyyy = today.getFullYear();
+  if (dd < 10) {
+    dd = "0" + dd;
+  }
+  if (mm < 10) {
+    mm = "0" + mm;
+  }
+  var todayDateymd = yyyy + "-" + mm + "-" + dd;
+
+  //For setting mindate as todays date
+
   const onSubmit = (tenants, idx) => {
     const finalData = {
       recordId: tenants ? tenants._id : "",
       tenantstatus: "Deactive",
       tenantdeactivereason: tenantdeactivereason,
+      tenantEnteredBy: user && user._id,
+      tenantDate: todayDateymd,
     };
     deactiveTenantsDetails(finalData);
     window.location.reload();

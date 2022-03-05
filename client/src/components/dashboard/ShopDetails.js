@@ -5,7 +5,11 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getAllLevels } from "../../actions/tenants";
 
-const ShopDetails = ({ auth: { allLevels }, getAllLevels }) => {
+const ShopDetails = ({
+  // auth: { allLevels },
+  getAllLevels,
+  tenants: { allLevels },
+}) => {
   useEffect(() => {
     getAllLevels();
   }, [getAllLevels]);
@@ -107,7 +111,7 @@ ShopDetails.propTypes = {
 };
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  staff: state.staff,
+  tenants: state.tenants,
 });
 
 export default connect(mapStateToProps, {
