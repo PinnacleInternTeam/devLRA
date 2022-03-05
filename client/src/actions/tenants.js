@@ -38,8 +38,6 @@ export const AddTenantDetailsform = (finalData) => async (dispatch) => {
       type: NEW_TENENTDETAILS,
       payload: res.data,
     });
-
-  
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,
@@ -52,7 +50,7 @@ export const AddTenantSettingsform = (finalData) => async (dispatch) => {
     dispatch({
       type: TENANT_ADD_INIT,
     });
-  
+
     await axios.post("/api/tenants/add-tenant-settings", finalData, config);
   } catch (err) {
     dispatch({
@@ -66,7 +64,7 @@ export const AddTenantSettingform = (finalData) => async (dispatch) => {
     dispatch({
       type: TENANT_ADD_INIT,
     });
-   
+
     await axios.post("/api/tenants/add-tenant-settings", finalData, config);
   } catch (err) {
     dispatch({
@@ -89,7 +87,6 @@ export const AddShopDetailsform = (finalData) => async (dispatch) => {
 };
 
 export const AddTenantAgreementform = (finalData) => async (dispatch) => {
- 
   try {
     dispatch({
       type: AGREEMENT_ADD_INIT,
@@ -317,7 +314,6 @@ export const getAllTenanatDoornoFilter = (finalData) => async (dispatch) => {
       "Content-Type": "application/json",
     },
   };
-  console.log(finalData);
   try {
     const res = await axios.post(
       "/api/tenants/filter-tenant-doorno-pref",
@@ -328,6 +324,17 @@ export const getAllTenanatDoornoFilter = (finalData) => async (dispatch) => {
       type: GET_ALL_TENANTS,
       payload: res.data,
     });
+  } catch (err) {
+    dispatch({
+      type: AUTH_ERROR,
+    });
+  }
+};
+
+export const RenewTenantDetailsform = (finalData) => async (dispatch) => {
+  try {
+    console.log(finalData);
+    await axios.post("/api/tenants/renew-tenant-details", finalData, config);
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,
