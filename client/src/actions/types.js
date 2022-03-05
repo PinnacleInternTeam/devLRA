@@ -29,3 +29,5 @@ export const YEAR_EXP_CNT = "YEAR_EXP_CNT";
 export const EXP_REPORT = "EXP_REPORT";
 export const GET_DELAYS = "GET_DELAYS";
 export const GET_DOORNUMBER = "GET_DOORNUMBER";
+export const ADD_USER_INIT = "ADD_USER_INIT";
+export const GET_ALL_USER = "GET_ALL_USER";

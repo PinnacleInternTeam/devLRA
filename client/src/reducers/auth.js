@@ -7,14 +7,13 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-
   GET_ALL_LEVELS,
   GET_ALL_TENANTS,
   GET_ALL_SETTINGS,
-
   MONTH_EXP_CNT,
   YEAR_EXP_CNT,
   EXP_REPORT,
+  GET_ALL_USER,
 } from "../actions/types";
 
 const initialState = {
@@ -25,7 +24,7 @@ const initialState = {
   users: [],
   errorResponse: "",
   successResponse: "",
- 
+
   alllevels: [""],
   alltenants: [""],
   allTenantSetting: [""],
@@ -81,7 +80,7 @@ const auth = (state = initialState, action) => {
         errorResponse: "",
         successResponse: "",
       };
-    
+
     case CHANGE_PWD_FAIL:
       return {
         ...state,
@@ -89,24 +88,24 @@ const auth = (state = initialState, action) => {
         successResponse: "",
       };
 
-      case GET_ALL_LEVELS:
-        return {
-          ...state,
-          allLevels: payload,
-        };
-  
-      case GET_ALL_TENANTS:
-        return {
-          ...state,
-          allTenants: payload,
-        };
-      case GET_ALL_SETTINGS:
-        return {
-          ...state,
-          allTenantSetting: payload,
-        };
+    case GET_ALL_LEVELS:
+      return {
+        ...state,
+        allLevels: payload,
+      };
 
-        case MONTH_EXP_CNT:
+    case GET_ALL_TENANTS:
+      return {
+        ...state,
+        allTenants: payload,
+      };
+    case GET_ALL_SETTINGS:
+      return {
+        ...state,
+        allTenantSetting: payload,
+      };
+
+    case MONTH_EXP_CNT:
       return {
         ...state,
         monthExpCnt: payload,
@@ -120,6 +119,11 @@ const auth = (state = initialState, action) => {
       return {
         ...state,
         expReport: payload,
+      };
+    case GET_ALL_USER:
+      return {
+        ...state,
+        allUser: payload,
       };
 
     default:

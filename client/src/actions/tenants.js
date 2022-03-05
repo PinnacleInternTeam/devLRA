@@ -1,6 +1,6 @@
 import axios from "axios";
 import { setAlert } from "./alert";
-import { getAllUsers } from "./auth";
+// import { getAllUsers } from "./auth";
 
 import {
   TENANT_ADD_INIT,
@@ -18,6 +18,7 @@ import {
   GET_ALL_SETTINGS,
   GET_DELAYS,
   GET_DOORNUMBER,
+  GET_ALL_USER,
 } from "./types";
 
 const config = {
