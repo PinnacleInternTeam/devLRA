@@ -13,6 +13,9 @@ const ShopDetails = new mongoose.Schema({
     type: String,
     required: true,
   },
+  tdId: {
+    type: ObjectId,
+  },
 });
 
 module.exports = shopDetails = mongoose.model("shopDetails", ShopDetails);
