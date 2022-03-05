@@ -5,7 +5,7 @@ import Select from "react-select";
 import { Redirect } from "react-router-dom";
 import { AddUserDetailsform } from "../../actions/auth";
 
-const AddUser = ({ AddUserDetailsform }) => {
+const AddUser = ({ AddUserDetailsform,errorResponse }) => {
   let passwrdTooltip = {
     marginLeft: "-16em",
     position: "absolute",
@@ -208,6 +208,7 @@ const AddUser = ({ AddUserDetailsform }) => {
   return (
     <Fragment>
       <>
+      {errorResponse && <p style={{ color: "red" }}>{errorResponse}</p>}
         <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-4">
           <div className="col-lg-2 col-md-2 col-sm-1 col-12">
             <label> FullName:</label>
@@ -391,10 +392,12 @@ const AddUser = ({ AddUserDetailsform }) => {
 AddUser.propTypes = {
   auth: PropTypes.object.isRequired,
   AddUserDetailsform: PropTypes.func.isRequired,
+  errorResponse: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  errorResponse: state.auth.errorResponse,
 });
 
 export default connect(mapStateToProps, {

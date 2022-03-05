@@ -18,21 +18,22 @@ const Login = ({
   let modalTitle = { marginTop: "-30px", marginBottom: "20px" };
 
   const [formData, setFormData] = useState({
-    userEmail: "dev",
+    useremail: "dev@pinnaclemedia.in",
     password: "Dev@123",
   });
 
-  const { userEmail, password } = formData;
+  // W7'Um34BrCxzQNR?
+  const { useremail, password } = formData;
 
   const onInputChange = (e) => {
     const { name, value } = e.target;
     switch (name) {
-      case "userEmail":
+      case "useremail":
         if (value === "") {
           setError({
             ...error,
             userEmailValChecker: true,
-            userEmailValResult: "Please Enter Your userEmail",
+            userEmailValResult: "Please Enter Your useremail",
             userEmailValStyle: { color: "#FF0000" },
             userEmailInptErrStyle: { borderBottom: "1px solid #FF0000" },
           });
@@ -96,22 +97,22 @@ const Login = ({
   } = error;
 
   const checkErrors = (formData) => {
-    if (formData && formData.userEmail === "") {
+    if (formData && formData.useremail === "") {
       setError({
         ...error,
         userEmailValChecker: true,
-        userEmailValResult: "Please Enter Your userEmail",
+        userEmailValResult: "Please Enter Your email",
         userEmailValStyle: { color: "#FF0000" },
         userEmailInptErrStyle: { borderBottom: "1px solid #FF0000" },
       });
       return false;
     } else {
-      const userEmailFilter = /^([a-zA-Z])*$/;
-      if (!userEmailFilter.test(formData && formData.userEmail)) {
+      const userEmailFilter = /^(\d*[a-zA-Z][a-zA-Z\d_.+-]*)\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})*$/;
+      if (!userEmailFilter.test(formData && formData.useremail)) {
         setError({
           ...error,
           userEmailValChecker: true,
-          userEmailValResult: "Please Enter Valid userEmail",
+          userEmailValResult: "Please Enter Valid email",
           userEmailValStyle: { color: "#FF0000" },
           userEmailInptErrStyle: { borderBottom: "1px solid #FF0000" },
         });
@@ -134,7 +135,7 @@ const Login = ({
   const onSubmit = async (e) => {
     e.preventDefault();
     if (checkErrors(formData)) {
-      login(userEmail, password);
+      login(useremail, password);
     }
     setFormData({ ...formData, submitted: true });
   };
@@ -163,8 +164,8 @@ const Login = ({
           <div className="form-group form_top">
             <input
               type="text"
-              name="userEmail"
-              value={userEmail}
+              name="useremail"
+              value={useremail}
               style={userEmailInptErrStyle}
               className="form-control form_contct"
               onChange={(e) => onInputChange(e)}
@@ -176,7 +177,7 @@ const Login = ({
               </span>
             )}
             <label className="pop_up">
-              <span className="label-content">User Name *</span>
+              <span className="label-content">Email *</span>
             </label>
           </div>
 

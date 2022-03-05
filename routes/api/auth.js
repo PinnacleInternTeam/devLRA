@@ -48,12 +48,12 @@ router.post(
     // }
 
     //retriving Data
-    const { userEmail, password } = req.body;
-
+    const { useremail, password } = req.body;
+  
     try {
       //userEmail Check In DB
       let userDetails = await UserDetails.findOne({
-        userEmail: userEmail,
+        useremail: useremail,
       });
 
       if (!userDetails) {
