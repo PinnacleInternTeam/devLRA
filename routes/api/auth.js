@@ -11,12 +11,17 @@ const {
   SERVER_ERROR,
   USERNAME_REQUIRED_INVALID,
   PASSWORD_INVALID,
+  NAME,
+  EMAIL,
   USERNAME,
   PASSWORD,
+  USER_EXISTS,
   INVALID_CREDENTIALS,
   JWT_SECRET,
+  STATUS_CODE_200,
   STATUS_CODE_400,
   STATUS_CODE_500,
+
   EXPIRES_IN,
 } = require("../../common/constant/constants");
 
@@ -25,11 +30,8 @@ const {
   LOAD_USER,
   GET_ALL_USERS,
   FILTER_USERS,
-  CHANGE_PWD
+  CHANGE_PWD,
 } = require("../../common/constant/api-constants");
-
-
-
 
 // @route    POST api/auth
 // @desc     Authenticate user & get token
@@ -42,7 +44,6 @@ router.post(
   ],
 
   async (req, res) => {
-   
     // const errors = validationResult(req);
     // if (!errors.isEmpty()) {
     //   return res.status(STATUS_CODE_400).json({ errors: errors.array() });
@@ -55,9 +56,8 @@ router.post(
       //userName Check In DB
       let userDetails = await UserDetails.findOne({
         userName: userName,
-       
       });
-    
+
       if (!userDetails) {
         return res.status(STATUS_CODE_400).json({
           errors: [{ msg: INVALID_CREDENTIALS }],
@@ -66,7 +66,7 @@ router.post(
 
       //Match The Passwords
       const isMatch = await bcrypt.compare(password, userDetails.password);
-     
+
       if (!isMatch) {
         return res
           .status(STATUS_CODE_400)
@@ -156,18 +156,64 @@ router.post(
       return res.status(STATUS_CODE_400).json({ errors: errors.array() });
     }
     //assigning the data from body
-    let data = req.body; 
+    let data = req.body;
     try {
       //Preparing The Salt
       const salt = await bcrypt.genSalt(10);
       //Hashing the Password
       const password = await bcrypt.hash(data.password, salt);
-   
-      await UserDetails.findOneAndUpdate({ _id: req.user.id }, { password: password });
+
+      await UserDetails.findOneAndUpdate(
+        { _id: req.user.id },
+        { password: password }
+      );
       res.json({ msg: "Password changed succesfully" });
     } catch (err) {
       console.error(err.message);
       res.status(STATUS_CODE_500).send(SERVER_ERROR);
+    }
+  }
+);
+
+// suraksha code
+// @route    POST api/users
+// @desc      User Registration
+// @access   Private
+router.post(
+  "/add-user-details",
+  auth,
+  [
+    // check(NAME, "Invalid Request").not().isEmpty(),
+    // check(EMAIL, "Invalid Request").not().isEmpty().isEmail().normalizeEmail(),
+    // check("password", "Invalid Request").not().isEmpty(),
+  ],
+  async (req, res) => {
+    //assigning the data from body
+    let data = req.body;
+    // data.activCode = shortid.generate();
+    try {
+      //checking the User Existance
+      let userExists = await UserDetails.findOne({ useremail: data.useremail });
+      if (userExists) {
+        return res
+          .status(STATUS_CODE_400)
+          .json({ errors: [{ msg: USER_EXISTS }] });
+      }
+      // Assigning the Data To User Model as The data is already Structured
+      let userDetails = new UserDetails(data);
+      //preparing The Salt
+      const salt = await bcrypt.genSalt(10);
+      //hashing the Password
+      userDetails.password = await bcrypt.hash(data.password, salt);
+      //save the Data to db
+      await userDetails.save();
+
+      return res.status(STATUS_CODE_200).json({
+        msg: "User Added Successfull",
+      });
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Internal Server Error.");
     }
   }
 );

@@ -57,9 +57,18 @@ const TenantDetails = new mongoose.Schema({
   shopId: {
     type: ObjectId,
   },
+  tenantEnteredBy: {
+    type: ObjectId,
+  },
+  tenantDate: {
+    type: String,
+  },
+  tenantDateTime: {
+    type: Date,
+    default: Date.now(),
+  },
   tenantdeactivereason: {
     type: String,
-    //required: true,
   },
 });
 

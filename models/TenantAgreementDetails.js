@@ -18,7 +18,16 @@ const TenantAgreementDetails = new mongoose.Schema({
     type: String,
     // required: true,
   },
-
+  tenantAgreementEntredBy: {
+    type: ObjectId,
+  },
+  tenantAgreementDate: {
+    type: String,
+  },
+  tenantAgreementDateTime: {
+    type: Date,
+    default: Date.now(),
+  },
   AgreementStatus: {
     type: String,
     default: "Active", //Active,Expired, Renewed

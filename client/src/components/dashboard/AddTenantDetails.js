@@ -6,6 +6,7 @@ import Select from "react-select";
 
 const AddTenantDetails = ({
   tenants: { allDoorNos },
+  auth: { user },
   getAllDoorNos,
   AddTenantDetailsform,
 }) => {
@@ -35,6 +36,8 @@ const AddTenantDetails = ({
     tenantRentAmount: "",
     tenantLeaseStartDate: "",
     tenantLeaseEndDate: "",
+    tenantEnteredBy: "",
+    tenantDate: "",
     isSubmitted: false,
   });
 
@@ -55,12 +58,28 @@ const AddTenantDetails = ({
     tenantchequeDate,
     tenantLeaseStartDate,
     tenantLeaseEndDate,
+    tenantEnteredBy,
+    tenantDate,
     isSubmitted,
   } = formData;
 
   const onInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+  //For setting mindate as todays date
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth() + 1;
+  var yyyy = today.getFullYear();
+  if (dd < 10) {
+    dd = "0" + dd;
+  }
+  if (mm < 10) {
+    mm = "0" + mm;
+  }
+  var todayDateymd = yyyy + "-" + mm + "-" + dd;
+
+  //For setting mindate as todays date
 
   const [entryDate, setEntryDate] = useState("");
   const [leaseEndDate, setLeaseEndDate] = useState();
@@ -149,7 +168,6 @@ const AddTenantDetails = ({
       value: doorno.shopDoorNo,
     })
   );
-
   const onSubmit = () => {
     const finalData = {
       tenantFileNo: shopfileNo,
@@ -169,8 +187,9 @@ const AddTenantDetails = ({
       tenantLeaseStartDate: entryDate,
       tenantLeaseEndDate: newLeaseEndDate,
       shopId: shopId,
+      tenantEnteredBy: user && user._id,
+      tenantDate: todayDateymd,
     };
-
     AddTenantDetailsform(finalData);
     setFormData({ ...formData, isSubmitted: true });
     window.location.reload();
@@ -466,7 +485,6 @@ AddTenantDetails.propTypes = {
   tenants: PropTypes.object.isRequired,
   AddTenantDetailsform: PropTypes.func.isRequired,
   getAllDoorNos: PropTypes.func.isRequired,
-  getFileNoData: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

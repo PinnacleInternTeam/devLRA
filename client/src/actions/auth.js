@@ -5,9 +5,11 @@ import {
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
+  ADD_USER_INIT,
   CHANGE_PWD_FAIL,
   REMOVE_ERROR,
   ALL_USERS,
+  GET_ALL_USER,
   LOGOUT,
 } from "./types";
 import setAuthToken from "../utils/setAuthToken";
@@ -64,9 +66,28 @@ export const getAllUsers = () => async (dispatch) => {
   try {
     const res = await axios.get("/api/auth/all-users");
     dispatch({
-      type: ALL_USERS,
+      type: GET_ALL_USER,
       payload: res.data,
     });
+  } catch (err) {
+    dispatch({
+      type: AUTH_ERROR,
+    });
+  }
+};
+
+export const AddUserDetailsform = (finalData) => async (dispatch) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  console.log(finalData);
+  try {
+    dispatch({
+      type: ADD_USER_INIT,
+    });
+    await axios.post("/api/auth/add-user-details", finalData, config);
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,

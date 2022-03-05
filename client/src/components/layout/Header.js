@@ -7,6 +7,7 @@ import { logout } from "../../actions/auth";
 import Login from "../auth/Login";
 import "react-datepicker/dist/react-datepicker.css";
 import TenantSettings from "../dashboard/TenantSettings";
+import AddUser from "../dashboard/AddUser";
 import { getAllSettings } from "../../actions/tenants";
 
 const Header = ({
@@ -30,6 +31,7 @@ const Header = ({
   const handleLogoutModalClose = () => setShowLogout(false);
   const handleLogoutModalShow = () => setShowLogout(true);
   const handleTenantSettingModalClose = () => setTenantSetting(false);
+
   const handleTenantSettingModalShow = () => setTenantSetting(true);
 
   const LogoutModalClose = () => {
@@ -127,6 +129,10 @@ const Header = ({
                             Tenant Setting
                           </Link>
                         </li>
+                        <li>
+                          <Link to="/add-user">Add Users</Link>
+                        </li>
+
                         <li>
                           <Link to="/change-password">Change Password</Link>
                         </li>

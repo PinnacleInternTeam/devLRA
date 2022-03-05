@@ -47,6 +47,7 @@ const tenants = (state = initialState, action) => {
         ...state,
         allDoorNumber: payload,
       };
+
     default:
       return state;
   }
