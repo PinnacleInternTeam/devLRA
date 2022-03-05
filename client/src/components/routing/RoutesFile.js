@@ -13,6 +13,7 @@ import AddTenantDetails from "../dashboard/AddTenantDetails";
 import TenantSettings from "../dashboard/TenantSettings";
 import TenantReport from "../dashboard/TenantReport";
 import ShopDetails from "../dashboard/ShopDetails";
+import AllUserDetails from "../dashboard/AllUserDetails";
 import AllTenantShopDetails from "../dashboard/AllTenantShopDetails";
 
 const RoutesFile = () => {
@@ -27,7 +28,8 @@ const RoutesFile = () => {
         <PrivateRoute exact path="/tenant-report" component={TenantReport} />
         <PrivateRoute exact path="/tenant-setting" component={TenantSettings} />
         <PrivateRoute exact path="/shop-Details" component={ShopDetails} />
-        
+        <PrivateRoute exact path="/add-user" component={AllUserDetails} />
+
         <PrivateRoute
           exact
           path="/all-tenant-shop-Details"
@@ -38,7 +40,6 @@ const RoutesFile = () => {
           path="/change-password"
           component={changePassword}
         />
-
         <PrivateRoute exact path="/route-driver" component={RouteDriver} />
         <Route component={NotFound} />
       </Switch>

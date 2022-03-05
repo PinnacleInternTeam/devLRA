@@ -1,6 +1,6 @@
 import axios from "axios";
 import { setAlert } from "./alert";
-import { getAllUsers } from "./auth";
+// import { getAllUsers } from "./auth";
 
 import {
   TENANT_ADD_INIT,
@@ -18,6 +18,7 @@ import {
   GET_ALL_SETTINGS,
   GET_DELAYS,
   GET_DOORNUMBER,
+  GET_ALL_USER,
 } from "./types";
 
 const config = {
@@ -38,8 +39,6 @@ export const AddTenantDetailsform = (finalData) => async (dispatch) => {
       type: NEW_TENENTDETAILS,
       payload: res.data,
     });
-
-  
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,
@@ -52,7 +51,7 @@ export const AddTenantSettingsform = (finalData) => async (dispatch) => {
     dispatch({
       type: TENANT_ADD_INIT,
     });
-  
+
     await axios.post("/api/tenants/add-tenant-settings", finalData, config);
   } catch (err) {
     dispatch({
@@ -66,7 +65,7 @@ export const AddTenantSettingform = (finalData) => async (dispatch) => {
     dispatch({
       type: TENANT_ADD_INIT,
     });
-   
+
     await axios.post("/api/tenants/add-tenant-settings", finalData, config);
   } catch (err) {
     dispatch({
@@ -89,7 +88,6 @@ export const AddShopDetailsform = (finalData) => async (dispatch) => {
 };
 
 export const AddTenantAgreementform = (finalData) => async (dispatch) => {
- 
   try {
     dispatch({
       type: AGREEMENT_ADD_INIT,
