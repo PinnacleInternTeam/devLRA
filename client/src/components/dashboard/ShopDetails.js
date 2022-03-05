@@ -20,7 +20,7 @@ const ShopDetails = ({ auth: { allLevels }, getAllLevels }) => {
     <Fragment>
       <div className="container container_align ">
         <section className="sub_reg">
-          <div className="row col-lg-12 col-md-12 col-sm-12 col-12">
+          <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
             <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
               <h2 className="heading_color">Shop Details </h2>
             </div>
