@@ -13,10 +13,10 @@ import {
 } from "../../actions/tenants";
 const AllTenantShopDetails = ({
   editStaffDetails,
-  auth: { allTenants },
+  // auth: { allTenants },
   getAllTenants,
   getAllTenanatDoornoFilter,
-  tenants: { allDoorNumber },
+  tenants: { allDoorNumber, allTenants },
   getAllDoorNumbers,
 }) => {
   useEffect(() => {

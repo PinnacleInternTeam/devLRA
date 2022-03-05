@@ -47,7 +47,22 @@ const tenants = (state = initialState, action) => {
         ...state,
         allDoorNumber: payload,
       };
+    case GET_ALL_LEVELS:
+      return {
+        ...state,
+        allLevels: payload,
+      };
 
+    case GET_ALL_TENANTS:
+      return {
+        ...state,
+        allTenants: payload,
+      };
+    case GET_ALL_SETTINGS:
+      return {
+        ...state,
+        allTenantSetting: payload,
+      };
     default:
       return state;
   }

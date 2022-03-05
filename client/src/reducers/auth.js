@@ -7,9 +7,6 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  GET_ALL_LEVELS,
-  GET_ALL_TENANTS,
-  GET_ALL_SETTINGS,
   MONTH_EXP_CNT,
   YEAR_EXP_CNT,
   EXP_REPORT,
@@ -25,9 +22,9 @@ const initialState = {
   errorResponse: "",
   successResponse: "",
 
-  alllevels: [""],
-  alltenants: [""],
-  allTenantSetting: [""],
+  // alllevels: [""],
+  // alltenants: [""],
+  // allTenantSetting: [""],
 
   monthExpCnt: [],
   yearExpCnt: [],
@@ -88,22 +85,22 @@ const auth = (state = initialState, action) => {
         successResponse: "",
       };
 
-    case GET_ALL_LEVELS:
-      return {
-        ...state,
-        allLevels: payload,
-      };
+    // case GET_ALL_LEVELS:
+    //   return {
+    //     ...state,
+    //     allLevels: payload,
+    //   };
 
-    case GET_ALL_TENANTS:
-      return {
-        ...state,
-        allTenants: payload,
-      };
-    case GET_ALL_SETTINGS:
-      return {
-        ...state,
-        allTenantSetting: payload,
-      };
+    // case GET_ALL_TENANTS:
+    //   return {
+    //     ...state,
+    //     allTenants: payload,
+    //   };
+    // case GET_ALL_SETTINGS:
+    //   return {
+    //     ...state,
+    //     allTenantSetting: payload,
+    //   };
 
     case MONTH_EXP_CNT:
       return {
