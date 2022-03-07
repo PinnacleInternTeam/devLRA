@@ -1,37 +1,17 @@
 import React, { useState, useEffect, Fragment } from "react";
-import { Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { deactiveTenantsDetails } from "../../actions/tenants";
+import { RenewTenantDetailsform } from "../../actions/tenants";
 
-var today = new Date();
-var dd = today.getDate();
-var mm = today.getMonth() + 1;
-var yyyy = today.getFullYear();
-if (dd < 10) {
-  dd = "0" + dd;
-}
-if (mm < 10) {
-  mm = "0" + mm;
-}
-var todayDateymd = yyyy + "-" + mm + "-" + dd;
-
-const RenewTenentAgreement = ({ user, tenants }) => {
+const RenewTenentAgreement = ({ user, tenants, RenewTenantDetailsform }) => {
   const [error, setError] = useState({
     nextBtnStyle: { opacity: "0.5", pointerEvents: "none" },
     selBtnStyle: { opacity: "0.5", pointerEvents: "none" },
   });
-  //console.log(tenants);
   const { nextBtnStyle } = error;
 
   //formData
   const [formData, setFormData] = useState({
-    // sdId: user ? user._id : "",
-    // slStaffName: user ? user.sdName : "",
-    // slEnteredBy: loggedStaff ? loggedStaff._id : "",
-    // slEnteredName: loggedStaff ? loggedStaff.sdName : "",
-    // slVal: null,
-    // slReason: "",
     isSubmitted: false,
   });
 
@@ -42,19 +22,6 @@ const RenewTenentAgreement = ({ user, tenants }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const [showEditModal, setShowEditModal] = useState(false);
-  // const onSubmit = (tenants, idx) => {
-  //   const finalData = {
-  //     recordId: tenants ? tenants._id : "",
-  //     tenantstatus: "Deactive",
-  //     tenantdeactivereason: tenantdeactivereason,
-  //   };
-
-  //   deactiveTenantsDetails(finalData);
-  //   setShowEditModal(false);
-  //   window.location.reload();
-  //   // onAbsentModalChange(true);
-  //   // setFormData({ ...formData, isSubmitted: true });
-  // };
 
   const onSubmit = () => {
     const finalData = {
@@ -64,17 +31,15 @@ const RenewTenentAgreement = ({ user, tenants }) => {
       tenantLeaseEndDate: newLeaseEndDate,
       tdId: tenants.tdId,
       AgreementStatus: "Active",
+      agreementId: tenants.agreementId,
     };
-    // AddTenantDetailsform(finalData);
+    console.log(finalData);
+    RenewTenantDetailsform(finalData);
     setFormData({ ...formData, isSubmitted: true });
     window.location.reload();
   };
-
-  //   if (isSubmitted) {
-  //     return <Redirect to="/all-staff-details" />;
-  //   }
   const [entryDate, setEntryDate] = useState("");
-  const [leaseEndDate, setLeaseEndDate] = useState();
+  const [leaseEndDate, setLeaseEndDate] = useState("");
   const [newLeaseEndDate, setNewLeaseEndDate] = useState();
   const onDateChangeEntry = (e) => {
     setEntryDate(e.target.value);
@@ -105,6 +70,9 @@ const RenewTenentAgreement = ({ user, tenants }) => {
     setNewLeaseEndDate(newLeaseEndDate);
   };
 
+  // if (isSubmitted) {
+  //   return <Redirect to="/all-staff-details" />;
+  // }
   return (
     <Fragment>
       <section className="sub_reg">
@@ -178,6 +146,11 @@ const RenewTenentAgreement = ({ user, tenants }) => {
               variant="success"
               className="btn sub_form btn_continue Save"
               onClick={() => onSubmit()}
+              style={
+                leaseEndDate !== ""
+                  ? { opacity: "1" }
+                  : { opacity: "1", pointerEvents: "none" }
+              }
             >
               Save
             </button>
@@ -190,7 +163,7 @@ const RenewTenentAgreement = ({ user, tenants }) => {
 
 RenewTenentAgreement.propTypes = {
   auth: PropTypes.object.isRequired,
-  deactiveTenantsDetails: PropTypes.func.isRequired,
+  RenewTenantDetailsform: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -198,5 +171,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-  deactiveTenantsDetails,
+  RenewTenantDetailsform,
 })(RenewTenentAgreement);

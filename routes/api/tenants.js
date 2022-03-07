@@ -301,6 +301,7 @@ router.post("/get-previous-years-exp", async (req, res) => {
   try {
     const MonthExpCntData = await TenentAgreement.find({
       tenantLeaseEndDate: { $lt: firstDay },
+      AgreementStatus: { $ne: "Renewed" },
     }).count();
     res.json(MonthExpCntData);
   } catch (err) {
@@ -338,7 +339,7 @@ router.post("/get-tenant-exp-report", async (req, res) => {
           AgreementStatus: "$output.AgreementStatus",
           tenantstatus: "$tenantstatus",
           tdId: "$output.tdId",
-          agreementId: "$_id",
+          agreementId: "$output._id",
           chargesCal: {
             $add: [
               {
@@ -492,7 +493,7 @@ router.post("/get-tenant-old-exp-report", async (req, res) => {
           AgreementStatus: "$output.AgreementStatus",
           tenantstatus: "$tenantstatus",
           tdId: "$output.tdId",
-          agreementId: "$_id",
+          agreementId: "$output._id",
           chargesCal: {
             $add: [
               {
@@ -682,7 +683,6 @@ router.post("/renew-tenant-details", async (req, res) => {
     tenantLeaseEndDate: data.tenantLeaseEndDate,
     AgreementStatus: data.AgreementStatus,
   };
-
   try {
     let tenantAgreementDetails = new TenentAgreement(finalDataTA);
     output = await tenantAgreementDetails.save();
