@@ -3,7 +3,11 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { RenewTenantDetailsform } from "../../actions/tenants";
 
-const RenewTenentAgreement = ({ user, tenants, RenewTenantDetailsform }) => {
+const RenewTenentAgreement = ({
+  auth: { user },
+  tenants,
+  RenewTenantDetailsform,
+}) => {
   const [error, setError] = useState({
     nextBtnStyle: { opacity: "0.5", pointerEvents: "none" },
     selBtnStyle: { opacity: "0.5", pointerEvents: "none" },
@@ -14,6 +18,18 @@ const RenewTenentAgreement = ({ user, tenants, RenewTenantDetailsform }) => {
   const [formData, setFormData] = useState({
     isSubmitted: false,
   });
+
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth() + 1;
+  var yyyy = today.getFullYear();
+  if (dd < 10) {
+    dd = "0" + dd;
+  }
+  if (mm < 10) {
+    mm = "0" + mm;
+  }
+  var todayDateymd = yyyy + "-" + mm + "-" + dd;
 
   const { recordId, tenantstatus, tenantdeactivereason, isSubmitted } =
     formData;
@@ -32,6 +48,8 @@ const RenewTenentAgreement = ({ user, tenants, RenewTenantDetailsform }) => {
       tdId: tenants.tdId,
       AgreementStatus: "Active",
       agreementId: tenants.agreementId,
+      tenantEnteredBy: user && user._id,
+      tenantDate: todayDateymd,
     };
     console.log(finalData);
     RenewTenantDetailsform(finalData);

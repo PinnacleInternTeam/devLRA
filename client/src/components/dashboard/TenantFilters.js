@@ -114,7 +114,9 @@ const TenantFilters = ({
                 className="btn btn_more"
                 onClick={() => oldExpCountFetch()}
               >
-                {yearExpCnt}
+                {yearExpCnt && yearExpCnt[0] && yearExpCnt[0].count > 0
+                  ? yearExpCnt[0].count
+                  : 0}
               </Link>
               {/* className="btn-rou" */}
             </div>

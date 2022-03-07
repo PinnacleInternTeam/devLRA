@@ -164,7 +164,7 @@ router.post(
           },
         }
       );
-      res.json(shopDoorNoUpdate);
+      // res.json(shopDoorNoUpdate);
     } catch (error) {
       res.status(500).json({ errors: [{ msg: "Server Error" }] });
     }
@@ -202,9 +202,18 @@ router.get("/get-month-exp-count", async (req, res) => {
   try {
     const MonthExpCntData = await TenentAgreement.aggregate([
       {
+        $lookup: {
+          from: "tenantdetails",
+          localField: "tdId",
+          foreignField: "_id",
+          as: "output",
+        },
+      },
+      {
         $match: {
           tenantLeaseEndDate: { $regex: new RegExp("^" + yearVal, "i") },
           AgreementStatus: { $ne: "Renewed" },
+          output: { $elemMatch: { tenantstatus: { $eq: "Active" } } },
         },
       },
       {
@@ -236,12 +245,20 @@ router.post("/get-month-exp-count-filter", async (req, res) => {
   try {
     const MonthExpCntData = await TenentAgreement.aggregate([
       {
+        $lookup: {
+          from: "tenantdetails",
+          localField: "tdId",
+          foreignField: "_id",
+          as: "output",
+        },
+      },
+      {
         $match: {
           tenantLeaseEndDate: { $regex: new RegExp("^" + selectedY, "i") },
           AgreementStatus: { $ne: "Renewed" },
+          output: { $elemMatch: { tenantstatus: { $eq: "Active" } } },
         },
       },
-
       {
         $group: {
           _id: {
@@ -295,10 +312,33 @@ router.post("/get-previous-years-exp", async (req, res) => {
   var date = new Date(selectedVal);
   var firstDay = new Date(date.getFullYear(), 0, 1).toISOString().split("T")[0];
   try {
-    const MonthExpCntData = await TenentAgreement.find({
-      tenantLeaseEndDate: { $lt: firstDay },
-      AgreementStatus: { $ne: "Renewed" },
-    }).count();
+    // const MonthExpCntData = await TenentAgreement.find({
+    //   tenantLeaseEndDate: { $lt: firstDay },
+    // }).count();
+    const MonthExpCntData = await TenentAgreement.aggregate([
+      {
+        $lookup: {
+          from: "tenantdetails",
+          localField: "tdId",
+          foreignField: "_id",
+          as: "output",
+        },
+      },
+      {
+        $match: {
+          tenantLeaseEndDate: { $lt: firstDay },
+          AgreementStatus: { $ne: "Renewed" },
+          output: { $elemMatch: { tenantstatus: { $eq: "Active" } } },
+        },
+      },
+
+      {
+        $group: {
+          _id: null,
+          count: { $sum: 1 },
+        },
+      },
+    ]);
     res.json(MonthExpCntData);
   } catch (err) {
     console.error(err.message);
@@ -384,6 +424,7 @@ router.post("/get-tenant-exp-report", async (req, res) => {
         $match: {
           tenantLeaseEndDate: { $regex: new RegExp("^" + yearMonth, "i") },
           AgreementStatus: { $ne: "Renewed" },
+          tenantstatus: { $eq: "Active" },
         },
       },
     ]);
@@ -678,7 +719,10 @@ router.post("/renew-tenant-details", async (req, res) => {
     tenantLeaseStartDate: data.tenantLeaseStartDate,
     tenantLeaseEndDate: data.tenantLeaseEndDate,
     AgreementStatus: data.AgreementStatus,
+    tenantAgreementEntredBy: data.tenantEnteredBy,
+    tenantAgreementDate: data.tenantDate,
   };
+  console.log(finalDataTA);
   try {
     let tenantAgreementDetails = new TenentAgreement(finalDataTA);
     output = await tenantAgreementDetails.save();
