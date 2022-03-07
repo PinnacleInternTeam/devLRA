@@ -158,7 +158,7 @@ const TenantFilters = ({
                             ? {
                                 fontWeight: "bold",
                                 fontSize: "22px",
-                                color: "#800000",
+                                color: "#025b99",
                               }
                             : { fontWeight: "bold", fontSize: "19px" }
                         }
@@ -172,7 +172,7 @@ const TenantFilters = ({
                           countVal !== 0
                             ? {
                                 fontSize: "15px",
-                                color: "red",
+                                color: "#000",
                                 background: "#fff",
                               }
                             : {
