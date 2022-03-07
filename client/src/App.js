@@ -43,8 +43,8 @@ const App = () => {
             <div className="col-lg-11 no_padding">
               <Switch>
                 <Route exact path="/" component={HomePage} />
-                {/* <Route exact path="/login" component={Login} /> */}
-                {/* <Route component={RoutesFile} /> */}
+                <Route exact path="/login" component={Login} />
+                <Route component={RoutesFile} />
               </Switch>
             </div>
           </div>
