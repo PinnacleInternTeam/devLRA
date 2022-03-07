@@ -87,7 +87,6 @@ const Header = ({
                     <NavItem></NavItem>
                   )}
                 </NavItem>
-               
 
                 <NavItem>
                   {!loading && isAuthenticated && user ? (
@@ -116,7 +115,7 @@ const Header = ({
                         onClick={() => openSecondLevelMenu2()}
                         className="navbar-right"
                       >
-                        {user.fullName}
+                        {user.userfullName}&nbsp;
                         <i className="fa fa-caret-down" />
                       </Link>
 
