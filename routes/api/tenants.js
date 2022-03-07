@@ -145,8 +145,8 @@ router.post(
           $set: {
             tenantstatus: data.tenantstatus,
             tenantdeactivereason: data.tenantdeactivereason,
-            thEnteredBy: data.tenantEnteredBy,
-            thDate: data.tenantDate,
+            tenantEnteredBy: data.tenantEnteredBy,
+            tenantDate: data.tenantDate,
           },
         }
       );
