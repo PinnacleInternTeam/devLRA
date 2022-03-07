@@ -8,6 +8,7 @@ const TenantSettings = require("../../models/TenantSettings");
 const ShopDetails = require("../../models/ShopDetails");
 const TenentAgreement = require("../../models/TenantAgreementDetails");
 const TenentHistories = require("../../models/TenantHistories");
+const bcrypt = require("bcryptjs");
 
 router.post("/add-tenant-details", async (req, res) => {
   let data = req.body;
@@ -700,4 +701,5 @@ router.post("/renew-tenant-details", async (req, res) => {
     res.status(500).send("Internal Server Error.");
   }
 });
+
 module.exports = router;
