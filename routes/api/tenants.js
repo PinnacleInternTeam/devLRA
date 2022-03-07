@@ -145,20 +145,16 @@ router.post(
           $set: {
             tenantstatus: data.tenantstatus,
             tenantdeactivereason: data.tenantdeactivereason,
-            tenantEnteredBy: data.tenantEnteredBy,
-            tenantDate: data.tenantDate,
           },
         }
       );
-      // res.json(updatedetails);
-      const updateHistoryStatus = await TenentHistories.updateOne(
-        { tdId: data.recordId },
-        {
-          $set: {
-            thStatus: "Deactive",
-          },
-        }
-      );
+      const finalData2 = {
+        tdId: data.recordId,
+        thStatus: "Deactive",
+      };
+
+      let tenantHistories = new TenentHistories(finalData2);
+      output2 = await tenantHistories.save();
 
       const shopDoorNoUpdate = await ShopDetails.updateOne(
         { tdId: data.recordId },
