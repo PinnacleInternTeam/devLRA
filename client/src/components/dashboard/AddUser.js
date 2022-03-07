@@ -5,7 +5,7 @@ import Select from "react-select";
 import { Redirect } from "react-router-dom";
 import { AddUserDetailsform } from "../../actions/auth";
 
-const AddUser = ({ AddUserDetailsform,errorResponse }) => {
+const AddUser = ({ AddUserDetailsform, errorResponse }) => {
   let passwrdTooltip = {
     marginLeft: "-16em",
     position: "absolute",
@@ -29,7 +29,7 @@ const AddUser = ({ AddUserDetailsform,errorResponse }) => {
 
   const UserGroups = [
     { value: "Admin", label: "Admin" },
-    { value: "Super Admin", label: "Super Admin" },
+    { value: "Assistant", label: "Assistant" },
   ];
 
   const {
@@ -208,7 +208,7 @@ const AddUser = ({ AddUserDetailsform,errorResponse }) => {
   return (
     <Fragment>
       <>
-      {errorResponse && <p style={{ color: "red" }}>{errorResponse}</p>}
+        {errorResponse && <p style={{ color: "red" }}>{errorResponse}</p>}
         <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-4">
           <div className="col-lg-2 col-md-2 col-sm-1 col-12">
             <label> FullName:</label>
