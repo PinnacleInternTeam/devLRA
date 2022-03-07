@@ -16,10 +16,12 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.1.7",
     "multer": "^1.4.2",
+    "node-cron": "^3.0.0",
     "nodemailer": "^6.4.0",
     "password-validator": "^5.1.0",
     "react-datepicker": "^4.6.0",
     "request": "^2.88.0",
+    "shelljs": "^0.8.5",
     "shortid": "^2.2.15"
   },
   "devDependencies": {
@@ -30,8 +32,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server",
     "server": "nodemon server ",
+    "cjserver": "npm start --prefix cronjob",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\" "
+    "dev": "concurrently \"npm run server\" \"npm run cjserver\" \"npm run client\" "
   },
   "repository": {
     "type": "git",
