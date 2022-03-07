@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { Container, Navbar, Nav, NavItem, Modal } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { logout } from "../../actions/auth";
@@ -82,18 +82,25 @@ const Header = ({
                 </NavItem> */}
                 <NavItem>
                   {!loading && isAuthenticated && user ? (
-                    <Link to="/add-tenant-details">Add Tenant Details</Link>
+                    <NavLink
+                      to="/add-tenant-details"
+                      activeStyle={{ color: "Black", textDecoration: "none" }}
+                    >
+                      Add Tenant Details
+                    </NavLink>
                   ) : (
                     <NavItem></NavItem>
                   )}
                 </NavItem>
 
-
                 <NavItem>
                   {!loading && isAuthenticated && user ? (
-                    <Link to="/all-tenant-shop-Details">
+                    <NavLink
+                      to="/all-tenant-shop-Details"
+                      activeStyle={{ color: "Black", textDecoration: "none" }}
+                    >
                       All Tenants Shop Details
-                    </Link>
+                    </NavLink>
                   ) : (
                     <NavItem></NavItem>
                   )}
@@ -114,7 +121,7 @@ const Header = ({
 
                       <ul className="dropdown-menu second-level-menu ">
                         <li>
-                        <Link to="/shop-Details">Shop Details</Link>
+                          <Link to="/shop-Details">Shop Details</Link>
                         </li>
 
                         <li>
