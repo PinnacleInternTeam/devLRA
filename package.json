@@ -16,24 +16,26 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.1.7",
     "multer": "^1.4.2",
+    "node-cron": "^3.0.0",
     "nodemailer": "^6.7.2",
     "password-validator": "^5.1.0",
     "react-datepicker": "^4.6.0",
     "request": "^2.88.0",
+    "shelljs": "^0.8.5",
     "shortid": "^2.2.15"
   },
   "devDependencies": {
     "concurrently": "^5.3.0",
     "nodemon": "^2.0.15"
   },
- 
-  "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "node server",
-        "server": "nodemon server ",
-        "client": "npm start --prefix client",
-        "dev": "concurrently \"npm run server\" \"npm run client\" "
-      }, 
+ "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server",
+    "server": "nodemon server ",
+    "cjserver": "npm start --prefix cronjob",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run cjserver\" \"npm run client\" "
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dev123-dev/staff-management.git"
