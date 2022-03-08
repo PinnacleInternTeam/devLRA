@@ -89,10 +89,10 @@ const AllTenantShopDetails = ({
       <div className="container container_align">
         <section className="sub_reg">
           <div className="row col-lg-12 col-md-12 col-sm-12 col-12">
-            <div className="col-lg-5 col-md-11 col-sm-11 col-11 ">
+            <div className="col-lg-5 col-md-11 col-sm-11 col-11">
               <h2 className="heading_color">All Tenants Shop Details</h2>
             </div>
-            <div className="col-lg-3 col-md-11 col-sm-11 col-11 py-4">
+            <div className="col-lg-3 col-md-11 col-sm-11 col-11 py-3">
               <Select
                 name="tenantDoorNo"
                 options={shopdoorNo}

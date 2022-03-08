@@ -1,5 +1,6 @@
 import axios from "axios";
 import { setAlert } from "./alert";
+
 import {
   USER_LOADED,
   AUTH_ERROR,
@@ -11,11 +12,38 @@ import {
   ALL_USERS,
   GET_ALL_USER,
   LOGOUT,
+  OTP_SENT,
 } from "./types";
 import setAuthToken from "../utils/setAuthToken";
 
 // Login User
-export const login = (useremail, password) => async (dispatch) => {
+export const login = (useremail, password, userOTP) => async (dispatch) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  const body = JSON.stringify({ useremail, password, userOTP });
+
+  try {
+    const res = await axios.post("/api/auth/login", body, config);
+    dispatch({
+      type: LOGIN_SUCCESS,
+      payload: res.data,
+    });
+    // alert("success");
+    // dispatch(loadUser());
+  } catch (err) {
+    const errors = err.response.data.errors;
+    dispatch({
+      type: LOGIN_FAIL,
+      payload: errors[0].msg,
+    });
+  }
+};
+
+export const sendOTP = (useremail, password) => async (dispatch) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -25,14 +53,11 @@ export const login = (useremail, password) => async (dispatch) => {
   const body = JSON.stringify({ useremail, password });
 
   try {
-    const res = await axios.post("/api/auth/login", body, config);
-
+    const res = await axios.post("/api/auth/send_email-otp", body, config);
     dispatch({
-      type: LOGIN_SUCCESS,
+      type: OTP_SENT,
       payload: res.data,
     });
-    // alert("success");
-    dispatch(loadUser());
   } catch (err) {
     const errors = err.response.data.errors;
     dispatch({

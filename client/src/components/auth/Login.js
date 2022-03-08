@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import { Redirect, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { login, removeError } from "../../actions/auth";
+import { login, removeError, sendOTP } from "../../actions/auth";
 
 const Login = ({
   login,
@@ -10,6 +10,8 @@ const Login = ({
   errorResponse,
   removeError,
   loading,
+  sendOTP,
+  otpMessage,
 }) => {
   useEffect(() => {
     removeError();
@@ -23,7 +25,7 @@ const Login = ({
   });
 
   // W7'Um34BrCxzQNR?
-  const { useremail, password } = formData;
+  const { useremail, password, userOTP } = formData;
 
   const onInputChange = (e) => {
     const { name, value } = e.target;
@@ -67,6 +69,9 @@ const Login = ({
           setFormData({ ...formData, [e.target.name]: value });
         }
         break;
+      case "userOTP":
+        setFormData({ ...formData, [e.target.name]: value });
+        break;
       default:
         break;
     }
@@ -107,7 +112,8 @@ const Login = ({
       });
       return false;
     } else {
-      const userEmailFilter = /^(\d*[a-zA-Z][a-zA-Z\d_.+-]*)\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})*$/;
+      const userEmailFilter =
+        /^(\d*[a-zA-Z][a-zA-Z\d_.+-]*)\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})*$/;
       if (!userEmailFilter.test(formData && formData.useremail)) {
         setError({
           ...error,
@@ -135,9 +141,15 @@ const Login = ({
   const onSubmit = async (e) => {
     e.preventDefault();
     if (checkErrors(formData)) {
-      login(useremail, password);
+      login(useremail, password, userOTP);
     }
     setFormData({ ...formData, submitted: true });
+  };
+
+  const getOtp = async () => {
+    if (checkErrors(formData)) {
+      sendOTP(useremail, password);
+    }
   };
 
   if (isAuthenticated) {
@@ -159,50 +171,74 @@ const Login = ({
           )}
         </div>
         {errorResponse && <p style={{ color: "red" }}>{errorResponse}</p>}
+        {otpMessage && <p style={{ color: "red" }}>{otpMessage}</p>}
         {/* <!-- form --> */}
-        <form onSubmit={(e) => onSubmit(e)}>
-          <div className="form-group form_top">
-            <input
-              type="text"
-              name="useremail"
-              value={useremail}
-              style={userEmailInptErrStyle}
-              className="form-control form_contct"
-              onChange={(e) => onInputChange(e)}
-            />
-            {userEmailValChecker && (
-              <span style={userEmailValStyle}>
-                {userEmailValResult}
-                <br />
-              </span>
-            )}
-            <label className="pop_up">
-              <span className="label-content">Email *</span>
-            </label>
-          </div>
+        {/* <form> */}
+        <div className="form-group form_top">
+          <input
+            type="text"
+            name="useremail"
+            value={useremail}
+            style={userEmailInptErrStyle}
+            className="form-control form_contct"
+            onChange={(e) => onInputChange(e)}
+          />
+          {userEmailValChecker && (
+            <span style={userEmailValStyle}>
+              {userEmailValResult}
+              <br />
+            </span>
+          )}
+          <label className="pop_up">
+            <span className="label-content">Email *</span>
+          </label>
+        </div>
 
-          <div className="form-group form_top">
-            <input
-              type="password"
-              name="password"
-              value={password}
-              style={passwordInptErrStyle}
-              className="form-control form_contct"
-              onChange={(e) => onInputChange(e)}
-              autoComplete="false"
-            />
-            {passwordValChecker && (
-              <span style={passwordValStyle}>
-                {passwordValResult}
-                <br />
-              </span>
-            )}
-            <label className="pop_up">Password *</label>
-          </div>
-          <div className="col-md-12 col-sm-12 col-lg-12 col-12 text-center">
-            <button className="btn contact_reg">SIGN IN</button>
-          </div>
-        </form>
+        <div className="form-group form_top">
+          <input
+            type="password"
+            name="password"
+            value={password}
+            style={passwordInptErrStyle}
+            className="form-control form_contct"
+            onChange={(e) => onInputChange(e)}
+            autoComplete="false"
+          />
+          {passwordValChecker && (
+            <span style={passwordValStyle}>
+              {passwordValResult}
+              <br />
+            </span>
+          )}
+          <label className="pop_up">Password *</label>
+        </div>
+
+        <div className="col-md-12 col-sm-12 col-lg-12 col-12 text-center">
+          <button className="btn contact_reg" onClick={() => getOtp()}>
+            Get OTP
+          </button>
+        </div>
+
+        <div className="form-group form_top">
+          <input
+            type="text"
+            name="userOTP"
+            value={userOTP}
+            // style={userEmailInptErrStyle}
+            className="form-control form_contct"
+            onChange={(e) => onInputChange(e)}
+          />
+          <label className="pop_up">
+            <span className="label-content">OTP</span>
+          </label>
+        </div>
+
+        <div className="col-md-12 col-sm-12 col-lg-12 col-12 text-center">
+          <button className="btn contact_reg" onClick={(e) => onSubmit(e)}>
+            SIGN IN
+          </button>
+        </div>
+        {/* </form> */}
       </div>
     </Fragment>
   );
@@ -213,13 +249,16 @@ Login.propTypes = {
   isAuthenticated: PropTypes.bool,
   loading: PropTypes.bool,
   errorResponse: PropTypes.string,
+  otpMessage: PropTypes.string,
   removeError: PropTypes.func.isRequired,
+  sendOTP: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
   loading: state.auth.loading,
   errorResponse: state.auth.errorResponse,
+  otpMessage: state.auth.otpMessage,
 });
 
-export default connect(mapStateToProps, { login, removeError })(Login);
+export default connect(mapStateToProps, { login, removeError, sendOTP })(Login);

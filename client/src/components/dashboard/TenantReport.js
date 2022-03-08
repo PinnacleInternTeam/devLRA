@@ -13,13 +13,13 @@ const TenantReport = ({ auth: { expReport }, getTenantReportYearMonth }) => {
     setShowEditModal(true);
     setUserData(tenants);
   };
- 
+
   return (
     <Fragment>
       <div className="container container_align">
         <section className="sub_reg">
           <div className="col-lg-5 col-md-12 col-sm-12 col-12">
-            <h2 className="heading_color">Tenant Reports  </h2>
+            <h2 className="heading_color">Tenant Reports </h2>
           </div>
           <div className="body-inner no-padding  table-responsive fixTableHead">
             <table
@@ -34,6 +34,7 @@ const TenantReport = ({ auth: { expReport }, getTenantReportYearMonth }) => {
                   <th>Expiry Date</th>
                   <th>Charges</th>
                   <th>Stamp Duty</th>
+                  <th>Agreement Status</th>
                   <th>Operation</th>
                 </tr>
               </thead>
@@ -49,15 +50,18 @@ const TenantReport = ({ auth: { expReport }, getTenantReportYearMonth }) => {
                         <td>{expReportVal.tenantLeaseEndDate}</td>
                         <td>{expReportVal.chargesCal.toFixed(2)}</td>
                         <td>{expReportVal.stampDuty.toFixed(2)}</td>
+                        <td>{expReportVal.AgreementStatus}</td>
                         {expReportVal.AgreementStatus === "Expired" ? (
                           <td>
-                            <button
-                              variant="success"
-                              className="btn sub_form"
-                              onClick={() => onRenewal(expReportVal, idx)}
-                            >
-                              Renewal
-                            </button>
+                            <center>
+                              <button
+                                variant="success"
+                                className="btn sub_form"
+                                onClick={() => onRenewal(expReportVal, idx)}
+                              >
+                                Renewal
+                              </button>
+                            </center>
                           </td>
                         ) : (
                           <td></td>

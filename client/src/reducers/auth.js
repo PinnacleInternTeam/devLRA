@@ -11,6 +11,7 @@ import {
   YEAR_EXP_CNT,
   EXP_REPORT,
   GET_ALL_USER,
+  OTP_SENT,
 } from "../actions/types";
 
 const initialState = {
@@ -29,6 +30,7 @@ const initialState = {
   monthExpCnt: [],
   yearExpCnt: [],
   expReport: [],
+  otpMessage: "",
 };
 
 const auth = (state = initialState, action) => {
@@ -63,6 +65,7 @@ const auth = (state = initialState, action) => {
         loading: false,
         errorResponse: payload,
         successResponse: "",
+        otpMessage: "",
       };
 
     case ALL_USERS:
@@ -76,6 +79,7 @@ const auth = (state = initialState, action) => {
         ...state,
         errorResponse: "",
         successResponse: "",
+        otpMessage: "",
       };
 
     case CHANGE_PWD_FAIL:
@@ -122,7 +126,12 @@ const auth = (state = initialState, action) => {
         ...state,
         allUser: payload,
       };
-
+    case OTP_SENT:
+      return {
+        ...state,
+        otpMessage: payload,
+        errorResponse: "",
+      };
     default:
       return state;
   }

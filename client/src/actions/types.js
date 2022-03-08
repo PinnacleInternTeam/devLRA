@@ -31,3 +31,4 @@ export const GET_DELAYS = "GET_DELAYS";
 export const GET_DOORNUMBER = "GET_DOORNUMBER";
 export const ADD_USER_INIT = "ADD_USER_INIT";
 export const GET_ALL_USER = "GET_ALL_USER";
+export const OTP_SENT = "OTP_SENT";
