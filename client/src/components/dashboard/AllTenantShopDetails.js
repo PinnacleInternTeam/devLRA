@@ -186,28 +186,31 @@ const AllTenantShopDetails = ({
                         })}
                     </tbody>
                   </table>
+                  <div className="row">
+                    <div className="col-lg-3 col-md-6 col-sm-12 col-12 ">
+                      {allTenants && allTenants.length !== 0 ? (
+                        <Pagination
+                          dataPerPage={dataPerPage}
+                          totalData={allTenants.length}
+                          paginate={paginate}
+                          currentPage={currentData}
+                        />
+                      ) : (
+                        <Fragment />
+                      )}
+                    </div>
+                    <div className="col-lg-9 col-md-6 col-sm-12 col-12 align_right">
+                      <label>
+                        No of Users : {allTenants && allTenants.length}
+                      </label>
+                    </div>
+                  </div>
                 </div>
               </section>
             </div>
           </div>
         </section>
-        <div className="row">
-          <div className="col-lg-6 col-md-6 col-sm-12 col-12 no_padding">
-            {allTenants && allTenants.length !== 0 ? (
-              <Pagination
-                dataPerPage={dataPerPage}
-                totalData={allTenants.length}
-                paginate={paginate}
-                currentPage={currentData}
-              />
-            ) : (
-              <Fragment />
-            )}
-          </div>
-          <div className="col-lg-6 col-md-6 col-sm-12 col-12 align_right">
-            <label>No of Users : {allTenants && allTenants.length}</label>
-          </div>
-        </div>
+
         <Modal
           show={showDeactiveModal}
           backdrop="static"
