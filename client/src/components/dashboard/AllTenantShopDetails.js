@@ -7,6 +7,7 @@ import { getAllTenants } from "../../actions/tenants";
 import { Modal } from "react-bootstrap";
 import Select from "react-select";
 import Pagination from "../layout/Pagination";
+
 import {
   getAllTenanatDoornoFilter,
   getAllDoorNumbers,
@@ -154,7 +155,15 @@ const AllTenantShopDetails = ({
                         <td>{tenants.tenantDepositAmt}</td>
                         <td>{tenants.tenantRentAmount}</td>
                         <td>{tenants.tenantLeaseStartDate}</td>
-                        <td>{tenants.tenantLeaseEndDate}</td>
+                        <td
+                          style={
+                            tenants.AgreementStatus === "Expired"
+                              ? { color: "red" }
+                              : { color: "black" }
+                          }
+                        >
+                          {tenants.tenantLeaseEndDate}
+                        </td>
 
                         <td>
                           {tenants.tenantstatus &&
