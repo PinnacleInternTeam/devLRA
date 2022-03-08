@@ -87,9 +87,9 @@ const AllTenantShopDetails = ({
 
   return (
     <Fragment>
-      <div className="container container_align">
+      <div className="container container_align ">
         <section className="sub_reg">
-          <div className="row col-lg-12 col-md-12 col-sm-12 col-12">
+          <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
             <div className="col-lg-5 col-md-11 col-sm-11 col-11">
               <h2 className="heading_color">All Tenants Shop Details</h2>
             </div>
@@ -122,87 +122,92 @@ const AllTenantShopDetails = ({
               />
             </div>
           </div>
-
-          <div className="body-inner no-padding  table-responsive ">
-            <table
-              className="table table-bordered table-striped table-hover"
-              id="datatable2"
-            >
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Door No</th>
-                  <th>File No</th>
-                  <th>Firm Name</th>
-                  <th>Phone</th>
-                  <th>Deposit Amount</th>
-                  <th>Rent</th>
-                  <th>Lease Start</th>
-                  <th>Lease End</th>
-                  <th>Operation</th>
-                </tr>
-              </thead>
-              <tbody>
-                {currentDatas &&
-                  currentDatas.map((tenants, idx) => {
-                    return (
-                      <tr key={idx}>
-                        <td>{tenants.tenantName}</td>
-                        <td>{tenants.tenantDoorNo}</td>
-                        <td>{tenants.tenantFileNo}</td>
-                        <td>{tenants.tenantFirmName}</td>
-                        <td>{tenants.tenantPhone}</td>
-                        <td>{tenants.tenantDepositAmt}</td>
-                        <td>{tenants.tenantRentAmount}</td>
-                        <td>{tenants.tenantLeaseStartDate}</td>
-                        <td
-                          style={
-                            tenants.AgreementStatus === "Expired"
-                              ? { color: "red" }
-                              : { color: "black" }
-                          }
-                        >
-                          {tenants.tenantLeaseEndDate}
-                        </td>
-
-                        <td>
-                          {tenants.tenantstatus &&
-                          tenants.tenantstatus !== "Deactive" ? (
-                            <button
-                              variant="success"
-                              className="btn sub_form  "
-                              onClick={() => onUpdate(tenants, idx)}
-                            >
-                              Deactive
-                            </button>
-                          ) : (
-                            <Fragment></Fragment>
-                          )}
-                        </td>
+          <div className="row">
+            <div className="col-lg-11 col-md-11 col-sm-11 col-11 text-center ">
+              <section className="body">
+                <div className="body-inner no-padding  table-responsive fixTableHead">
+                  <table
+                    className="table table-bordered table-striped table-hover"
+                    id="datatable2"
+                  >
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Door No</th>
+                        <th>File No</th>
+                        <th>Firm Name</th>
+                        <th>Phone</th>
+                        <th>Deposit Amount</th>
+                        <th>Rent</th>
+                        <th>Lease Start</th>
+                        <th>Lease End</th>
+                        <th>Operation</th>
                       </tr>
-                    );
-                  })}
-              </tbody>
-            </table>
-            <div className="row">
-              <div className="col-lg-6 col-md-6 col-sm-12 col-12 no_padding">
-                {allTenants && allTenants.length !== 0 ? (
-                  <Pagination
-                    dataPerPage={dataPerPage}
-                    totalData={allTenants.length}
-                    paginate={paginate}
-                    currentPage={currentData}
-                  />
-                ) : (
-                  <Fragment />
-                )}
-              </div>
-              <div className="col-lg-6 col-md-6 col-sm-12 col-12 align_right">
-                <label>No of Users : {allTenants && allTenants.length}</label>
-              </div>
+                    </thead>
+                    <tbody>
+                      {currentDatas &&
+                        currentDatas.map((tenants, idx) => {
+                          return (
+                            <tr key={idx}>
+                              <td>{tenants.tenantName}</td>
+                              <td>{tenants.tenantDoorNo}</td>
+                              <td>{tenants.tenantFileNo}</td>
+                              <td>{tenants.tenantFirmName}</td>
+                              <td>{tenants.tenantPhone}</td>
+                              <td>{tenants.tenantDepositAmt}</td>
+                              <td>{tenants.tenantRentAmount}</td>
+                              <td>{tenants.tenantLeaseStartDate}</td>
+                              <td
+                                style={
+                                  tenants.AgreementStatus === "Expired"
+                                    ? { color: "red" }
+                                    : { color: "black" }
+                                }
+                              >
+                                {tenants.tenantLeaseEndDate}
+                              </td>
+
+                              <td>
+                                {tenants.tenantstatus &&
+                                tenants.tenantstatus !== "Deactive" ? (
+                                  <button
+                                    variant="success"
+                                    className="btn sub_form  "
+                                    onClick={() => onUpdate(tenants, idx)}
+                                  >
+                                    Deactive
+                                  </button>
+                                ) : (
+                                  <Fragment></Fragment>
+                                )}
+                              </td>
+                            </tr>
+                          );
+                        })}
+                    </tbody>
+                  </table>
+                </div>
+              </section>
             </div>
           </div>
         </section>
+        <div className="row">
+          <div className="col-lg-6 col-md-6 col-sm-12 col-12 no_padding">
+            {allTenants && allTenants.length !== 0 ? (
+              <Pagination
+                dataPerPage={dataPerPage}
+                totalData={allTenants.length}
+                paginate={paginate}
+                currentPage={currentData}
+              />
+            ) : (
+              <Fragment />
+            )}
+          </div>
+          <div className="col-lg-6 col-md-6 col-sm-12 col-12 align_right">
+            <label>No of Users : {allTenants && allTenants.length}</label>
+          </div>
+        </div>
         <Modal
           show={showDeactiveModal}
           backdrop="static"

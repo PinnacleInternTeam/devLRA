@@ -16,61 +16,71 @@ const TenantReport = ({ auth: { expReport }, getTenantReportYearMonth }) => {
 
   return (
     <Fragment>
-      <div className="container container_align">
+      <div className="container container_align ">
         <section className="sub_reg">
-          <div className="col-lg-5 col-md-12 col-sm-12 col-12">
-            <h2 className="heading_color">Tenant Reports </h2>
+          <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
+            <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
+              <h2 className="heading_color">Tenant Reports </h2>
+            </div>
           </div>
-          <div className="body-inner no-padding  table-responsive fixTableHead">
-            <table
-              className="table table-bordered table-striped table-hover"
-              id="datatable2"
-            >
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Door No</th>
-                  <th>File No</th>
-                  <th>Expiry Date</th>
-                  <th>Charges</th>
-                  <th>Stamp Duty</th>
-                  <th>Agreement Status</th>
-                  <th>Operation</th>
-                </tr>
-              </thead>
-              <tbody>
-                {expReport &&
-                  expReport[0] &&
-                  expReport.map((expReportVal, idx) => {
-                    return (
-                      <tr key={idx}>
-                        <td>{expReportVal.tenantName}</td>
-                        <td>{expReportVal.tenantDoorNo}</td>
-                        <td>{expReportVal.tenantFileNo}</td>
-                        <td>{expReportVal.tenantLeaseEndDate}</td>
-                        <td>{expReportVal.chargesCal.toFixed(2)}</td>
-                        <td>{expReportVal.stampDuty.toFixed(2)}</td>
-                        <td>{expReportVal.AgreementStatus}</td>
-                        {expReportVal.AgreementStatus === "Expired" ? (
-                          <td>
-                            <center>
-                              <button
-                                variant="success"
-                                className="btn sub_form"
-                                onClick={() => onRenewal(expReportVal, idx)}
-                              >
-                                Renewal
-                              </button>
-                            </center>
-                          </td>
-                        ) : (
-                          <td></td>
-                        )}
+          <div className="row">
+            <div className="col-lg-11 col-md-11 col-sm-11 col-11 text-center ">
+              <section className="body">
+                <div className="body-inner no-padding  table-responsive fixTableHead">
+                  <table
+                    className="table table-bordered table-striped table-hover"
+                    id="datatable2"
+                  >
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Door No</th>
+                        <th>File No</th>
+                        <th>Expiry Date</th>
+                        <th>Charges</th>
+                        <th>Stamp Duty</th>
+                        <th>Agreement Status</th>
+                        <th>Operation</th>
                       </tr>
-                    );
-                  })}
-              </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                      {expReport &&
+                        expReport[0] &&
+                        expReport.map((expReportVal, idx) => {
+                          return (
+                            <tr key={idx}>
+                              <td>{expReportVal.tenantName}</td>
+                              <td>{expReportVal.tenantDoorNo}</td>
+                              <td>{expReportVal.tenantFileNo}</td>
+                              <td>{expReportVal.tenantLeaseEndDate}</td>
+                              <td>{expReportVal.chargesCal.toFixed(2)}</td>
+                              <td>{expReportVal.stampDuty.toFixed(2)}</td>
+                              <td>{expReportVal.AgreementStatus}</td>
+                              {expReportVal.AgreementStatus === "Expired" ? (
+                                <td>
+                                  <center>
+                                    <button
+                                      variant="success"
+                                      className="btn sub_form"
+                                      onClick={() =>
+                                        onRenewal(expReportVal, idx)
+                                      }
+                                    >
+                                      Renewal
+                                    </button>
+                                  </center>
+                                </td>
+                              ) : (
+                                <td></td>
+                              )}
+                            </tr>
+                          );
+                        })}
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+            </div>
           </div>
         </section>
         <Modal
