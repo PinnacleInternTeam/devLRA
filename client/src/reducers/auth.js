@@ -12,6 +12,7 @@ import {
   EXP_REPORT,
   GET_ALL_USER,
   OTP_SENT,
+  SET_LOADING_TRUE,
 } from "../actions/types";
 
 const initialState = {
@@ -131,6 +132,13 @@ const auth = (state = initialState, action) => {
         ...state,
         otpMessage: payload,
         errorResponse: "",
+        loading: false,
+      };
+    case SET_LOADING_TRUE:
+      return {
+        ...state,
+        loading: true,
+        otpMessage: "",
       };
     default:
       return state;

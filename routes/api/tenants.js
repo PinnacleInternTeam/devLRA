@@ -435,49 +435,6 @@ router.post("/get-tenant-exp-report", async (req, res) => {
   }
 });
 
-router.get("/get-all-tenants", async (req, res) => {
-  try {
-    const tenanatData = await TenantDetails.aggregate([
-      {
-        $lookup: {
-          from: "tenantagreementsettings",
-          localField: "_id",
-          foreignField: "tdId",
-          as: "output",
-        },
-      },
-      {
-        $project: {
-          tenantName: "$tenantName",
-          tenantDoorNo: "$tenantDoorNo",
-          tenantFileNo: "$tenantFileNo",
-          tenantPhone: "$tenantPhone",
-          tenantFirmName: "$tenantFirmName",
-          tenantAdharNo: "$tenantAdharNo",
-          tenantPanNo: "$tenantPanNo",
-          tenantDepositAmt: "$tenantDepositAmt",
-          tenantPaymentMode: "$tenantPaymentMode",
-          tenantChequenoOrDdno: "$tenantChequenoOrDdno",
-          tenantstatus: "$tenantstatus",
-          tenantRentAmount: "$output.tenantRentAmount",
-          tenantLeaseEndDate: "$output.tenantLeaseEndDate",
-          tenantLeaseStartDate: "$output.tenantLeaseStartDate",
-        },
-      },
-      {
-        $match: {
-          tenantstatus: {
-            $eq: "Active",
-          },
-        },
-      },
-    ]);
-    res.json(tenanatData);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Internal Server Error.");
-  }
-});
 router.get("/get-all-settings", async (req, res) => {
   try {
     const tenanatSettingData = await TenantSettings.find({});
@@ -667,6 +624,7 @@ router.get("/get-all-tenants", async (req, res) => {
           as: "output",
         },
       },
+      { $unwind: "$output" },
       {
         $project: {
           tenantName: "$tenantName",
@@ -683,6 +641,7 @@ router.get("/get-all-tenants", async (req, res) => {
           tenantRentAmount: "$output.tenantRentAmount",
           tenantLeaseEndDate: "$output.tenantLeaseEndDate",
           tenantLeaseStartDate: "$output.tenantLeaseStartDate",
+          AgreementStatus: "$output.AgreementStatus",
         },
       },
       {
@@ -690,6 +649,7 @@ router.get("/get-all-tenants", async (req, res) => {
           tenantstatus: {
             $eq: "Active",
           },
+          AgreementStatus: { $ne: "Renewed" },
         },
       },
     ]);

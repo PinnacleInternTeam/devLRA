@@ -99,6 +99,10 @@ router.post(
             },
           }
         );
+      } else {
+        return res
+          .status(STATUS_CODE_400)
+          .json({ errors: [{ msg: "Invalid OTP" }] });
       }
     } catch (err) {
       console.error(err.message);

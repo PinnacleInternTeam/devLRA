@@ -171,7 +171,6 @@ const Login = ({
           )}
         </div>
         {errorResponse && <p style={{ color: "red" }}>{errorResponse}</p>}
-        {otpMessage && <p style={{ color: "red" }}>{otpMessage}</p>}
         {/* <!-- form --> */}
         {/* <form> */}
         <div className="form-group form_top">
@@ -214,15 +213,26 @@ const Login = ({
         </div>
 
         <div className="col-md-12 col-sm-12 col-lg-12 col-12 text-center">
-          <button className="btn contact_reg" onClick={() => getOtp()}>
-            Get OTP
-          </button>
+          {loading ? (
+            <button
+              className="btn contact_reg"
+              disabled
+              onClick={() => getOtp()}
+            >
+              Loading...
+            </button>
+          ) : (
+            <button className="btn contact_reg" onClick={() => getOtp()}>
+              Get OTP
+            </button>
+          )}
         </div>
 
         <div className="form-group form_top">
           <input
             type="text"
             name="userOTP"
+            maxLength={4}
             value={userOTP}
             // style={userEmailInptErrStyle}
             className="form-control form_contct"
@@ -238,6 +248,24 @@ const Login = ({
             SIGN IN
           </button>
         </div>
+        {otpMessage && (
+          <>
+            <center>
+              <p style={{ color: "blue", fontSize: "18px" }}>
+                {otpMessage}
+                <span
+                  style={{
+                    color: "gray",
+                    fontSize: "13px",
+                    fontStyle: "italic",
+                  }}
+                >
+                  &nbsp;&nbsp;&nbsp;Please check in spam if not received!
+                </span>
+              </p>
+            </center>
+          </>
+        )}
         {/* </form> */}
       </div>
     </Fragment>

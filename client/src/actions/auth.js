@@ -13,6 +13,7 @@ import {
   GET_ALL_USER,
   LOGOUT,
   OTP_SENT,
+  SET_LOADING_TRUE,
 } from "./types";
 import setAuthToken from "../utils/setAuthToken";
 
@@ -32,8 +33,6 @@ export const login = (useremail, password, userOTP) => async (dispatch) => {
       type: LOGIN_SUCCESS,
       payload: res.data,
     });
-    // alert("success");
-    // dispatch(loadUser());
   } catch (err) {
     const errors = err.response.data.errors;
     dispatch({
@@ -49,6 +48,9 @@ export const sendOTP = (useremail, password) => async (dispatch) => {
       "Content-Type": "application/json",
     },
   };
+  dispatch({
+    type: SET_LOADING_TRUE,
+  });
 
   const body = JSON.stringify({ useremail, password });
 
