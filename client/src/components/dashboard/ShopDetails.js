@@ -1,9 +1,10 @@
 import React, { useState, Fragment, useEffect } from "react";
 import { Modal } from "react-bootstrap";
-import AddShopDetails from "./AddShopDetails";
+// import AddShopDetails from "./AddShopDetails";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getAllLevels } from "../../actions/tenants";
+import { Link } from "react-router-dom";
 
 const ShopDetails = ({
   // auth: { allLevels },
@@ -14,11 +15,17 @@ const ShopDetails = ({
     getAllLevels();
   }, [getAllLevels]);
 
-  const [showEditModal, setShowEditModal] = useState(false);
-  const handleEditModalClose = () => setShowEditModal(false);
-  const onClickHandler = () => {
-    setShowEditModal(true);
-  };
+  // const [showEditModal, setShowEditModal] = useState(false);
+  // const handleEditModalClose = () => setShowEditModal(false);
+  // const onClickHandler = () => {
+  //   setShowEditModal(true);
+  // };
+
+  // const onAddStaffModalChange = (e) => {
+  //   if (e) {
+  //     handleEditModalClose();
+  //   }
+  // };
 
   return (
     <Fragment>
@@ -29,13 +36,15 @@ const ShopDetails = ({
               <h2 className="heading_color">Shop Details </h2>
             </div>
             <div className="col-lg-2 col-md-11 col-sm-11 col-11 py-4">
-              <img
-                className="img_icon_size log"
-                onClick={() => onClickHandler()}
-                src={require("../../static/images/add-icon.png")}
-                alt="refresh"
-                title="Refresh"
-              />
+              <Link to="/shop-Details-add">
+                <img
+                  className="img_icon_size log"
+                  //  onClick={() => onClickHandler()}
+                  src={require("../../static/images/add-icon.png")}
+                  alt="Add Shop"
+                  title="Add Shop"
+                />
+              </Link>
             </div>
           </div>
           <div className="row">
@@ -71,7 +80,7 @@ const ShopDetails = ({
             </div>
           </div>
         </section>
-        <Modal
+        {/* <Modal
           show={showEditModal}
           backdrop="static"
           keyboard={false}
@@ -94,13 +103,9 @@ const ShopDetails = ({
             </div>
           </Modal.Header>
           <Modal.Body>
-            <AddShopDetails
-            //   user={userData}
-            //   loggedStaff={loggedStaff}
-            //   onEditStaffModalChange={onEditStaffModalChange}
-            />
+            <AddShopDetails onAddStaffModalChange={onAddStaffModalChange} />
           </Modal.Body>
-        </Modal>
+        </Modal> */}
       </div>
     </Fragment>
   );

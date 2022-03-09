@@ -15,6 +15,7 @@ import TenantReport from "../dashboard/TenantReport";
 import ShopDetails from "../dashboard/ShopDetails";
 import AllUserDetails from "../dashboard/AllUserDetails";
 import AllTenantShopDetails from "../dashboard/AllTenantShopDetails";
+import AddShopDetails from "../dashboard/AddShopDetails";
 
 const RoutesFile = () => {
   return (
@@ -34,6 +35,12 @@ const RoutesFile = () => {
           exact
           path="/all-tenant-shop-Details"
           component={AllTenantShopDetails}
+        />
+
+        <PrivateRoute
+          exact
+          path="/shop-Details-add"
+          component={AddShopDetails}
         />
         <PrivateRoute
           exact
