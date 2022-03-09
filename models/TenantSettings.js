@@ -1,4 +1,7 @@
-const mongoose = require("mongoose");
+var mongoose = require("mongoose");
+require("mongoose-double")(mongoose);
+
+var SchemaTypes = mongoose.Schema.Types;
 
 const TenantSettings = new mongoose.Schema({
   hikePercentage: {
@@ -6,7 +9,7 @@ const TenantSettings = new mongoose.Schema({
     Required: true,
   },
   stampDuty: {
-    type: Number,
+    type: SchemaTypes.Double,
     required: true,
   },
   leaseTimePeriod: {

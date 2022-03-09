@@ -682,7 +682,6 @@ router.post("/renew-tenant-details", async (req, res) => {
     tenantAgreementEntredBy: data.tenantEnteredBy,
     tenantAgreementDate: data.tenantDate,
   };
-  console.log(finalDataTA);
   try {
     let tenantAgreementDetails = new TenentAgreement(finalDataTA);
     output = await tenantAgreementDetails.save();
