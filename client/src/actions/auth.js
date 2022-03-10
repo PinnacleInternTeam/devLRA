@@ -109,7 +109,6 @@ export const AddUserDetailsform = (finalData) => async (dispatch) => {
       "Content-Type": "application/json",
     },
   };
-  console.log(finalData);
   try {
     dispatch({
       type: ADD_USER_INIT,

@@ -331,7 +331,6 @@ export const getAllTenanatDoornoFilter = (finalData) => async (dispatch) => {
 
 export const RenewTenantDetailsform = (finalData) => async (dispatch) => {
   try {
-    console.log(finalData);
     await axios.post("/api/tenants/renew-tenant-details", finalData, config);
   } catch (err) {
     dispatch({

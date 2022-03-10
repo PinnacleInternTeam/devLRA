@@ -1,8 +1,6 @@
 import React, { useState, Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import Select from "react-select";
-import { Redirect } from "react-router-dom";
 import { AddShopDetailsform } from "../../actions/tenants";
 import { Modal } from "react-bootstrap";
 var today = new Date();

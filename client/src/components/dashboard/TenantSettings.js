@@ -19,7 +19,7 @@ const TenantSettings = ({
   }, [getAllSettings]);
 
   //formData
-  console.log(allTenantSetting);
+
   const [formData, setFormData] = useState({
     recordId: allTenantSetting[0] ? allTenantSetting[0]._id : "",
     hikePercentage: allTenantSetting[0]
