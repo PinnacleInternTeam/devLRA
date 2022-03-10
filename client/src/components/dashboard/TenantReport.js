@@ -5,7 +5,10 @@ import { getTenantReportYearMonth } from "../../actions/tenants";
 import { Modal } from "react-bootstrap";
 import RenewTenentAgreement from "./RenewTenentAgreement";
 
-const TenantReport = ({ auth: { expReport }, getTenantReportYearMonth }) => {
+const TenantReport = ({
+  auth: { expReport, isAuthenticated, user, users },
+  getTenantReportYearMonth,
+}) => {
   const [showEditModal, setShowEditModal] = useState(false);
   const handleEditModalClose = () => setShowEditModal(false);
   const [userData, setUserData] = useState(null);
@@ -14,7 +17,9 @@ const TenantReport = ({ auth: { expReport }, getTenantReportYearMonth }) => {
     setUserData(tenants);
   };
 
-  return (
+  return !isAuthenticated || !user || !users ? (
+    <Fragment></Fragment>
+  ) : (
     <Fragment>
       <div className="container container_align ">
         <section className="sub_reg">

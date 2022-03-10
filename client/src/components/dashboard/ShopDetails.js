@@ -7,7 +7,7 @@ import { getAllShops } from "../../actions/tenants";
 import { Link } from "react-router-dom";
 
 const ShopDetails = ({
-  // auth: { allLevels },
+  auth: { isAuthenticated, user, users },
   getAllShops,
   tenants: { allShops },
 }) => {
@@ -27,7 +27,9 @@ const ShopDetails = ({
   //   }
   // };
 
-  return (
+  return !isAuthenticated || !user || !users ? (
+    <Fragment></Fragment>
+  ) : (
     <Fragment>
       <div className="container container_align ">
         <section className="sub_reg">
@@ -112,6 +114,7 @@ const ShopDetails = ({
 };
 
 ShopDetails.propTypes = {
+  auth: PropTypes.object.isRequired,
   getAllShops: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({

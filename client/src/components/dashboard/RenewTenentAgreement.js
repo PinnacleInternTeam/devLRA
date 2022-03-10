@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { RenewTenantDetailsform, getAllSettings } from "../../actions/tenants";
 
 const RenewTenentAgreement = ({
-  auth: { user },
+  auth: { isAuthenticated, user, users },
   tenantsData,
   tenants: { allTenantSetting },
   RenewTenantDetailsform,
@@ -97,7 +97,9 @@ const RenewTenentAgreement = ({
   // if (isSubmitted) {
   //   return <Redirect to="/all-staff-details" />;
   // }
-  return (
+  return !isAuthenticated || !user || !users ? (
+    <Fragment></Fragment>
+  ) : (
     <Fragment>
       <section className="sub_reg">
         <div className="row">

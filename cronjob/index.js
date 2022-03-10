@@ -9,18 +9,18 @@ const { Console } = require("console");
 
 const TenentAgreement = require("../models/TenantAgreementDetails");
 
-const MONGODB_URI =
-  process.env.MONGODB_URI || "mongodb://localhost:27017/pinnac23_LRA";
-mongoose.Promise = Promise;
+// const MONGODB_URI =
+//   process.env.MONGODB_URI || "mongodb://localhost:27017/pinnac23_LRA";
+// mongoose.Promise = Promise;
 
-// Connect to the Mongo DB
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true }, (err, db) => {
-  if (err) {
-    console.log("Unable to connect to the mongoDB server. Error:", err);
-  } else {
-    console.log("Connection established to", MONGODB_URI);
-  }
-});
+// // Connect to the Mongo DB
+// mongoose.connect(MONGODB_URI, { useNewUrlParser: true }, (err, db) => {
+//   if (err) {
+//     console.log("Unable to connect to the mongoDB server. Error:", err);
+//   } else {
+//     console.log("Connection established to", MONGODB_URI);
+//   }
+// });
 
 async function updateExpiryStatus() {
   console.log("Running Cron Job");
