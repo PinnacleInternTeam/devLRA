@@ -15,7 +15,7 @@ const TenantDetails = new mongoose.Schema({
   },
   tenantPhone: {
     type: Number,
-    required: false,
+    //  required: false,
   },
   tenantFirmName: {
     type: String,
@@ -26,11 +26,11 @@ const TenantDetails = new mongoose.Schema({
   },
   tenantAdharNo: {
     type: String,
-    required: true,
+    // required: true,
   },
   tenantPanNo: {
     type: String,
-    required: true,
+    // required: true,
   },
   tenantDepositAmt: {
     type: Number,

@@ -190,7 +190,7 @@ const AllTenantShopDetails = ({
                     </tbody>
                   </table>
                   <div className="row">
-                    <div className="col-lg-3 col-md-6 col-sm-12 col-12 ">
+                    <div className="col-lg-4 col-md-6 col-sm-12 col-12 ">
                       {allTenants && allTenants.length !== 0 ? (
                         <Pagination
                           dataPerPage={dataPerPage}
@@ -202,7 +202,7 @@ const AllTenantShopDetails = ({
                         <Fragment />
                       )}
                     </div>
-                    <div className="col-lg-9 col-md-6 col-sm-12 col-12 align_right">
+                    <div className="col-lg-8 col-md-6 col-sm-12 col-12 align_right">
                       <label>
                         No of Users : {allTenants && allTenants.length}
                       </label>

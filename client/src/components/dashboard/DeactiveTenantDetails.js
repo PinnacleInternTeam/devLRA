@@ -55,7 +55,7 @@ const DeactiveTenantDetails = ({
       <div className="col-lg-12 col-md-9 col-sm-9 col-12 ">
         <div className="row col-lg-12 col-md-9 col-sm-9 col-12 ">
           <div className="col-lg-12 col-md-4 col-sm-4 col-12">
-            <label>Reason For Deactivation:</label>
+            <label>Reason For Deactivation*:</label>
           </div>
           <div className="col-lg-12  col-md-4 col-sm-4 col-12">
             <textarea
