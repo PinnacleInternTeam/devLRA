@@ -157,8 +157,8 @@ const TenantFilters = ({
                           Number(monthSearch) === Number(optFiltr.value)
                             ? {
                                 fontWeight: "bold",
-                                fontSize: "22px",
-                                color: "#025b99",
+                                fontSize: "21px",
+                                color: "black",
                               }
                             : { fontWeight: "bold", fontSize: "19px" }
                         }

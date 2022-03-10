@@ -1,17 +1,23 @@
 import React, { useState, useEffect, Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { RenewTenantDetailsform } from "../../actions/tenants";
+import { RenewTenantDetailsform, getAllSettings } from "../../actions/tenants";
 
 const RenewTenentAgreement = ({
   auth: { user },
-  tenants,
+  tenantsData,
+  tenants: { allTenantSetting },
   RenewTenantDetailsform,
+  getAllSettings,
 }) => {
   const [error, setError] = useState({
     nextBtnStyle: { opacity: "0.5", pointerEvents: "none" },
     selBtnStyle: { opacity: "0.5", pointerEvents: "none" },
   });
+  useEffect(() => {
+    getAllSettings();
+  }, [getAllSettings]);
+
   const { nextBtnStyle } = error;
 
   //formData
@@ -41,13 +47,13 @@ const RenewTenentAgreement = ({
 
   const onSubmit = () => {
     const finalData = {
-      tenantRentAmount: tenants.chargesCal,
-      tenantFileNo: tenants.tenantFileNo,
+      tenantRentAmount: tenantsData.chargesCal,
+      tenantFileNo: tenantsData.tenantFileNo,
       tenantLeaseStartDate: entryDate,
       tenantLeaseEndDate: newLeaseEndDate,
-      tdId: tenants.tdId,
+      tdId: tenantsData.tdId,
       AgreementStatus: "Active",
-      agreementId: tenants.agreementId,
+      agreementId: tenantsData.agreementId,
       tenantEnteredBy: user && user._id,
       tenantDate: todayDateymd,
     };
@@ -64,7 +70,7 @@ const RenewTenentAgreement = ({
     var newDate = e.target.value;
     var calDate = new Date(newDate);
 
-    var leaseMonth = 11;
+    var leaseMonth = allTenantSetting[0].leaseTimePeriod;
 
     //Calculating lease end date
     var dateData = calDate.getDate();
@@ -99,13 +105,13 @@ const RenewTenentAgreement = ({
             <label>Door no:</label>
           </div>
           <div className="col-lg-4  col-md-4 col-sm-4 col-12">
-            <label>{tenants.tenantDoorNo}</label>
+            <label>{tenantsData.tenantDoorNo}</label>
           </div>
           <div className="col-lg-2 col-md-2 col-sm-1 col-12">
             <label> File No:</label>
           </div>
           <div className="col-lg-4  col-md-4 col-sm-4 col-12">
-            <label>{tenants.tenantFileNo}</label>
+            <label>{tenantsData.tenantFileNo}</label>
           </div>
         </div>
         <div className="row py-2">
@@ -118,7 +124,7 @@ const RenewTenentAgreement = ({
               type="text"
               name="tenantRentAmount"
               className="form-control"
-              value={tenants.chargesCal}
+              value={tenantsData.chargesCal}
               onChange={(e) => onInputChange(e)}
               required
               style={{
@@ -129,7 +135,7 @@ const RenewTenentAgreement = ({
         </div>
         <div className="row py-2">
           <div className="col-lg-6 col-md-2 col-sm-4 col-12">
-            <label> Lease Start Date:</label>
+            <label> Lease Start Date* :</label>
           </div>
 
           <div className="col-lg-6 col-md-4 col-sm-4 col-12">
@@ -181,13 +187,17 @@ const RenewTenentAgreement = ({
 
 RenewTenentAgreement.propTypes = {
   auth: PropTypes.object.isRequired,
+  tenants: PropTypes.object.isRequired,
   RenewTenantDetailsform: PropTypes.func.isRequired,
+  getAllSettings: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  tenants: state.tenants,
 });
 
 export default connect(mapStateToProps, {
   RenewTenantDetailsform,
+  getAllSettings,
 })(RenewTenentAgreement);

@@ -13,7 +13,7 @@ import {
   GET_DOORNOS,
   NEW_TENENTDETAILS,
   TENANT_FEEDBACK_ERROR,
-  GET_ALL_LEVELS,
+  GET_ALL_SHOPS,
   GET_ALL_TENANTS,
   GET_ALL_SETTINGS,
   GET_DELAYS,
@@ -76,10 +76,8 @@ export const AddTenantSettingform = (finalData) => async (dispatch) => {
 
 export const AddShopDetailsform = (finalData) => async (dispatch) => {
   try {
-    dispatch({
-      type: SHOP_ADD_INIT,
-    });
     await axios.post("/api/tenants/add-shop-details", finalData, config);
+    getAllShops();
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,
@@ -89,11 +87,10 @@ export const AddShopDetailsform = (finalData) => async (dispatch) => {
 
 export const AddTenantAgreementform = (finalData) => async (dispatch) => {
   try {
+    await axios.post("/api/tenants/add-agreement-details", finalData, config);
     dispatch({
       type: AGREEMENT_ADD_INIT,
     });
-
-    await axios.post("/api/tenants/add-agreement-details", finalData, config);
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,
@@ -168,11 +165,11 @@ export const getMonthExpCountFilter = (finalData) => async (dispatch) => {
   }
 };
 
-export const getAllLevels = () => async (dispatch) => {
+export const getAllShops = () => async (dispatch) => {
   try {
-    const res = await axios.get("/api/tenants/get-all-levels");
+    const res = await axios.get("/api/tenants/get-all-shops");
     dispatch({
-      type: GET_ALL_LEVELS,
+      type: GET_ALL_SHOPS,
       payload: res.data,
     });
   } catch (err) {

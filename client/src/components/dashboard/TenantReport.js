@@ -37,7 +37,8 @@ const TenantReport = ({ auth: { expReport }, getTenantReportYearMonth }) => {
                         <th>Door No</th>
                         <th>File No</th>
                         <th>Expiry Date</th>
-                        <th>Charges</th>
+                        <th>Rent</th>
+                        <th>Rewised Rent</th>
                         <th>Stamp Duty</th>
                         <th>Agreement Status</th>
                         <th>Operation</th>
@@ -53,6 +54,7 @@ const TenantReport = ({ auth: { expReport }, getTenantReportYearMonth }) => {
                               <td>{expReportVal.tenantDoorNo}</td>
                               <td>{expReportVal.tenantFileNo}</td>
                               <td>{expReportVal.tenantLeaseEndDate}</td>
+                              <td>{expReportVal.tenantRentAmount}</td>
                               <td>{expReportVal.chargesCal.toFixed(2)}</td>
                               <td>{expReportVal.stampDuty.toFixed(2)}</td>
                               <td>{expReportVal.AgreementStatus}</td>
@@ -111,7 +113,7 @@ const TenantReport = ({ auth: { expReport }, getTenantReportYearMonth }) => {
             </div>
           </Modal.Header>
           <Modal.Body>
-            <RenewTenentAgreement tenants={userData} />
+            <RenewTenentAgreement tenantsData={userData} />
           </Modal.Body>
         </Modal>
       </div>

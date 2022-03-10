@@ -64,7 +64,7 @@ const TenantSettings = ({
       <div className="row">
         <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
           <div className="col-lg-4 col-md-2 col-sm-1 col-12">
-            <label> Hike Percentage :</label>
+            <label> Hike Percentage * :</label>
           </div>
 
           <div className="col-lg-5  col-md-4 col-sm-4 col-12">
@@ -80,7 +80,7 @@ const TenantSettings = ({
         </div>
         <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
           <div className="col-lg-4 col-md-2 col-sm-4 col-12">
-            <label>Stamp Duty :</label>
+            <label>Stamp Duty * :</label>
           </div>
 
           <div className="col-lg-5  col-md-4 col-sm-4 col-12">
@@ -96,7 +96,7 @@ const TenantSettings = ({
         </div>
         <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
           <div className="col-lg-4 col-md-2 col-sm-4 col-12">
-            <label>Lease Time Period :</label>
+            <label>Lease Time Period * :</label>
           </div>
 
           <div className="col-lg-5  col-md-4 col-sm-4 col-12">

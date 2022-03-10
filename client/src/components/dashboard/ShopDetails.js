@@ -3,17 +3,17 @@ import { Modal } from "react-bootstrap";
 // import AddShopDetails from "./AddShopDetails";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getAllLevels } from "../../actions/tenants";
+import { getAllShops } from "../../actions/tenants";
 import { Link } from "react-router-dom";
 
 const ShopDetails = ({
   // auth: { allLevels },
-  getAllLevels,
-  tenants: { allLevels },
+  getAllShops,
+  tenants: { allShops },
 }) => {
   useEffect(() => {
-    getAllLevels();
-  }, [getAllLevels]);
+    getAllShops();
+  }, [getAllShops]);
 
   // const [showEditModal, setShowEditModal] = useState(false);
   // const handleEditModalClose = () => setShowEditModal(false);
@@ -63,8 +63,8 @@ const ShopDetails = ({
                       </tr>
                     </thead>
                     <tbody>
-                      {allLevels &&
-                        allLevels.map((allshops, idx) => {
+                      {allShops &&
+                        allShops.map((allshops, idx) => {
                           return (
                             <tr key={idx}>
                               <td>{allshops.shopFileNo}</td>
@@ -112,7 +112,7 @@ const ShopDetails = ({
 };
 
 ShopDetails.propTypes = {
-  getAllLevels: PropTypes.func.isRequired,
+  getAllShops: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   auth: state.auth,
@@ -120,5 +120,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-  getAllLevels,
+  getAllShops,
 })(ShopDetails);

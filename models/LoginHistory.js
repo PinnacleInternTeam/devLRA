@@ -1,0 +1,30 @@
+const mongoose = require("mongoose");
+ObjectId = mongoose.Schema.ObjectId;
+
+const LoginHistorySchema = new mongoose.Schema({
+  userId: {
+    type: ObjectId,
+    required: true,
+  },
+  userName: {
+    type: String,
+    required: true,
+  },
+  useremail: {
+    type: String,
+    required: true,
+  },
+  loginDate: {
+    type: String,
+    required: true,
+  },
+  loginDateTime: {
+    type: Date,
+    default: Date.now(),
+  },
+});
+
+module.exports = loginhistories = mongoose.model(
+  "loginhistories",
+  LoginHistorySchema
+);

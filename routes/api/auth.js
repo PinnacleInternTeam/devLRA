@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 //const config = require('config');
 const { check, validationResult } = require("express-validator");
 const UserDetails = require("../../models/UserDetails");
+const LoginHistory = require("../../models/LoginHistory");
 var nodemailer = require("nodemailer");
 
 const {
@@ -99,6 +100,25 @@ router.post(
             },
           }
         );
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1;
+        var yyyy = today.getFullYear();
+        if (dd < 10) {
+          dd = "0" + dd;
+        }
+        if (mm < 10) {
+          mm = "0" + mm;
+        }
+        var todayDateymd = yyyy + "-" + mm + "-" + dd;
+        const loginData = {
+          userId: userDetails._id,
+          userName: userDetails.userfullName,
+          useremail: userDetails.useremail,
+          loginDate: todayDateymd,
+        };
+        let LoginHistorySave = new LoginHistory(loginData);
+        await LoginHistorySave.save();
       } else {
         return res
           .status(STATUS_CODE_400)
