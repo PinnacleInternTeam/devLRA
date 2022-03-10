@@ -8,6 +8,8 @@ const { check, validationResult } = require("express-validator");
 const UserDetails = require("../../models/UserDetails");
 const LoginHistory = require("../../models/LoginHistory");
 var nodemailer = require("nodemailer");
+const { networkInterfaces } = require("os");
+const nets = networkInterfaces();
 
 const {
   SERVER_ERROR,
@@ -100,6 +102,14 @@ router.post(
             },
           }
         );
+        let ipAddress = "";
+        for (const name of Object.keys(nets)) {
+          for (const net of nets[name]) {
+            if (net.family === "IPv4" && !net.internal) {
+              ipAddress = net.address;
+            }
+          }
+        }
         var today = new Date();
         var dd = today.getDate();
         var mm = today.getMonth() + 1;
@@ -116,6 +126,7 @@ router.post(
           userName: userDetails.userfullName,
           useremail: userDetails.useremail,
           loginDate: todayDateymd,
+          ipAddress: ipAddress,
         };
         let LoginHistorySave = new LoginHistory(loginData);
         await LoginHistorySave.save();
