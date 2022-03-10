@@ -3,11 +3,13 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Select from "react-select";
 import { AddUserDetailsform } from "../../actions/auth";
-
+import { getAllUsers } from "../../actions/auth";
 const AddUser = ({
   auth: { isAuthenticated, user, users },
   AddUserDetailsform,
   errorResponse,
+  getAllUsers,
+  onAddUserModalChange,
 }) => {
   let passwrdTooltip = {
     marginLeft: "-16em",
@@ -68,9 +70,21 @@ const AddUser = ({
     };
 
     AddUserDetailsform(finalData);
-    // setFormData({ ...formData, isSubmitted: true });
 
-    window.location.reload();
+    // setFormData({
+    //   ...formData,
+    //   password: "",
+    //   userfullName: "",
+    //   useremail: "",
+    //   userfullName: "",
+    //   userfullName: "",
+    //   userfullName: "",
+
+    //   isSubmitted: true,
+    // });
+    getAllUsers();
+    onAddUserModalChange(true);
+    // window.location.reload();
   };
 
   const [error, setError] = useState({
@@ -399,6 +413,7 @@ const AddUser = ({
 AddUser.propTypes = {
   auth: PropTypes.object.isRequired,
   AddUserDetailsform: PropTypes.func.isRequired,
+  getAllUsers: PropTypes.func.isRequired,
   errorResponse: PropTypes.string,
 };
 
@@ -409,4 +424,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   AddUserDetailsform,
+  getAllUsers,
 })(AddUser);

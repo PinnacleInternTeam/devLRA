@@ -20,6 +20,13 @@ const AllUserDetails = ({
   const onClickHandler = () => {
     setShowEditModal(true);
   };
+
+  const onAddUserModalChange = (e) => {
+    if (e) {
+      handleAddUserModalClose();
+    }
+  };
+
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
@@ -100,7 +107,7 @@ const AllUserDetails = ({
             </div>
           </Modal.Header>
           <Modal.Body>
-            <AddUser />
+            <AddUser onAddUserModalChange={onAddUserModalChange} />
           </Modal.Body>
         </Modal>
       </div>
