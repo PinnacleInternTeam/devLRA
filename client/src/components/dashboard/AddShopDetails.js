@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { AddShopDetailsform } from "../../actions/tenants";
 import { Modal } from "react-bootstrap";
+import { Link } from "react-router-dom";
 var today = new Date();
 var dd = today.getDate();
 var mm = today.getMonth() + 1;
@@ -66,7 +67,63 @@ const AddShopDetails = ({
     <Fragment></Fragment>
   ) : (
     <Fragment>
-      <div className="container container_align ">
+      <div className="container container_align">
+        <section className="sub_reg">
+          <div className="col-lg-12 col-md-12 col-sm-12 col-12">
+            <h2 className=" heading_color">Add Shop Details</h2>
+          </div>
+
+          <div className="row py-2">
+            <div className="col-lg-6 col-md-6 col-sm-12 col-12">
+              <label> File No * :</label>
+              <input
+                type="text"
+                name="shopFileNo"
+                value={shopFileNo}
+                className="form-control"
+                onChange={(e) => onInputChange(e)}
+                required
+              />
+            </div>
+          </div>
+
+          <div className="row py-2">
+            <div className="col-lg-6 col-md-6 col-sm-12 col-12">
+              <label>Door No * :</label>
+              <input
+                type="text"
+                name="shopDoorNo"
+                value={shopDoorNo}
+                className="form-control"
+                onChange={(e) => onInputChange(e)}
+                required
+              />
+            </div>
+          </div>
+
+          <div className="col-md-12 col-lg-12 col-sm-12 col-12 text-left">
+            <button
+              variant="success"
+              className="btn sub_form reg_continue blackbrd"
+              onClick={() => onSubmit()}
+              style={
+                shopFileNo !== "" && shopDoorNo !== ""
+                  ? { opacity: "1" }
+                  : { opacity: "1", pointerEvents: "none" }
+              }
+            >
+              Save
+            </button>
+            <Link
+              className="btn sub_form reg_continue blackbrd"
+              to="/shop-Details"
+            >
+              CANCEL
+            </Link>
+          </div>
+        </section>
+      </div>
+      {/* <div className="container container_align ">
         <section className="sub_reg">
           <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
             <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
@@ -118,7 +175,7 @@ const AddShopDetails = ({
             </button>
           </div>
         </section>
-      </div>
+      </div> */}
       <Modal
         show={showInformationModal}
         backdrop="static"
