@@ -10,7 +10,7 @@ import Select from "react-select";
 import { Modal } from "react-bootstrap";
 const AddTenantDetails = ({
   tenants: { allDoorNos, allTenantSetting },
-  auth: { user },
+  auth: { isAuthenticated, user, users },
   getAllDoorNos,
   AddTenantDetailsform,
   getAllSettings,
@@ -228,7 +228,9 @@ const AddTenantDetails = ({
     // window.location.reload();
   };
 
-  return (
+  return !isAuthenticated || !user || !users ? (
+    <Fragment></Fragment>
+  ) : (
     <Fragment>
       <div className="container container_align">
         <section className="sub_reg">

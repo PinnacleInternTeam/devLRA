@@ -14,7 +14,7 @@ import {
 } from "../../actions/tenants";
 const AllTenantShopDetails = ({
   editStaffDetails,
-  // auth: { allTenants },
+  auth: { isAuthenticated, user, users },
   getAllTenants,
   getAllTenanatDoornoFilter,
   tenants: { allDoorNumber, allTenants },
@@ -86,7 +86,9 @@ const AllTenantShopDetails = ({
   };
   //pagination code ends
 
-  return (
+  return !isAuthenticated || !user || !users ? (
+    <Fragment></Fragment>
+  ) : (
     <Fragment>
       <div className="container container_align ">
         <section className="sub_reg">
@@ -249,6 +251,7 @@ const AllTenantShopDetails = ({
 
 AllTenantShopDetails.propTypes = {
   // editStaffDetails: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
   getAllTenants: PropTypes.func.isRequired,
   getAllTenanatDoornoFilter: PropTypes.func.isRequired,
   tenants: PropTypes.object.isRequired,

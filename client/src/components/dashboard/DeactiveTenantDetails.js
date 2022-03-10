@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { deactiveTenantsDetails } from "../../actions/tenants";
 
 const DeactiveTenantDetails = ({
-  auth: { user },
+  auth: { isAuthenticated, user, users },
   tenants,
   deactiveTenantsDetails,
 }) => {
@@ -48,7 +48,9 @@ const DeactiveTenantDetails = ({
     window.location.reload();
   };
 
-  return (
+  return !isAuthenticated || !user || !users ? (
+    <Fragment></Fragment>
+  ) : (
     <Fragment>
       <div className="col-lg-12 col-md-9 col-sm-9 col-12 ">
         <div className="row col-lg-12 col-md-9 col-sm-9 col-12 ">

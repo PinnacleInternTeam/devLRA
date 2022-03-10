@@ -5,7 +5,11 @@ import Select from "react-select";
 import { Redirect } from "react-router-dom";
 import { AddUserDetailsform } from "../../actions/auth";
 
-const AddUser = ({ AddUserDetailsform, errorResponse }) => {
+const AddUser = ({
+  auth: { isAuthenticated, user, users },
+  AddUserDetailsform,
+  errorResponse,
+}) => {
   let passwrdTooltip = {
     marginLeft: "-16em",
     position: "absolute",
@@ -205,7 +209,9 @@ const AddUser = ({ AddUserDetailsform, errorResponse }) => {
     return true;
   };
 
-  return (
+  return !isAuthenticated || !user || !users ? (
+    <Fragment></Fragment>
+  ) : (
     <Fragment>
       <>
         {errorResponse && <p style={{ color: "red" }}>{errorResponse}</p>}

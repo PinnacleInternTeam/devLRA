@@ -11,6 +11,7 @@ const TenantSettings = ({
   AddTenantSettingform,
   UpdateTenantSettingform,
   tenants: { allTenantSetting },
+  auth: { isAuthenticated, user, users },
   getAllSettings,
 }) => {
   useEffect(() => {
@@ -59,7 +60,9 @@ const TenantSettings = ({
     window.location.reload();
   };
 
-  return (
+  return !isAuthenticated || !user || !users ? (
+    <Fragment></Fragment>
+  ) : (
     <Fragment>
       <div className="row">
         <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
@@ -156,6 +159,7 @@ TenantSettings.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
+  auth: state.auth,
   tenants: state.tenants,
 });
 

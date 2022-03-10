@@ -7,7 +7,10 @@ import { getAllLevels } from "../../actions/tenants";
 import { getAllUsers } from "../../actions/auth";
 import AddUser from "./AddUser";
 
-const AllUserDetails = ({ auth: { allUser }, getAllUsers }) => {
+const AllUserDetails = ({
+  auth: { allUser, isAuthenticated, user, users },
+  getAllUsers,
+}) => {
   useEffect(() => {
     getAllUsers();
   }, [getAllUsers]);
@@ -17,7 +20,9 @@ const AllUserDetails = ({ auth: { allUser }, getAllUsers }) => {
   const onClickHandler = () => {
     setShowEditModal(true);
   };
-  return (
+  return !isAuthenticated || !user || !users ? (
+    <Fragment></Fragment>
+  ) : (
     <Fragment>
       <div className="container container_align ">
         <section className="sub_reg">
@@ -104,6 +109,7 @@ const AllUserDetails = ({ auth: { allUser }, getAllUsers }) => {
 };
 
 AllUserDetails.propTypes = {
+  auth: PropTypes.object.isRequired,
   getAllUsers: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({

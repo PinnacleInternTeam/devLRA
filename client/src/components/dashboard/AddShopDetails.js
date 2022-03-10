@@ -17,11 +17,15 @@ if (mm < 10) {
 }
 var todayDateymd = yyyy + "-" + mm + "-" + dd;
 
-const AddShopDetails = ({ AddShopDetailsform, onAddStaffModalChange }) => {
+const AddShopDetails = ({
+  auth: { isAuthenticated, user, users },
+  AddShopDetailsform,
+  onAddStaffModalChange,
+}) => {
   //formData
   const [formData, setFormData] = useState({
-    shopFileNo: "1234",
-    shopDoorNo: "4444",
+    shopFileNo: "",
+    shopDoorNo: "",
 
     isSubmitted: false,
   });
@@ -60,7 +64,9 @@ const AddShopDetails = ({ AddShopDetailsform, onAddStaffModalChange }) => {
   //   setShowLogout(true);
   // }
 
-  return (
+  return !isAuthenticated || !user || !users ? (
+    <Fragment></Fragment>
+  ) : (
     <Fragment>
       <div className="container container_align ">
         <section className="sub_reg">
