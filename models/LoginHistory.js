@@ -22,6 +22,9 @@ const LoginHistorySchema = new mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
+  ipAddress: {
+    type: String,
+  },
 });
 
 module.exports = loginhistories = mongoose.model(
