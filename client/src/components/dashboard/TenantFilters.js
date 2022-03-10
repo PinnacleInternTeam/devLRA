@@ -72,6 +72,10 @@ const TenantFilters = ({
         selectedY: getYear,
         selectedVal: dt,
       };
+      setSearchData({
+        ...searchData,
+        monthSearch: "",
+      });
       getMonthExpCountFilter(finalData);
       getPreviousYearsExpCount(finalData);
     }
@@ -157,10 +161,10 @@ const TenantFilters = ({
                           Number(monthSearch) === Number(optFiltr.value)
                             ? {
                                 fontWeight: "bold",
-                                fontSize: "22px",
-                                color: "#025b99",
+                                color: "black",
+                                fontSize: "120%",
                               }
-                            : { fontWeight: "bold", fontSize: "19px" }
+                            : { fontWeight: "bold", fontSize: "120%" }
                         }
                       >
                         {optFiltr.label}
@@ -171,12 +175,12 @@ const TenantFilters = ({
                         style={
                           countVal !== 0
                             ? {
-                                fontSize: "15px",
+                                fontSize: "100%",
                                 color: "#000",
                                 background: "#fff",
                               }
                             : {
-                                fontSize: "15px",
+                                fontSize: "100%",
                                 color: "#429f8c",
                                 background: "#fff",
                               }

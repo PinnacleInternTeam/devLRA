@@ -52,6 +52,7 @@ const auth = (state = initialState, action) => {
         ...payload,
         isAuthenticated: true,
         loading: false,
+        errorResponse: "",
       };
 
     case LOGIN_FAIL:
