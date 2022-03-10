@@ -1,5 +1,5 @@
 import {
-  GET_ALL_LEVELS,
+  GET_ALL_SHOPS,
   GET_ALL_TENANTS,
   GET_ALL_SETTINGS,
   MONTH_EXP_CNT,
@@ -18,7 +18,7 @@ const initialState = {
   errorResponse: "",
   successResponse: "",
 
-  alllevels: [""],
+  allShops: [""],
   alltenants: [""],
   allTenantSetting: [""],
   allDoorNos: [""],
@@ -47,10 +47,10 @@ const tenants = (state = initialState, action) => {
         ...state,
         allDoorNumber: payload,
       };
-    case GET_ALL_LEVELS:
+    case GET_ALL_SHOPS:
       return {
         ...state,
-        allLevels: payload,
+        allShops: payload,
       };
 
     case GET_ALL_TENANTS:

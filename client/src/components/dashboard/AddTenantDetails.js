@@ -1,18 +1,26 @@
 import React, { useState, Fragment, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { AddTenantDetailsform, getAllDoorNos } from "../../actions/tenants";
+import {
+  AddTenantDetailsform,
+  getAllDoorNos,
+  getAllSettings,
+} from "../../actions/tenants";
 import Select from "react-select";
-
+import { Modal } from "react-bootstrap";
 const AddTenantDetails = ({
-  tenants: { allDoorNos },
+  tenants: { allDoorNos, allTenantSetting },
   auth: { user },
   getAllDoorNos,
   AddTenantDetailsform,
+  getAllSettings,
 }) => {
   useEffect(() => {
     getAllDoorNos();
   }, [getAllDoorNos]);
+  useEffect(() => {
+    getAllSettings();
+  }, [getAllSettings]);
 
   const PaymentMethods = [
     { value: "Cash", label: "Cash" },
@@ -90,7 +98,7 @@ const AddTenantDetails = ({
     var newDate = e.target.value;
     var calDate = new Date(newDate);
 
-    var leaseMonth = 11;
+    var leaseMonth = allTenantSetting[0].leaseTimePeriod;
 
     //Calculating lease end date
     var dateData = calDate.getDate();
@@ -141,7 +149,12 @@ const AddTenantDetails = ({
   const onDateChange = (e) => {
     setChequeDate(e.target.value);
   };
+  const [showInformationModal, setShowInformation] = useState(false);
 
+  const handleInformationModalClose = () => setShowInformation(false);
+  const LogoutModalClose = () => {
+    handleInformationModalClose();
+  };
   const onPaymentModeChange = (e) => {
     if (e) {
       setFormData({
@@ -191,8 +204,28 @@ const AddTenantDetails = ({
       tenantDate: todayDateymd,
     };
     AddTenantDetailsform(finalData);
-    setFormData({ ...formData, isSubmitted: true });
-    window.location.reload();
+    // setFormData({ ...formData, isSubmitted: true });
+
+    setFormData({
+      ...formData,
+      tenantFileNo: "",
+      shopdoorNo: "",
+      tenantName: "",
+      tenantPhone: "",
+      tenantFirmName: "",
+      tenantAddr: "",
+      tenantAdharNo: "",
+      tenantPanNo: "",
+      tenantDepositAmt: "",
+      tenantPaymentMode: "",
+      tenantBankName: "",
+      tenantchequeDate: "",
+      tenantRentAmount: "",
+      entryDate: "",
+      tenantLeaseEndDate: "",
+    });
+    setShowInformation(true);
+    // window.location.reload();
   };
 
   return (
@@ -203,8 +236,11 @@ const AddTenantDetails = ({
             <h2 className="heading_color">Add Tenant Details </h2>
           </div>
           <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-            <div className="col-lg-1 col-md-2 col-sm-4 col-12">
-              <label>DoorNo:</label>
+            <div
+              className="col-lg-1 col-md-2 col-sm-4 col-12"
+              style={{ paddingRight: "0px" }}
+            >
+              <label>DoorNo *:</label>
             </div>
             <div className="col-lg-2  col-md-4 col-sm-4 col-12">
               <Select
@@ -234,28 +270,33 @@ const AddTenantDetails = ({
           </div>
           <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
             <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-              <label>Tenant Name:</label>
+              <label>Tenant Name *:</label>
             </div>
 
             <div className="col-lg-4  col-md-4 col-sm-4 col-12">
               <input
                 type="text"
                 name="tenantName"
+                value={tenantName}
                 className="form-control"
                 onChange={(e) => onInputChange(e)}
                 required
               />
             </div>
             <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-              <label>Phone no :</label>
+              <label>Phone No:</label>
             </div>
 
             <div className="col-lg-4 col-md-4 col-sm-4 col-12">
               <input
                 type="number"
                 name="tenantPhone"
+                value={tenantPhone}
                 className="form-control"
                 onChange={(e) => onInputChange(e)}
+                onKeyDown={(e) =>
+                  (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
+                }
                 required
               />
             </div>
@@ -270,6 +311,7 @@ const AddTenantDetails = ({
               <input
                 type="text"
                 name="tenantFirmName"
+                value={tenantFirmName}
                 className="form-control"
                 onChange={(e) => onInputChange(e)}
                 required
@@ -277,12 +319,13 @@ const AddTenantDetails = ({
             </div>
 
             <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-              <label>Tenant's Address :</label>
+              <label>Tenant's Address *:</label>
             </div>
 
             <div className="col-lg-4 col-md-4 col-sm-6 col-12">
               <textarea
                 name="tenantAddr"
+                value={tenantAddr}
                 id="tenantAddr"
                 className="textarea form-control"
                 rows="3"
@@ -296,49 +339,61 @@ const AddTenantDetails = ({
 
           <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
             <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-              <label>Adhar No :</label>
+              <label>Adhaar No:</label>
             </div>
 
             <div className="col-lg-4 col-md-4 col-sm-4 col-12">
               <input
                 type="number"
                 name="tenantAdharNo"
+                value={tenantAdharNo}
                 className="form-control"
                 onChange={(e) => onInputChange(e)}
+                onKeyDown={(e) =>
+                  (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
+                }
                 required
               />
             </div>
             <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-              <label>Pancard No :</label>
+              <label>Pan Card No:</label>
             </div>
 
             <div className="col-lg-4 col-md-4 col-sm-4 col-12">
               <input
                 type="text"
                 name="tenantPanNo"
+                value={tenantPanNo}
                 className="form-control"
                 onChange={(e) => onInputChange(e)}
+                onKeyDown={(e) =>
+                  (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
+                }
                 required
               />
             </div>
           </div>
           <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
             <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-              <label>Deposit Amount :</label>
+              <label>Deposit Amount *:</label>
             </div>
 
             <div className="col-lg-2  col-md-4 col-sm-4 col-12">
               <input
                 type="number"
                 name="tenantDepositAmt"
+                value={tenantDepositAmt}
                 className="form-control"
                 onChange={(e) => onInputChange(e)}
+                onKeyDown={(e) =>
+                  (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
+                }
                 required
               />
             </div>
 
             <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-              <label>Mode Of Payment :</label>
+              <label>Mode Of Payment *:</label>
             </div>
 
             <div className="col-lg-2  col-md-4 col-sm-4 col-12">
@@ -372,6 +427,7 @@ const AddTenantDetails = ({
                 <input
                   type="text"
                   name="tenantChequenoOrDdno"
+                  value={tenantChequenoOrDdno}
                   className="form-control"
                   onChange={(e) => onInputChange(e)}
                   required
@@ -385,6 +441,7 @@ const AddTenantDetails = ({
                 <input
                   type="text"
                   name="tenantBankName"
+                  value={tenantBankName}
                   className="form-control"
                   onChange={(e) => onInputChange(e)}
                   required
@@ -412,15 +469,19 @@ const AddTenantDetails = ({
           <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3"></div>
           <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
             <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-              <label> Rent Amount:</label>
+              <label> Rent Amount *:</label>
             </div>
 
             <div className="col-lg-3  col-md-4 col-sm-4 col-12">
               <input
                 type="number"
                 name="tenantRentAmount"
+                value={tenantRentAmount}
                 className="form-control"
                 onChange={(e) => onInputChange(e)}
+                onKeyDown={(e) =>
+                  (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
+                }
                 required
               />
             </div>
@@ -428,7 +489,7 @@ const AddTenantDetails = ({
 
           <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
             <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-              <label> Lease Start Date:</label>
+              <label> Lease Start Date *:</label>
             </div>
 
             <div className="col-lg-4  col-md-4 col-sm-4 col-12">
@@ -461,13 +522,13 @@ const AddTenantDetails = ({
               style={
                 // tenantDoorNo !== "" &&
                 tenantName !== "" &&
-                tenantPhone !== "" &&
+                // tenantPhone !== "" &&
                 tenantPaymentMode !== "" &&
                 tenantDepositAmt !== "" &&
-                tenantAdharNo !== "" &&
-                tenantAddr !== "" &&
-                tenantPanNo !== ""
-                  ? { opacity: "1" }
+                // tenantAdharNo !== "" &&
+                tenantAddr !== ""
+                  ? // tenantPanNo !== ""
+                    { opacity: "1" }
                   : { opacity: "1", pointerEvents: "none" }
               }
             >
@@ -475,6 +536,29 @@ const AddTenantDetails = ({
             </button>
           </div>
         </section>
+        <Modal
+          show={showInformationModal}
+          backdrop="static"
+          keyboard={false}
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+          className="logout-modal"
+        >
+          <Modal.Header className="confirmbox-heading">
+            <h4 className="mt-0">Information</h4>
+          </Modal.Header>
+          <Modal.Body>
+            <h5>Shop Details Added!!</h5>
+          </Modal.Body>
+          <Modal.Footer>
+            <button
+              className="btn btn_green_bg"
+              onClick={() => LogoutModalClose()}
+            >
+              OK
+            </button>
+          </Modal.Footer>
+        </Modal>
       </div>
     </Fragment>
   );
@@ -485,6 +569,7 @@ AddTenantDetails.propTypes = {
   tenants: PropTypes.object.isRequired,
   AddTenantDetailsform: PropTypes.func.isRequired,
   getAllDoorNos: PropTypes.func.isRequired,
+  getAllSettings: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -495,4 +580,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   AddTenantDetailsform,
   getAllDoorNos,
+  getAllSettings,
 })(AddTenantDetails);

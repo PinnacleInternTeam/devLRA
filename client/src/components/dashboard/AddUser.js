@@ -154,7 +154,7 @@ const AddUser = ({ AddUserDetailsform, errorResponse }) => {
             setError({
               ...error,
               repwdValChecker: true,
-              repwdValResult: "DOESNOT MATCH",
+              repwdValResult: "DOES NOT MATCH",
               repwdValStyle: { color: "#FF0000", marginTop: "30px" },
               repwdInptErrStyle: { border: "1px solid #FF0000" },
             });
@@ -211,7 +211,7 @@ const AddUser = ({ AddUserDetailsform, errorResponse }) => {
         {errorResponse && <p style={{ color: "red" }}>{errorResponse}</p>}
         <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-4">
           <div className="col-lg-2 col-md-2 col-sm-1 col-12">
-            <label> FullName:</label>
+            <label>Full Name* :</label>
           </div>
 
           <div className="col-lg-4  col-md-4 col-sm-4 col-12">
@@ -224,7 +224,7 @@ const AddUser = ({ AddUserDetailsform, errorResponse }) => {
             />
           </div>
           <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-            <label>Email :</label>
+            <label>Email* :</label>
           </div>
 
           <div className="col-lg-4  col-md-4 col-sm-4 col-12">
@@ -240,7 +240,7 @@ const AddUser = ({ AddUserDetailsform, errorResponse }) => {
 
         <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-4">
           <div className="col-lg-2 col-md-2 col-sm-1 col-12">
-            <label> Phone:</label>
+            <label> Phone* :</label>
           </div>
 
           <div className="col-lg-4  col-md-4 col-sm-4 col-12">
@@ -249,11 +249,14 @@ const AddUser = ({ AddUserDetailsform, errorResponse }) => {
               name="userphone"
               className="form-control"
               onChange={(e) => onInputChange2(e)}
+              onKeyDown={(e) =>
+                (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
+              }
               required
             />
           </div>
           <div className="col-lg-2 col-md-2 col-sm-1 col-12">
-            <label> User Group:</label>
+            <label>User Group*:</label>
           </div>
 
           <div className="col-lg-4  col-md-4 col-sm-4 col-12">
@@ -279,7 +282,7 @@ const AddUser = ({ AddUserDetailsform, errorResponse }) => {
 
         <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-4">
           <div className="col-lg-2 col-md-2 col-sm-1 col-12">
-            <label> Address:</label>
+            <label> Address* :</label>
           </div>
 
           <div className="col-lg-10  col-md-4 col-sm-4 col-12">
@@ -298,7 +301,7 @@ const AddUser = ({ AddUserDetailsform, errorResponse }) => {
 
         <div className="row ">
           <div className=" col-lg-6 col-md-9 col-sm-9 col-12 py-4">
-            <label> Password:</label>
+            <label> Password* :</label>
             <div className="">
               <input
                 type="password"

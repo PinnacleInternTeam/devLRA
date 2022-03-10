@@ -30,8 +30,8 @@ const AllUserDetails = ({ auth: { allUser }, getAllUsers }) => {
                 className="img_icon_size log"
                 onClick={() => onClickHandler()}
                 src={require("../../static/images/add-icon.png")}
-                alt="refresh"
-                title="Refresh"
+                alt="Add User"
+                title="Add User"
               />
             </div>
           </div>

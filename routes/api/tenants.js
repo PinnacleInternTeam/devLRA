@@ -295,10 +295,10 @@ router.post("/add-agreement-details", async (req, res) => {
   }
 });
 
-router.get("/get-all-levels", async (req, res) => {
+router.get("/get-all-shops", async (req, res) => {
   try {
-    const staffLevelData = await ShopDetails.find({});
-    res.json(staffLevelData);
+    const ShopsData = await ShopDetails.find({}).sort({ shopDoorNo: -1 });
+    res.json(ShopsData);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Internal Server Error.");
@@ -372,6 +372,7 @@ router.post("/get-tenant-exp-report", async (req, res) => {
           tenantDoorNo: "$tenantDoorNo",
           tenantFileNo: "$tenantFileNo",
           tenantLeaseEndDate: "$output.tenantLeaseEndDate",
+          tenantRentAmount: "$output.tenantRentAmount",
           AgreementStatus: "$output.AgreementStatus",
           tenantstatus: "$tenantstatus",
           tdId: "$output.tdId",

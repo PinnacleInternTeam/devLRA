@@ -48,7 +48,7 @@ async function updateExpiryStatus() {
 }
 
 function expairyNotif() {
-  cron.schedule("3 * * * * * ", function () {
+  cron.schedule(" 23 * * * * ", function () {
     updateExpiryStatus();
   });
 }

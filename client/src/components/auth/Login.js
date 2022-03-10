@@ -20,8 +20,8 @@ const Login = ({
   let modalTitle = { marginTop: "-30px", marginBottom: "20px" };
 
   const [formData, setFormData] = useState({
-    useremail: "dev@pinnaclemedia.in",
-    password: "Dev@123",
+    useremail: "",
+    password: "",
   });
 
   // W7'Um34BrCxzQNR?

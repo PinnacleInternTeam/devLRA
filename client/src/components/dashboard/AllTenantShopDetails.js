@@ -69,6 +69,7 @@ const AllTenantShopDetails = ({
     // );
 
     getAllTenants();
+    window.location.reload();
   };
 
   //pagination code
