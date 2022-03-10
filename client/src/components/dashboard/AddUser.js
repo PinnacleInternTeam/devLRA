@@ -154,7 +154,7 @@ const AddUser = ({ AddUserDetailsform, errorResponse }) => {
             setError({
               ...error,
               repwdValChecker: true,
-              repwdValResult: "DOESNOT MATCH",
+              repwdValResult: "DOES NOT MATCH",
               repwdValStyle: { color: "#FF0000", marginTop: "30px" },
               repwdInptErrStyle: { border: "1px solid #FF0000" },
             });
@@ -211,7 +211,7 @@ const AddUser = ({ AddUserDetailsform, errorResponse }) => {
         {errorResponse && <p style={{ color: "red" }}>{errorResponse}</p>}
         <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-4">
           <div className="col-lg-2 col-md-2 col-sm-1 col-12">
-            <label> FullName* :</label>
+            <label>Full Name* :</label>
           </div>
 
           <div className="col-lg-4  col-md-4 col-sm-4 col-12">

@@ -284,7 +284,7 @@ const AddTenantDetails = ({
               />
             </div>
             <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-              <label>Phone No *:</label>
+              <label>Phone No:</label>
             </div>
 
             <div className="col-lg-4 col-md-4 col-sm-4 col-12">
@@ -339,7 +339,7 @@ const AddTenantDetails = ({
 
           <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
             <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-              <label>Adhar No *:</label>
+              <label>Adhaar No:</label>
             </div>
 
             <div className="col-lg-4 col-md-4 col-sm-4 col-12">
@@ -356,7 +356,7 @@ const AddTenantDetails = ({
               />
             </div>
             <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-              <label>Pancard No *:</label>
+              <label>Pan Card No:</label>
             </div>
 
             <div className="col-lg-4 col-md-4 col-sm-4 col-12">
@@ -522,13 +522,13 @@ const AddTenantDetails = ({
               style={
                 // tenantDoorNo !== "" &&
                 tenantName !== "" &&
-                tenantPhone !== "" &&
+                // tenantPhone !== "" &&
                 tenantPaymentMode !== "" &&
                 tenantDepositAmt !== "" &&
-                tenantAdharNo !== "" &&
-                tenantAddr !== "" &&
-                tenantPanNo !== ""
-                  ? { opacity: "1" }
+                // tenantAdharNo !== "" &&
+                tenantAddr !== ""
+                  ? // tenantPanNo !== ""
+                    { opacity: "1" }
                   : { opacity: "1", pointerEvents: "none" }
               }
             >

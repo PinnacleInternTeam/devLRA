@@ -86,7 +86,7 @@ const ChangePwd = ({
             setError({
               ...error,
               repwdValChecker: true,
-              repwdValResult: "DOESNOT MATCH",
+              repwdValResult: "DOES NOT MATCH",
               repwdValStyle: { color: "#FF0000", marginTop: "30px" },
               repwdInptErrStyle: { border: "1px solid #FF0000" },
             });
@@ -139,7 +139,7 @@ const ChangePwd = ({
       setError({
         ...error,
         repwdValChecker: true,
-        repwdValResult: "DOESNOT MATCH",
+        repwdValResult: "DOES NOT MATCH",
         repwdValStyle: { color: "#FF0000", marginTop: "30px" },
         repwdInptErrStyle: { border: "1px solid #FF0000" },
       });
