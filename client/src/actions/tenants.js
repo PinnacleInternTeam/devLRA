@@ -79,7 +79,7 @@ export const AddTenantSettingform = (finalData) => async (dispatch) => {
 export const AddShopDetailsform = (finalData) => async (dispatch) => {
   try {
     await axios.post("/api/tenants/add-shop-details", finalData, config);
-    getAllShops();
+    dispatch(getAllShops());
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,
@@ -107,6 +107,7 @@ export const deactiveTenantsDetails = (finalData) => async (dispatch) => {
       finalData,
       config
     );
+    // dispatch(getAllTenants());
   } catch (err) {
     dispatch({
       type: TENANT_FEEDBACK_ERROR,

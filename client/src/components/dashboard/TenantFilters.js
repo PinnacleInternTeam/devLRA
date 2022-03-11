@@ -32,7 +32,7 @@ const optName = [
 
 const TenantFilters = ({
   auth: { isAuthenticated, user, users, monthExpCnt, yearExpCnt, expReport },
-  // tenants: {},
+
   getMonthExpCount,
   getMonthExpCountFilter,
   getPreviousYearsExpCount,
@@ -103,12 +103,13 @@ const TenantFilters = ({
     getTenantReportOldExp(finalDataReportOld);
     // <Redirect to="/tenant-report" />;
   };
+
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
     <Fragment>
       <div className="container_align top_menu">
-        <div className="row pb-5">
+        <div className="row pb-5 responsiveDiv">
           <div className="col-lg-12 col-md-1 col-sm-1 col-1 text-center ">
             {/* brdr-clr-styles */}
             {/* <form> */}
@@ -175,12 +176,12 @@ const TenantFilters = ({
                         style={
                           countVal !== 0
                             ? {
-                                fontSize: "100%",
+                                fontSize: "80%",
                                 color: "#000",
                                 background: "#fff",
                               }
                             : {
-                                fontSize: "100%",
+                                fontSize: "80%",
                                 color: "#429f8c",
                                 background: "#fff",
                               }

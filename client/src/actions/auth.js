@@ -109,12 +109,12 @@ export const AddUserDetailsform = (finalData) => async (dispatch) => {
       "Content-Type": "application/json",
     },
   };
-  console.log(finalData);
   try {
+    await axios.post("/api/auth/add-user-details", finalData, config);
     dispatch({
       type: ADD_USER_INIT,
     });
-    await axios.post("/api/auth/add-user-details", finalData, config);
+    dispatch(getAllUsers());
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,

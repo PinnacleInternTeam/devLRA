@@ -245,7 +245,7 @@ const AddTenantDetails = ({
               className="col-lg-1 col-md-2 col-sm-4 col-12"
               style={{ paddingRight: "0px" }}
             >
-              <label>DoorNo *:</label>
+              <label>Door No*:</label>
             </div>
             <div className="col-lg-2  col-md-4 col-sm-4 col-12">
               <Select

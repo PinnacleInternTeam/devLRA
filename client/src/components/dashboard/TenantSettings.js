@@ -4,8 +4,6 @@ import { connect } from "react-redux";
 import { AddTenantSettingform } from "../../actions/tenants";
 import { UpdateTenantSettingform } from "../../actions/tenants";
 
-import Select from "react-select";
-import { Redirect } from "react-router-dom";
 import { getAllSettings } from "../../actions/tenants";
 const TenantSettings = ({
   AddTenantSettingform,
@@ -13,13 +11,14 @@ const TenantSettings = ({
   tenants: { allTenantSetting },
   auth: { isAuthenticated, user, users },
   getAllSettings,
+  onAddSettingModalChange,
 }) => {
   useEffect(() => {
     getAllSettings();
   }, [getAllSettings]);
 
   //formData
-  console.log(allTenantSetting);
+
   const [formData, setFormData] = useState({
     recordId: allTenantSetting[0] ? allTenantSetting[0]._id : "",
     hikePercentage: allTenantSetting[0]
@@ -31,7 +30,7 @@ const TenantSettings = ({
       : "",
   });
 
-  const { hikePercentage, stampDuty, leaseTimePeriod, isSubmitted } = formData;
+  const { hikePercentage, stampDuty, leaseTimePeriod } = formData;
 
   const onInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -45,7 +44,7 @@ const TenantSettings = ({
     };
     AddTenantSettingform(finalData);
     setFormData({ ...formData, isSubmitted: true });
-    window.location.reload();
+    getAllSettings();
   };
 
   const onUpdate = (allTenantSetting) => {
@@ -57,7 +56,8 @@ const TenantSettings = ({
     };
 
     UpdateTenantSettingform(finalData);
-    window.location.reload();
+    onAddSettingModalChange(true);
+    getAllSettings();
   };
 
   return !isAuthenticated || !user || !users ? (

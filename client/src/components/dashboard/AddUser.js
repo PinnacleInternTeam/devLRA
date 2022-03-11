@@ -2,13 +2,14 @@ import React, { useState, Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Select from "react-select";
-import { Redirect } from "react-router-dom";
 import { AddUserDetailsform } from "../../actions/auth";
 
 const AddUser = ({
   auth: { isAuthenticated, user, users },
   AddUserDetailsform,
   errorResponse,
+
+  onAddUserModalChange,
 }) => {
   let passwrdTooltip = {
     marginLeft: "-16em",
@@ -44,7 +45,6 @@ const AddUser = ({
     userphone,
     usergroup,
     useraddr,
-    isSubmitted,
   } = formData;
 
   const onInputChange2 = (e) => {
@@ -67,12 +67,8 @@ const AddUser = ({
       usergroup: usergroup,
       useraddr: useraddr,
     };
-    console.log(finalData);
-
     AddUserDetailsform(finalData);
-    // setFormData({ ...formData, isSubmitted: true });
-
-    window.location.reload();
+    onAddUserModalChange(true);
   };
 
   const [error, setError] = useState({
@@ -401,6 +397,7 @@ const AddUser = ({
 AddUser.propTypes = {
   auth: PropTypes.object.isRequired,
   AddUserDetailsform: PropTypes.func.isRequired,
+
   errorResponse: PropTypes.string,
 };
 

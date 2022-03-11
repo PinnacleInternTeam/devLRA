@@ -1,9 +1,7 @@
 import React, { useState, Fragment, useEffect } from "react";
 import { Modal } from "react-bootstrap";
-import AddShopDetails from "./AddShopDetails";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getAllLevels } from "../../actions/tenants";
 import { getAllUsers } from "../../actions/auth";
 import AddUser from "./AddUser";
 
@@ -20,6 +18,13 @@ const AllUserDetails = ({
   const onClickHandler = () => {
     setShowEditModal(true);
   };
+
+  const onAddUserModalChange = (e) => {
+    if (e) {
+      handleAddUserModalClose();
+    }
+  };
+
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
@@ -100,7 +105,7 @@ const AllUserDetails = ({
             </div>
           </Modal.Header>
           <Modal.Body>
-            <AddUser />
+            <AddUser onAddUserModalChange={onAddUserModalChange} />
           </Modal.Body>
         </Modal>
       </div>

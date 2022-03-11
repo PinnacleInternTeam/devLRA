@@ -7,7 +7,7 @@ import { logout } from "../../actions/auth";
 import Login from "../auth/Login";
 import "react-datepicker/dist/react-datepicker.css";
 import TenantSettings from "../dashboard/TenantSettings";
-import AddUser from "../dashboard/AddUser";
+
 import { getAllSettings } from "../../actions/tenants";
 
 const Header = ({
@@ -25,18 +25,20 @@ const Header = ({
 
   const [showTenantSetting, setTenantSetting] = useState(false);
 
-  // const handleLoginModalClose = () => setShowLogin(false);
-  // const handleLoginModalShow = () => setShowLogin(true);
-
   const handleLogoutModalClose = () => setShowLogout(false);
   const handleLogoutModalShow = () => setShowLogout(true);
   const handleTenantSettingModalClose = () => setTenantSetting(false);
-
   const handleTenantSettingModalShow = () => setTenantSetting(true);
 
   const LogoutModalClose = () => {
     handleLogoutModalClose();
     logout();
+  };
+
+  const onAddSettingModalChange = (e) => {
+    if (e) {
+      handleTenantSettingModalClose();
+    }
   };
   const openSecondLevelMenu2 = () => {
     const menu = document.getElementById("second-level-menu2");
@@ -210,7 +212,7 @@ const Header = ({
             </div>
           </Modal.Header>
           <Modal.Body>
-            <TenantSettings />
+            <TenantSettings onAddSettingModalChange={onAddSettingModalChange} />
           </Modal.Body>
         </Modal>
 

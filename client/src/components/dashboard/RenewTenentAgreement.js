@@ -58,7 +58,8 @@ const RenewTenentAgreement = ({
       tenantEnteredBy: user && user._id,
       tenantDate: todayDateymd,
     };
-    // RenewTenantDetailsform(finalData);
+
+    RenewTenantDetailsform(finalData);
     setFormData({ ...formData, isSubmitted: true });
     onReportModalChange(true);
     // window.location.reload();
@@ -101,8 +102,11 @@ const RenewTenentAgreement = ({
     <Fragment>
       <section className="sub_reg">
         <div className="row">
-          <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-            <label>Door no:</label>
+          <div
+            className="col-lg-2 col-md-2 col-sm-4 col-12"
+            style={{ paddingRight: "0px" }}
+          >
+            <label>Door No:</label>
           </div>
           <div className="col-lg-4  col-md-4 col-sm-4 col-12">
             <label>{tenantsData.tenantDoorNo}</label>
