@@ -251,7 +251,7 @@ const AddTenantDetails = ({
               <Select
                 name="tenantDoorNo"
                 options={shopdoorNo}
-                isSearchable={false}
+                isSearchable={true}
                 placeholder="Select"
                 value={doorNo}
                 onChange={(e) => onDoorNoChange(e)}
@@ -454,10 +454,10 @@ const AddTenantDetails = ({
                   required
                 />
               </div>
-              <div className="col-lg-2 col-md-4 col-sm-4 col-12">
+              <div className="col-lg-1 col-md-4 col-sm-4 col-12">
                 <label>ChequeDate:</label>
               </div>
-              <div className="col-lg-2  col-md-4 col-sm-4 col-12">
+              <div className="col-lg-3  col-md-4 col-sm-4 col-12">
                 <input
                   type="date"
                   placeholder="dd/mm/yyyy"
@@ -466,7 +466,8 @@ const AddTenantDetails = ({
                   value={startSelectedDate}
                   onChange={(e) => onDateChange(e)}
                   style={{
-                    width: "105%",
+                    width: "75%",
+                    marginLeft: "20%",
                   }}
                 />
               </div>
@@ -508,7 +509,7 @@ const AddTenantDetails = ({
                 value={entryDate}
                 onChange={(e) => onDateChangeEntry(e)}
                 style={{
-                  width: "105%",
+                  width: "55%",
                 }}
               />
             </div>
