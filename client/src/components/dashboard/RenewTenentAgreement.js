@@ -9,6 +9,7 @@ const RenewTenentAgreement = ({
   tenants: { allTenantSetting },
   RenewTenantDetailsform,
   getAllSettings,
+  onReportModalChange,
 }) => {
   const [error, setError] = useState({
     nextBtnStyle: { opacity: "0.5", pointerEvents: "none" },
@@ -57,10 +58,10 @@ const RenewTenentAgreement = ({
       tenantEnteredBy: user && user._id,
       tenantDate: todayDateymd,
     };
-    console.log(finalData);
-    RenewTenantDetailsform(finalData);
+    // RenewTenantDetailsform(finalData);
     setFormData({ ...formData, isSubmitted: true });
-    window.location.reload();
+    onReportModalChange(true);
+    // window.location.reload();
   };
   const [entryDate, setEntryDate] = useState("");
   const [leaseEndDate, setLeaseEndDate] = useState("");
@@ -94,9 +95,6 @@ const RenewTenentAgreement = ({
     setNewLeaseEndDate(newLeaseEndDate);
   };
 
-  // if (isSubmitted) {
-  //   return <Redirect to="/all-staff-details" />;
-  // }
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (

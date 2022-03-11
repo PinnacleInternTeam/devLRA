@@ -133,7 +133,7 @@ const AddTenantDetails = ({
   const onDoorNoChange = (e) => {
     var shopfileNumber = "";
     var shopdetailsId = "";
-    getDoorNoData(e.value);
+    getDoorNoData(e);
 
     allDoorNos.map((doorno) => {
       if (doorno.shopDoorNo === e.value) {
@@ -159,7 +159,7 @@ const AddTenantDetails = ({
     if (e) {
       setFormData({
         ...formData,
-        tenantPaymentMode: e.value,
+        tenantPaymentMode: e,
       });
     }
     if (e.value === "Cheque") {
@@ -181,10 +181,11 @@ const AddTenantDetails = ({
       value: doorno.shopDoorNo,
     })
   );
+
   const onSubmit = () => {
     const finalData = {
       tenantFileNo: shopfileNo,
-      tenantDoorNo: doorNo,
+      tenantDoorNo: doorNo.value,
       tenantName: tenantName,
       tenantPhone: tenantPhone,
       tenantFirmName: tenantFirmName,
@@ -192,7 +193,7 @@ const AddTenantDetails = ({
       tenantAdharNo: tenantAdharNo,
       tenantPanNo: tenantPanNo,
       tenantDepositAmt: tenantDepositAmt,
-      tenantPaymentMode: tenantPaymentMode,
+      tenantPaymentMode: tenantPaymentMode.value,
       tenantChequenoOrDdno: tenantChequenoOrDdno,
       tenantBankName: tenantBankName,
       tenantchequeDate: startSelectedDate,
@@ -204,12 +205,9 @@ const AddTenantDetails = ({
       tenantDate: todayDateymd,
     };
     AddTenantDetailsform(finalData);
-    // setFormData({ ...formData, isSubmitted: true });
-
     setFormData({
       ...formData,
       tenantFileNo: "",
-      shopdoorNo: "",
       tenantName: "",
       tenantPhone: "",
       tenantFirmName: "",
@@ -221,11 +219,16 @@ const AddTenantDetails = ({
       tenantBankName: "",
       tenantchequeDate: "",
       tenantRentAmount: "",
-      entryDate: "",
       tenantLeaseEndDate: "",
+      tenantChequenoOrDdno: "",
     });
     setShowInformation(true);
-    // window.location.reload();
+    setEntryDate("");
+    getDoorNoData("");
+    setLeaseEndDate("");
+    setNewLeaseEndDate("");
+    setChequeDate("");
+    setFileNoData("");
   };
 
   return !isAuthenticated || !user || !users ? (
@@ -250,6 +253,7 @@ const AddTenantDetails = ({
                 options={shopdoorNo}
                 isSearchable={false}
                 placeholder="Select"
+                value={doorNo}
                 onChange={(e) => onDoorNoChange(e)}
                 theme={(theme) => ({
                   ...theme,
@@ -403,6 +407,7 @@ const AddTenantDetails = ({
                 name="tenantPaymentMode"
                 options={PaymentMethods}
                 isSearchable={false}
+                value={tenantPaymentMode}
                 placeholder="Select"
                 onChange={(e) => onPaymentModeChange(e)}
                 theme={(theme) => ({
@@ -503,7 +508,7 @@ const AddTenantDetails = ({
                 value={entryDate}
                 onChange={(e) => onDateChangeEntry(e)}
                 style={{
-                  width: "55%",
+                  width: "105%",
                 }}
               />
             </div>
@@ -522,15 +527,11 @@ const AddTenantDetails = ({
               className="btn sub_form btn_continue Save float-right"
               onClick={() => onSubmit()}
               style={
-                // tenantDoorNo !== "" &&
                 tenantName !== "" &&
-                // tenantPhone !== "" &&
                 tenantPaymentMode !== "" &&
                 tenantDepositAmt !== "" &&
-                // tenantAdharNo !== "" &&
                 tenantAddr !== ""
-                  ? // tenantPanNo !== ""
-                    { opacity: "1" }
+                  ? { opacity: "1" }
                   : { opacity: "1", pointerEvents: "none" }
               }
             >

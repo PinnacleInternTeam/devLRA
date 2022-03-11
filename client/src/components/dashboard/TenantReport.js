@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useEffect } from "react";
+import React, { useState, Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getTenantReportYearMonth } from "../../actions/tenants";
@@ -12,11 +12,21 @@ const TenantReport = ({
   const [showEditModal, setShowEditModal] = useState(false);
   const handleEditModalClose = () => setShowEditModal(false);
   const [userData, setUserData] = useState(null);
-  const onRenewal = (tenants, idx) => {
+  const onRenewal = (tenants) => {
     setShowEditModal(true);
     setUserData(tenants);
   };
-
+  const onReportModalChange = (e) => {
+    if (e) {
+      handleEditModalClose();
+      const finalDataReport = {
+        monthSearch: new Date().getMonth() + 1,
+        yearSearch: new Date().getFullYear(),
+      };
+      getTenantReportYearMonth(finalDataReport);
+    }
+  };
+  console.log(expReport);
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
@@ -118,15 +128,16 @@ const TenantReport = ({
             </div>
           </Modal.Header>
           <Modal.Body>
-            <RenewTenentAgreement tenantsData={userData} />
+            <RenewTenentAgreement
+              tenantsData={userData}
+              onReportModalChange={onReportModalChange}
+            />
           </Modal.Body>
         </Modal>
       </div>
     </Fragment>
   );
 };
-
-// export default TenantReport;
 
 TenantReport.propTypes = {
   auth: PropTypes.object.isRequired,

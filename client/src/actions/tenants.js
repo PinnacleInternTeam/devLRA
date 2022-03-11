@@ -39,6 +39,8 @@ export const AddTenantDetailsform = (finalData) => async (dispatch) => {
       type: NEW_TENENTDETAILS,
       payload: res.data,
     });
+
+    dispatch(getAllDoorNos());
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,
@@ -331,8 +333,8 @@ export const getAllTenanatDoornoFilter = (finalData) => async (dispatch) => {
 
 export const RenewTenantDetailsform = (finalData) => async (dispatch) => {
   try {
-    console.log(finalData);
     await axios.post("/api/tenants/renew-tenant-details", finalData, config);
+    dispatch(getTenantReportYearMonth());
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,
