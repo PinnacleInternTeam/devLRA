@@ -11,6 +11,7 @@ const TenantSettings = ({
   tenants: { allTenantSetting },
   auth: { isAuthenticated, user, users },
   getAllSettings,
+  onAddSettingModalChange,
 }) => {
   useEffect(() => {
     getAllSettings();
@@ -43,7 +44,7 @@ const TenantSettings = ({
     };
     AddTenantSettingform(finalData);
     setFormData({ ...formData, isSubmitted: true });
-    window.location.reload();
+    getAllSettings();
   };
 
   const onUpdate = (allTenantSetting) => {
@@ -55,7 +56,8 @@ const TenantSettings = ({
     };
 
     UpdateTenantSettingform(finalData);
-    window.location.reload();
+    onAddSettingModalChange(true);
+    getAllSettings();
   };
 
   return !isAuthenticated || !user || !users ? (

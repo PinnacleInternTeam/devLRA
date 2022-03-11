@@ -1,5 +1,4 @@
 import React, { useState, Fragment, useEffect } from "react";
-import { editStaffDetails } from "../../actions/tenants";
 import DeactiveTenantDetails from "./DeactiveTenantDetails";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -7,13 +6,11 @@ import { getAllTenants } from "../../actions/tenants";
 import { Modal } from "react-bootstrap";
 import Select from "react-select";
 import Pagination from "../layout/Pagination";
-
 import {
   getAllTenanatDoornoFilter,
   getAllDoorNumbers,
 } from "../../actions/tenants";
 const AllTenantShopDetails = ({
-  editStaffDetails,
   auth: { isAuthenticated, user, users },
   getAllTenants,
   getAllTenanatDoornoFilter,
@@ -28,11 +25,14 @@ const AllTenantShopDetails = ({
     getAllDoorNumbers();
   }, [getAllDoorNumbers]);
 
-  const [formData, setFormData] = useState({
-    isSubmitted: false,
-  });
   const [showDeactiveModal, setShowDeactiveModal] = useState(false);
-  const handleEditModalClose = () => setShowDeactiveModal(false);
+  const handleDeactiveModalClose = () => setShowDeactiveModal(false);
+
+  const onDeactiveModalChange = (e) => {
+    if (e) {
+      handleDeactiveModalClose();
+    }
+  };
 
   const [userData, setUserData] = useState(null);
   const onUpdate = (tenants, idx) => {
@@ -51,7 +51,7 @@ const AllTenantShopDetails = ({
   const [doorNo, getDoorNoData] = useState();
 
   const onDoorNoChange = (e) => {
-    getDoorNoData(e.value);
+    getDoorNoData(e);
 
     const finalData = {
       doornoSearch: e.value,
@@ -61,15 +61,8 @@ const AllTenantShopDetails = ({
   };
 
   const onClickReset = () => {
-    // allDoorNos.map((doorno) =>
-    //   shopdoorNo.push({
-    //     label: "Select",
-    //     value: "Select",
-    //   })
-    // );
-
     getAllTenants();
-    window.location.reload();
+    getDoorNoData("");
   };
 
   //pagination code
@@ -101,6 +94,7 @@ const AllTenantShopDetails = ({
                 name="tenantDoorNo"
                 options={shopdoorNo}
                 isSearchable={true}
+                value={doorNo}
                 placeholder="Select DoorNo"
                 onChange={(e) => onDoorNoChange(e)}
                 theme={(theme) => ({
@@ -227,7 +221,7 @@ const AllTenantShopDetails = ({
               <h3 className="modal-title text-center">Deactivate Tenant </h3>
             </div>
             <div className="col-lg-2">
-              <button onClick={handleEditModalClose} className="close">
+              <button onClick={handleDeactiveModalClose} className="close">
                 <img
                   src={require("../../static/images/close.png")}
                   alt="X"
@@ -239,8 +233,7 @@ const AllTenantShopDetails = ({
           <Modal.Body>
             <DeactiveTenantDetails
               tenants={userData}
-              //loggedStaff={loggedStaff}
-              // onEditStaffModalChange={onEditStaffModalChange}
+              onDeactiveModalChange={onDeactiveModalChange}
             />
           </Modal.Body>
         </Modal>
@@ -250,7 +243,6 @@ const AllTenantShopDetails = ({
 };
 
 AllTenantShopDetails.propTypes = {
-  // editStaffDetails: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   getAllTenants: PropTypes.func.isRequired,
   getAllTenanatDoornoFilter: PropTypes.func.isRequired,
@@ -264,7 +256,6 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-  // editStaffDetails,
   getAllTenants,
   getAllTenanatDoornoFilter,
   getAllDoorNumbers,

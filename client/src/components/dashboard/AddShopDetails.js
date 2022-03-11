@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { AddShopDetailsform } from "../../actions/tenants";
 import { Modal } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import { getAllShops } from "../../actions/tenants";
 
 const AddShopDetails = ({
@@ -16,11 +15,10 @@ const AddShopDetails = ({
   const [formData, setFormData] = useState({
     shopFileNo: "",
     shopDoorNo: "",
-
     isSubmitted: false,
   });
 
-  const { shopFileNo, shopDoorNo, isSubmitted } = formData;
+  const { shopFileNo, shopDoorNo } = formData;
 
   const onInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -46,28 +44,19 @@ const AddShopDetails = ({
       shopDoorNo: "",
       isSubmitted: true,
     });
-    getAllShops();
-    // setShowInformation(true);
     onAddStaffModalChange(true);
-    //  window.location.reload();
   };
-  // if (isSubmitted) {
-  //   setShowLogout(true);
-  // }
 
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
     <Fragment>
-      <div className="container container_align">
-        {/* <section className="sub_reg"> */}
-        {/* <div className="col-lg-12 col-md-12 col-sm-12 col-12">
-            <h2 className=" heading_color">Add Shop Details</h2>
-          </div> */}
-
-        <div className="row">
-          <div className="col-lg-6 col-md-6 col-sm-12 col-12">
+      <div className="container ">
+        <div className="row col-lg-12 col-md-6 col-sm-12 col-12">
+          <div className="col-lg-2 col-md-6 col-sm-12 col-12">
             <label> File No * :</label>
+          </div>
+          <div className="col-lg-4 col-md-6 col-sm-12 col-12">
             <input
               type="text"
               name="shopFileNo"
@@ -77,11 +66,10 @@ const AddShopDetails = ({
               required
             />
           </div>
-        </div>
-
-        <div className="row py-2">
-          <div className="col-lg-6 col-md-6 col-sm-12 col-12">
+          <div className="col-lg-2 col-md-6 col-sm-12 col-12">
             <label>Door No * :</label>
+          </div>
+          <div className="col-lg-4 col-md-6 col-sm-12 col-12">
             <input
               type="text"
               name="shopDoorNo"
@@ -96,7 +84,7 @@ const AddShopDetails = ({
         <div className="col-md-12 col-lg-12 col-sm-12 col-12 text-left">
           <button
             variant="success"
-            className="btn sub_form reg_continue blackbrd"
+            className="btn sub_form btn_continue Save float-right"
             onClick={() => onSubmit()}
             style={
               shopFileNo !== "" && shopDoorNo !== ""
@@ -106,68 +94,9 @@ const AddShopDetails = ({
           >
             Save
           </button>
-          <Link
-            className="btn sub_form reg_continue blackbrd"
-            to="/shop-Details"
-          >
-            CANCEL
-          </Link>
         </div>
-        {/* </section> */}
       </div>
-      {/* <div className="container container_align ">
-        <section className="sub_reg">
-          <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
-            <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
-              <h2 className="heading_color">Add Shop Details </h2>
-            </div>
-          </div>
-          <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-4">
-            <div className="col-lg-2 col-md-2 col-sm-1 col-12">
-              <label> File No * :</label>
-            </div>
 
-            <div className="col-lg-4  col-md-4 col-sm-4 col-12">
-              <input
-                type="text"
-                name="shopFileNo"
-                value={shopFileNo}
-                className="form-control"
-                onChange={(e) => onInputChange(e)}
-                required
-              />
-            </div>
-            <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-              <label>Door No * :</label>
-            </div>
-
-            <div className="col-lg-4  col-md-4 col-sm-4 col-12">
-              <input
-                type="text"
-                name="shopDoorNo"
-                value={shopDoorNo}
-                className="form-control"
-                onChange={(e) => onInputChange(e)}
-                required
-              />
-            </div>
-          </div>
-          <div className="col-lg-12 Savebutton " size="lg">
-            <button
-              variant="success"
-              className="btn sub_form btn_continue Save float-right"
-              onClick={() => onSubmit()}
-              style={
-                shopFileNo !== "" && shopDoorNo !== ""
-                  ? { opacity: "1" }
-                  : { opacity: "1", pointerEvents: "none" }
-              }
-            >
-              Save
-            </button>
-          </div>
-        </section>
-      </div> */}
       <Modal
         show={showInformationModal}
         backdrop="static"

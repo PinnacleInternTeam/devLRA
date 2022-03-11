@@ -1,21 +1,21 @@
-import React, { useState, useEffect, Fragment } from "react";
-import { Redirect } from "react-router-dom";
+import React, { useState, Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { deactiveTenantsDetails } from "../../actions/tenants";
-
+import { getAllTenants } from "../../actions/tenants";
 const DeactiveTenantDetails = ({
   auth: { isAuthenticated, user, users },
   tenants,
   deactiveTenantsDetails,
+  onDeactiveModalChange,
+  getAllTenants,
 }) => {
   const [formData, setFormData] = useState({
     tenantdeactivereason: "",
     isSubmitted: false,
   });
 
-  const { recordId, tenantstatus, tenantdeactivereason, isSubmitted } =
-    formData;
+  const { tenantdeactivereason } = formData;
 
   const onInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -45,7 +45,8 @@ const DeactiveTenantDetails = ({
       tenantDate: todayDateymd,
     };
     deactiveTenantsDetails(finalData);
-    window.location.reload();
+    onDeactiveModalChange(true);
+    getAllTenants();
   };
 
   return !isAuthenticated || !user || !users ? (
@@ -98,6 +99,7 @@ const DeactiveTenantDetails = ({
 DeactiveTenantDetails.propTypes = {
   auth: PropTypes.object.isRequired,
   deactiveTenantsDetails: PropTypes.func.isRequired,
+  getAllTenants: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -106,4 +108,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   deactiveTenantsDetails,
+  getAllTenants,
 })(DeactiveTenantDetails);

@@ -1,9 +1,7 @@
 import React, { useState, Fragment, useEffect } from "react";
 import { Modal } from "react-bootstrap";
-import AddShopDetails from "./AddShopDetails";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getAllLevels } from "../../actions/tenants";
 import { getAllUsers } from "../../actions/auth";
 import AddUser from "./AddUser";
 

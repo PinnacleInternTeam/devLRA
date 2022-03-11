@@ -77,7 +77,7 @@ export const AddTenantSettingform = (finalData) => async (dispatch) => {
 export const AddShopDetailsform = (finalData) => async (dispatch) => {
   try {
     await axios.post("/api/tenants/add-shop-details", finalData, config);
-    // getAllShops();
+    dispatch(getAllShops());
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,
@@ -105,6 +105,7 @@ export const deactiveTenantsDetails = (finalData) => async (dispatch) => {
       finalData,
       config
     );
+    // dispatch(getAllTenants());
   } catch (err) {
     dispatch({
       type: TENANT_FEEDBACK_ERROR,
@@ -332,6 +333,7 @@ export const getAllTenanatDoornoFilter = (finalData) => async (dispatch) => {
 export const RenewTenantDetailsform = (finalData) => async (dispatch) => {
   try {
     await axios.post("/api/tenants/renew-tenant-details", finalData, config);
+    //dispatch(getTenantReportYearMonth());
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,
