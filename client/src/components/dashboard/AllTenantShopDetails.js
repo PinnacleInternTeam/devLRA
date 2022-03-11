@@ -13,10 +13,10 @@ import {
 } from "../../actions/tenants";
 const AllTenantShopDetails = ({
   editStaffDetails,
-  auth: { allTenants },
+  // auth: { allTenants },
   getAllTenants,
   getAllTenanatDoornoFilter,
-  tenants: { allDoorNumber },
+  tenants: { allDoorNumber, allTenants },
   getAllDoorNumbers,
 }) => {
   useEffect(() => {
@@ -72,7 +72,7 @@ const AllTenantShopDetails = ({
 
   //pagination code
   const [currentData, setCurrentData] = useState(1);
-  const [dataPerPage] = useState(10);
+  const [dataPerPage] = useState(8);
   //Get Current Data
   const indexOfLastData = currentData * dataPerPage;
   const indexOfFirstData = indexOfLastData - dataPerPage;

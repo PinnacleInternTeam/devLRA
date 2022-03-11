@@ -19,7 +19,7 @@ const TenantReport = ({ auth: { expReport }, getTenantReportYearMonth }) => {
       <div className="container container_align">
         <section className="sub_reg">
           <div className="col-lg-5 col-md-12 col-sm-12 col-12">
-            <h2 className="heading_color">Tenant Reports for{} </h2>
+            <h2 className="heading_color">Tenant Reports  </h2>
           </div>
           <div className="body-inner no-padding  table-responsive fixTableHead">
             <table

@@ -18,30 +18,31 @@ const Login = ({
   let modalTitle = { marginTop: "-30px", marginBottom: "20px" };
 
   const [formData, setFormData] = useState({
-    userName: "dev",
+    useremail: "dev@pinnaclemedia.in",
     password: "Dev@123",
   });
 
-  const { userName, password } = formData;
+  // W7'Um34BrCxzQNR?
+  const { useremail, password } = formData;
 
   const onInputChange = (e) => {
     const { name, value } = e.target;
     switch (name) {
-      case "userName":
+      case "useremail":
         if (value === "") {
           setError({
             ...error,
-            userNameValChecker: true,
-            userNameValResult: "Please Enter Your userName",
-            userNameValStyle: { color: "#FF0000" },
-            userNameInptErrStyle: { borderBottom: "1px solid #FF0000" },
+            userEmailValChecker: true,
+            userEmailValResult: "Please Enter Your useremail",
+            userEmailValStyle: { color: "#FF0000" },
+            userEmailInptErrStyle: { borderBottom: "1px solid #FF0000" },
           });
           setFormData({ ...formData, [e.target.name]: "" });
         } else {
           setError({
             ...error,
-            userNameValChecker: false,
-            userNameInptErrStyle: { borderBottom: "1px solid #0086dc" },
+            userEmailValChecker: false,
+            userEmailInptErrStyle: { borderBottom: "1px solid #0086dc" },
           });
           setFormData({ ...formData, [e.target.name]: value });
         }
@@ -72,10 +73,10 @@ const Login = ({
   };
 
   const [error, setError] = useState({
-    userNameValChecker: false,
-    userNameValResult: "",
-    userNameValStyle: {},
-    userNameInptErrStyle: {},
+    userEmailValChecker: false,
+    userEmailValResult: "",
+    userEmailValStyle: {},
+    userEmailInptErrStyle: {},
 
     passwordValChecker: false,
     passwordValResult: "",
@@ -84,10 +85,10 @@ const Login = ({
   });
 
   const {
-    userNameValChecker,
-    userNameValResult,
-    userNameValStyle,
-    userNameInptErrStyle,
+    userEmailValChecker,
+    userEmailValResult,
+    userEmailValStyle,
+    userEmailInptErrStyle,
 
     passwordValChecker,
     passwordValResult,
@@ -96,24 +97,24 @@ const Login = ({
   } = error;
 
   const checkErrors = (formData) => {
-    if (formData && formData.userName === "") {
+    if (formData && formData.useremail === "") {
       setError({
         ...error,
-        userNameValChecker: true,
-        userNameValResult: "Please Enter Your userName",
-        userNameValStyle: { color: "#FF0000" },
-        userNameInptErrStyle: { borderBottom: "1px solid #FF0000" },
+        userEmailValChecker: true,
+        userEmailValResult: "Please Enter Your email",
+        userEmailValStyle: { color: "#FF0000" },
+        userEmailInptErrStyle: { borderBottom: "1px solid #FF0000" },
       });
       return false;
     } else {
-      const userNameFilter = /^([a-zA-Z])*$/;
-      if (!userNameFilter.test(formData && formData.userName)) {
+      const userEmailFilter = /^(\d*[a-zA-Z][a-zA-Z\d_.+-]*)\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})*$/;
+      if (!userEmailFilter.test(formData && formData.useremail)) {
         setError({
           ...error,
-          userNameValChecker: true,
-          userNameValResult: "Please Enter Valid userName",
-          userNameValStyle: { color: "#FF0000" },
-          userNameInptErrStyle: { borderBottom: "1px solid #FF0000" },
+          userEmailValChecker: true,
+          userEmailValResult: "Please Enter Valid email",
+          userEmailValStyle: { color: "#FF0000" },
+          userEmailInptErrStyle: { borderBottom: "1px solid #FF0000" },
         });
         return false;
       }
@@ -134,7 +135,7 @@ const Login = ({
   const onSubmit = async (e) => {
     e.preventDefault();
     if (checkErrors(formData)) {
-      login(userName, password);
+      login(useremail, password);
     }
     setFormData({ ...formData, submitted: true });
   };
@@ -163,20 +164,20 @@ const Login = ({
           <div className="form-group form_top">
             <input
               type="text"
-              name="userName"
-              value={userName}
-              style={userNameInptErrStyle}
+              name="useremail"
+              value={useremail}
+              style={userEmailInptErrStyle}
               className="form-control form_contct"
               onChange={(e) => onInputChange(e)}
             />
-            {userNameValChecker && (
-              <span style={userNameValStyle}>
-                {userNameValResult}
+            {userEmailValChecker && (
+              <span style={userEmailValStyle}>
+                {userEmailValResult}
                 <br />
               </span>
             )}
             <label className="pop_up">
-              <span className="label-content">User Name *</span>
+              <span className="label-content">Email *</span>
             </label>
           </div>
 
