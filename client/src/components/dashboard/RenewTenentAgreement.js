@@ -146,7 +146,6 @@ const RenewTenentAgreement = ({
             <input
               type="date"
               placeholder="dd/mm/yyyy"
-              dateFormat="dd-MM-yyyy"
               //   min={yesterdayDt}
               //   max={today2}
               className="form-control cpp-input datevalidation"
