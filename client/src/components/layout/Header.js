@@ -87,15 +87,7 @@ const Header = ({
                     <NavItem></NavItem>
                   )}
                 </NavItem>
-               
 
-                <NavItem>
-                  {!loading && isAuthenticated && user ? (
-                    <Link to="/shop-Details">Shop Details</Link>
-                  ) : (
-                    <NavItem></NavItem>
-                  )}
-                </NavItem>
 
                 <NavItem>
                   {!loading && isAuthenticated && user ? (
@@ -116,11 +108,15 @@ const Header = ({
                         onClick={() => openSecondLevelMenu2()}
                         className="navbar-right"
                       >
-                        {user.fullName}
+                        {user.userfullName}&nbsp;
                         <i className="fa fa-caret-down" />
                       </Link>
 
                       <ul className="dropdown-menu second-level-menu ">
+                        <li>
+                        <Link to="/shop-Details">Shop Details</Link>
+                        </li>
+
                         <li>
                           <Link
                             to="#"
@@ -129,6 +125,7 @@ const Header = ({
                             Tenant Setting
                           </Link>
                         </li>
+
                         <li>
                           <Link to="/add-user">Add Users</Link>
                         </li>
