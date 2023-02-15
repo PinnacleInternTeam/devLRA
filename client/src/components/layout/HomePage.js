@@ -13,9 +13,7 @@ const Homepage = ({ auth: { isAuthenticated, user } }) => {
 
   return (
     <div>
-      {isAuthenticated && user ? (
-        <Fragment></Fragment>
-      ) : (
+      {isAuthenticated && user ? ( <Fragment></Fragment>) : (
         <Fragment>
           <div className="container container_align"></div>
           <Link

@@ -1,4 +1,5 @@
 import React, { useState, Fragment, useEffect } from "react";
+import {  Button } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import {
@@ -21,6 +22,26 @@ const AddTenantDetails = ({
   useEffect(() => {
     getAllSettings();
   }, [getAllSettings]);
+
+  const[inputdata,setinput]=useState('');
+  const[items,setitem]=useState([]);
+
+  const handleLocationclose=(index) =>{
+    const delitem = items.filter((ele,ind)=>{
+    return ind != index 
+    })
+    setitem(delitem)
+    }
+
+    const addItem =()=>{
+      if(!inputdata){
+    
+      }else{
+        setitem([...items,inputdata])
+        setinput('')
+      }
+    
+    }
 
   const PaymentMethods = [
     { value: "Cash", label: "Cash" },
@@ -231,8 +252,184 @@ const AddTenantDetails = ({
     setFileNoData("");
   };
 
-  return !isAuthenticated || !user || !users ? (
-    <Fragment></Fragment>
+  return isAuthenticated ||user ||  users && users.usergroup == "Super Admin" ? (
+    <Fragment>
+      {/* Organisation details starting */} 
+      {/* -------------need to add the organisation details with storing the values---------- */}
+      <Fragment>
+        <div className="container container_align">
+          <div className="col-lg-5 col-md-12 col-sm-12 col-12 ">
+            <h2 className="heading_color">Add Organization Details </h2>
+          </div>
+          <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
+
+
+          <div className="col-lg-2 col-md-2 col-sm-4 col-12">
+              <label> Organization Name:</label>
+            </div>
+
+            <div className="col-lg-4 col-md-4 col-sm-4 col-12">
+              <input
+                type="text"
+                // name="tenantPhone"
+                // value={tenantPhone}
+                className="form-control"
+                onChange={(e) => onInputChange(e)}
+                onKeyDown={(e) =>
+                  (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
+                }
+                required
+              />
+            </div>
+
+                          {/*---- Email label ---------*/}
+            <div className="col-lg-2 col-md-2 col-sm-4 col-12">
+              <label>Email *:</label>
+            </div>
+            <div className="col-lg-4  col-md-4 col-sm-4 col-12">
+              <input
+                type="email"
+                // name="tenantName"
+                // value={tenantName}
+                className="form-control"
+                onChange={(e) => onInputChange(e)}
+                required
+              />
+            </div>
+                     {/*---- Email label ---------*/}
+
+            <div className="col-lg-2 col-md-2 col-sm-4 col-12">
+              <label>Phone No:</label>
+            </div>
+
+            <div className="col-lg-4 col-md-4 col-sm-4 col-12">
+              <input
+                type="number"
+                // name="tenantPhone"
+                // value={tenantPhone}
+                className="form-control"
+                onChange={(e) => onInputChange(e)}
+                onKeyDown={(e) =>
+                  (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
+                }
+                required
+              />
+            </div>
+            <div className="col-lg-2 col-md-2 col-sm-4 col-12">
+              <label>Number of User:</label>
+            </div>
+
+            <div className="col-lg-4 col-md-4 col-sm-4 col-12">
+              <input
+                type="number"
+                // name="tenantPhone"
+                // value={tenantPhone}
+                className="form-control"
+                onChange={(e) => onInputChange(e)}
+                onKeyDown={(e) =>
+                  (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
+                }
+                required
+              />
+            </div>
+
+
+          </div>
+
+          <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
+
+            <div className="col-lg-2 col-md-2 col-sm-4 col-12">
+              <label> Address *:</label>
+            </div>
+
+            <div className="col-lg-4 col-md-4 col-sm-6 col-12">
+              <textarea
+                //  name="tenantAddr"
+                //  value={tenantAddr}
+                // id="tenantAddr"
+                className="textarea form-control"
+                rows="3"
+                placeholder="Address"
+                onChange={(e) => onInputChange(e)}
+                style={{ width: "100%" }}
+                required
+              ></textarea>
+            </div>
+          </div>
+       {/*------------- Multiple Location adding details starting------------ */}
+       <div className="addItem">
+<label>Location :</label>
+<input 
+type='text' 
+name="Location"
+value={inputdata}
+onChange={(e)=>setinput(e.target.value)}
+placeholder="Location" 
+id="Location"></input>
+ <Button onClick={addItem}>+</Button> *
+</div>
+<div className="showItem">
+
+{
+  items.map((ele,index)=>{
+return(
+<div className="eachItem" key={index}>
+  <span>{ele}</span> <button onClick={()=>handleLocationclose(index)}>X</button>
+</div>
+)
+  })
+}
+
+</div>
+
+         {/*------------- Multiple Location adding details Ending------------ */}
+
+        </div>
+
+        <div className="col-lg-12 Savebutton " size="lg">
+          <button
+            variant="success"
+            className="btn sub_form btn_continue Save float-right"
+            onClick={() => onSubmit()}
+            style={
+              tenantName !== "" &&
+              tenantPaymentMode !== "" &&
+              tenantDepositAmt !== "" &&
+              tenantAddr !== ""
+                ? { opacity: "1" }
+                : { opacity: "1", pointerEvents: "none" }
+            }
+          >
+            Save
+          </button>
+        </div>
+        <Modal
+          show={showInformationModal}
+          backdrop="static"
+          keyboard={false}
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+          className="logout-modal"
+        >
+          <Modal.Header className="confirmbox-heading">
+            <h4 className="mt-0">Information</h4>
+          </Modal.Header>
+          <Modal.Body>
+            <h5>Shop Details Added!!</h5>
+          </Modal.Body>
+          <Modal.Footer>
+            <button
+              className="btn btn_green_bg"
+              onClick={() => LogoutModalClose()}
+            >
+              OK
+            </button>
+          </Modal.Footer>
+        </Modal>
+      </Fragment>
+
+      {/* Organisation details ending */}
+    </Fragment>
   ) : (
     <Fragment>
       <div className="container container_align">
@@ -526,7 +723,8 @@ const AddTenantDetails = ({
             <button
               variant="success"
               className="btn sub_form btn_continue Save float-right"
-              onClick={() => onSubmit()}
+              // onClick={() => onSubmit()}
+            
               style={
                 tenantName !== "" &&
                 tenantPaymentMode !== "" &&

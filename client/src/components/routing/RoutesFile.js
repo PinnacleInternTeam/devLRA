@@ -21,11 +21,7 @@ const RoutesFile = () => {
   return (
     <section>
       <Switch>
-        <PrivateRoute
-          exact
-          path="/add-tenant-details"
-          component={AddTenantDetails}
-        />
+        <PrivateRoute exact path="/add-tenant-details"component={AddTenantDetails}/>
         <PrivateRoute exact path="/tenant-report" component={TenantReport} />
         <PrivateRoute exact path="/tenant-setting" component={TenantSettings} />
         <PrivateRoute exact path="/shop-Details" component={ShopDetails} />

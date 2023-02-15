@@ -19,7 +19,8 @@ const AddUser = ({
     zIndex: "999",
     width: "300px",
   };
-
+  //showing the use data 
+console.log(user)
   //formData
   const [formData, setFormData] = useState({
     password: "",
@@ -52,10 +53,7 @@ const AddUser = ({
   };
   const onPaymentModeChange = (e) => {
     if (e) {
-      setFormData({
-        ...formData,
-        usergroup: e.value,
-      });
+      setFormData({ ...formData,usergroup: e.value,});
     }
   };
   const onSubmit = () => {
@@ -107,9 +105,10 @@ const AddUser = ({
             passwordInptErrStyle: { border: "1px solid #FF0000" },
           });
           setFormData({ ...formData, [e.target.name]: "" });
-        } else {
-          const pwdFilter =
-            /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,20}$/;
+        } 
+        else
+         {
+          const pwdFilter = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,20}$/;
           if (pwdFilter.test(value)) {
             setError({
               ...error,
@@ -190,7 +189,7 @@ const AddUser = ({
       });
       return false;
     }
-
+console.log(user);
     if (formData && formData.rePassword === "") {
       setError({
         ...error,
@@ -205,9 +204,7 @@ const AddUser = ({
     return true;
   };
 
-  return !isAuthenticated || !user || !users ? (
-    <Fragment></Fragment>
-  ) : (
+  return !isAuthenticated || !user || !users ? (<Fragment></Fragment>) : (
     <Fragment>
       <>
         {errorResponse && <p style={{ color: "red" }}>{errorResponse}</p>}
@@ -220,6 +217,7 @@ const AddUser = ({
             <input
               type="text"
               name="userfullName"
+             // placeholder={user.group}
               className="form-control"
               onChange={(e) => onInputChange2(e)}
               required
@@ -406,6 +404,4 @@ const mapStateToProps = (state) => ({
   errorResponse: state.auth.errorResponse,
 });
 
-export default connect(mapStateToProps, {
-  AddUserDetailsform,
-})(AddUser);
+export default connect(mapStateToProps, {AddUserDetailsform,})(AddUser);

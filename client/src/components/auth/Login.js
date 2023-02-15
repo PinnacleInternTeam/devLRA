@@ -2,17 +2,10 @@ import React, { Fragment, useEffect, useState } from "react";
 import { Redirect, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { login, removeError, sendOTP } from "../../actions/auth";
+import { login, removeError} from "../../actions/auth";
 
-const Login = ({
-  login,
-  isAuthenticated,
-  errorResponse,
-  removeError,
-  loading,
-  sendOTP,
-  otpMessage,
-}) => {
+const Login = ({login,isAuthenticated,errorResponse, removeError,loading}) => { 
+  console.log("inside login"+login)
   useEffect(() => {
     removeError();
   }, [removeError]);
@@ -20,12 +13,12 @@ const Login = ({
   let modalTitle = { marginTop: "-30px", marginBottom: "20px" };
 
   const [formData, setFormData] = useState({
-    useremail: "",
-    password: "",
+    useremail: "dev@pinnaclemedia.in",
+    password: "Password@123",
   });
 
   // W7'Um34BrCxzQNR?
-  const { useremail, password, userOTP } = formData;
+  const { useremail, password} = formData;
 
   const onInputChange = (e) => {
     const { name, value } = e.target;
@@ -69,11 +62,11 @@ const Login = ({
           setFormData({ ...formData, [e.target.name]: value });
         }
         break;
-      case "userOTP":
-        setFormData({ ...formData, [e.target.name]: value });
-        break;
-      default:
-        break;
+      // case "userOTP":
+      //   setFormData({ ...formData, [e.target.name]: value });
+      //   break;
+      // default:
+      //   break;
     }
   };
 
@@ -112,8 +105,7 @@ const Login = ({
       });
       return false;
     } else {
-      const userEmailFilter =
-        /^(\d*[a-zA-Z][a-zA-Z\d_.+-]*)\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})*$/;
+      const userEmailFilter = /^(\d*[a-zA-Z][a-zA-Z\d_.+-]*)\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})*$/;
       if (!userEmailFilter.test(formData && formData.useremail)) {
         setError({
           ...error,
@@ -141,16 +133,16 @@ const Login = ({
   const onSubmit = async (e) => {
     e.preventDefault();
     if (checkErrors(formData)) {
-      login(useremail, password, userOTP);
+      login(useremail, password);
     }
     setFormData({ ...formData, submitted: true });
   };
 
-  const getOtp = async () => {
-    if (checkErrors(formData)) {
-      sendOTP(useremail, password);
-    }
-  };
+  // const getOtp = async () => {
+  //   if (checkErrors(formData)) {
+  //     sendOTP(useremail, password);
+  //   }
+  // };
 
   if (isAuthenticated) {
     return <Redirect to="/route-driver" />;
@@ -159,12 +151,7 @@ const Login = ({
   return (
     <Fragment>
       <div className="col-md-12 col-lg-12 col-sm-12 col-12 py-5">
-        <div className="modal-header">
-          {loading ? (
-            <h2 className="modal-title " id="myModalLabel" style={modalTitle}>
-              Please Wait
-            </h2>
-          ) : (
+        <div className="modal-header">{loading ? (<h2 className="modal-title " id="myModalLabel" style={modalTitle}>Please Wait</h2>  ) : (
             <h2 className="modal-title " id="myModalLabel" style={modalTitle}>
               SIGN IN
             </h2>
@@ -173,6 +160,7 @@ const Login = ({
         {errorResponse && <p style={{ color: "red" }}>{errorResponse}</p>}
         {/* <!-- form --> */}
         {/* <form> */}
+        
         <div className="form-group form_top">
           <input
             type="text"
@@ -213,59 +201,11 @@ const Login = ({
         </div>
 
         <div className="col-md-12 col-sm-12 col-lg-12 col-12 text-center">
-          {loading ? (
-            <button
-              className="btn contact_reg"
-              disabled
-              onClick={() => getOtp()}
-            >
-              Loading...
-            </button>
-          ) : (
-            <button className="btn contact_reg" onClick={() => getOtp()}>
-              Get OTP
-            </button>
-          )}
-        </div>
-
-        <div className="form-group form_top">
-          <input
-            type="text"
-            name="userOTP"
-            maxLength={4}
-            value={userOTP}
-            // style={userEmailInptErrStyle}
-            className="form-control form_contct"
-            onChange={(e) => onInputChange(e)}
-          />
-          <label className="pop_up">
-            <span className="label-content">OTP</span>
-          </label>
-        </div>
-
-        <div className="col-md-12 col-sm-12 col-lg-12 col-12 text-center">
           <button className="btn contact_reg" onClick={(e) => onSubmit(e)}>
             SIGN IN
           </button>
         </div>
-        {otpMessage && (
-          <>
-            <center>
-              <p style={{ color: "blue", fontSize: "18px" }}>
-                {otpMessage}
-                <span
-                  style={{
-                    color: "gray",
-                    fontSize: "13px",
-                    fontStyle: "italic",
-                  }}
-                >
-                  &nbsp;&nbsp;&nbsp;Please check in spam if not received!
-                </span>
-              </p>
-            </center>
-          </>
-        )}
+       
         {/* </form> */}
       </div>
     </Fragment>
@@ -277,16 +217,16 @@ Login.propTypes = {
   isAuthenticated: PropTypes.bool,
   loading: PropTypes.bool,
   errorResponse: PropTypes.string,
-  otpMessage: PropTypes.string,
+ // otpMessage: PropTypes.string,
   removeError: PropTypes.func.isRequired,
-  sendOTP: PropTypes.func.isRequired,
+ // sendOTP: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
   loading: state.auth.loading,
   errorResponse: state.auth.errorResponse,
-  otpMessage: state.auth.otpMessage,
+ // otpMessage: state.auth.otpMessage,
 });
 
-export default connect(mapStateToProps, { login, removeError, sendOTP })(Login);
+export default connect(mapStateToProps, { login, removeError})(Login);

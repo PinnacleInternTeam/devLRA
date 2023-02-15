@@ -13,7 +13,6 @@ import { getAllSettings } from "../../actions/tenants";
 const Header = ({
   auth: { isAuthenticated, loading, user, allTenantSetting },
   logout,
-
   getAllSettings,
 }) => {
   useEffect(() => {
@@ -52,11 +51,13 @@ const Header = ({
       } else {
         menu.style.display = "none";
       }
+      console.log("this is inside header");
     }
   };
 
   return (
     <Fragment>
+      {/* header starting */}
       <header>
         <Container id="header_navbar">
           <Navbar
@@ -83,12 +84,33 @@ const Header = ({
                   )}
                 </NavItem> */}
                 <NavItem>
-                  {!loading && isAuthenticated && user ? (
+                  {!loading &&
+                  isAuthenticated &&
+                  user &&
+                  user.usergroup === "Super Admin" ? (
                     <NavLink
                       to="/add-tenant-details"
                       activeStyle={{ color: "Black", textDecoration: "none" }}
                     >
-                      Add Tenant Details
+                      Add Organisation Details
+                    </NavLink>
+                  ) : (
+                    <NavItem>
+                    <NavLink to="/add-tenant-details"activeStyle={{ color: "Black", textDecoration: "none" }}>
+                      Property
+                      </NavLink>
+                    </NavItem>
+                  )}
+                </NavItem>
+
+                {/*  copy paste the code for remaining headers for admin and super admin */}
+                <NavItem>
+                  {!loading &&
+                  isAuthenticated &&
+                  user &&
+                  user.usergroup == "Super Admin" ? (
+                    <NavLink to="/add-tenant-details" activeStyle={{ color: "Black", textDecoration: "none" }}>
+                      User
                     </NavLink>
                   ) : (
                     <NavItem></NavItem>
@@ -96,19 +118,46 @@ const Header = ({
                 </NavItem>
 
                 <NavItem>
-                  {!loading && isAuthenticated && user ? (
-                    <NavLink
-                      to="/all-tenant-shop-Details"
-                      activeStyle={{ color: "Black", textDecoration: "none" }}
-                    >
-                      All Tenants Shop Details
-                    </NavLink>
-                  ) : (
+                  {!loading &&
+                  isAuthenticated &&
+                  user &&
+                  user.usergroup === "Super Admin" ? (
                     <NavItem></NavItem>
+                  ) : (
+                    <NavItem>
+                      <NavLink  to="/all-tenant-shop-Details" activeStyle={{ color: "Black", textDecoration: "none" }}>
+                        User
+                      </NavLink>
+                    </NavItem>
                   )}
                 </NavItem>
               </Nav>
-              {!loading && isAuthenticated && user ? (
+
+              {!loading &&
+              isAuthenticated &&
+              user &&
+              user.usergroup == "Super Admin" ? (
+                <Fragment>
+                  <Nav>
+                    <NavItem>
+                      <Link to="#" onClick={() => handleLogoutModalShow()}>
+                     LOGOUT
+                   </Link>
+                    </NavItem>
+                      
+                    <Modal show={showLogin} backdrop="static"keyboard={false} aria-labelledby="contained-modal-title-vcenter" centered >
+                      <Modal.Header></Modal.Header>
+                      <Modal.Body>
+                      <button onClick={() => handleLogoutModalClose()} className="close">
+                      <img src={require("../../static/images/close.png")} alt="X"/>
+                     </button>
+                        <Login />
+                      </Modal.Body>
+                    </Modal>
+                  </Nav>
+                </Fragment>
+              ) : (
+                // starting
                 <Nav>
                   <ul className="top-level-menu text-right">
                     <li>
@@ -117,7 +166,7 @@ const Header = ({
                         onClick={() => openSecondLevelMenu2()}
                         className="navbar-right"
                       >
-                        {user.userfullName}&nbsp;
+                        {/* {user.userfullName}&nbsp; */}
                         <i className="fa fa-caret-down" />
                       </Link>
 
@@ -144,45 +193,15 @@ const Header = ({
                         </li>
                         <li>
                           <Link to="#" onClick={() => handleLogoutModalShow()}>
-                            Logout
+                            Logout{" "}
                           </Link>
                         </li>
                       </ul>
                     </li>
                   </ul>
                 </Nav>
-              ) : (
-                <Fragment>
-                  <Nav>
-                    <NavItem>
-                      {/* <Link to="#" onClick={() => handleLoginModalShow()}>
-                        LOGIN
-                      </Link> */}
-                    </NavItem>
 
-                    <Modal
-                      show={showLogin}
-                      backdrop="static"
-                      keyboard={false}
-                      aria-labelledby="contained-modal-title-vcenter"
-                      centered
-                    >
-                      <Modal.Header></Modal.Header>
-                      <Modal.Body>
-                        {/* <button
-                          onClick={() => handleLoginModalClose()}
-                          className="close"
-                        >
-                          <img
-                            src={require("../../static/images/close.png")}
-                            alt="X"
-                          />
-                        </button> */}
-                        <Login />
-                      </Modal.Body>
-                    </Modal>
-                  </Nav>
-                </Fragment>
+                //ending
               )}
             </Navbar.Collapse>
           </Navbar>
@@ -247,6 +266,7 @@ const Header = ({
           </Modal.Footer>
         </Modal>
       </header>
+      {/* header ending */}
     </Fragment>
   );
 };
@@ -261,3 +281,4 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, { logout, getAllSettings })(Header);
+
