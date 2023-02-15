@@ -1,5 +1,5 @@
 import React, { useState, Fragment, useEffect } from "react";
-import {  Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import {
@@ -23,25 +23,25 @@ const AddTenantDetails = ({
     getAllSettings();
   }, [getAllSettings]);
 
-  const[inputdata,setinput]=useState('');
-  const[items,setitem]=useState([]);
+  const [inputdata, setinput] = useState('');
+  const [items, setitem] = useState([]);
 
-  const handleLocationclose=(index) =>{
-    const delitem = items.filter((ele,ind)=>{
-    return ind != index 
+  const handleLocationclose = (index) => {
+    const delitem = items.filter((ele, ind) => {
+      return ind != index
     })
     setitem(delitem)
+  }
+
+  const addItem = () => {
+    if (!inputdata) {
+
+    } else {
+      setitem([...items, inputdata])
+      setinput('')
     }
 
-    const addItem =()=>{
-      if(!inputdata){
-    
-      }else{
-        setitem([...items,inputdata])
-        setinput('')
-      }
-    
-    }
+  }
 
   const PaymentMethods = [
     { value: "Cash", label: "Cash" },
@@ -252,9 +252,9 @@ const AddTenantDetails = ({
     setFileNoData("");
   };
 
-  return isAuthenticated ||user ||  users && users.usergroup == "Super Admin" ? (
+  return isAuthenticated || user || users && users.usergroup == "Super Admin" ? (
     <Fragment>
-      {/* Organisation details starting */} 
+      {/* Organisation details starting */}
       {/* -------------need to add the organisation details with storing the values---------- */}
       <Fragment>
         <div className="container container_align">
@@ -264,8 +264,8 @@ const AddTenantDetails = ({
           <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
 
 
-          <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-              <label> Organization Name:</label>
+            <div className="col-lg-2 col-md-2 col-sm-4 col-12">
+              <label> Organization Name<i className="text-danger "><b>*</b></i>:</label>
             </div>
 
             <div className="col-lg-4 col-md-4 col-sm-4 col-12">
@@ -279,12 +279,12 @@ const AddTenantDetails = ({
                   (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
                 }
                 required
-              />
+              /><br></br>
             </div>
 
-                          {/*---- Email label ---------*/}
+            {/*---- Email label ---------*/}
             <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-              <label>Email *:</label>
+              <label>Email <i className="text-danger "><b>*</b></i>:</label>
             </div>
             <div className="col-lg-4  col-md-4 col-sm-4 col-12">
               <input
@@ -296,10 +296,10 @@ const AddTenantDetails = ({
                 required
               />
             </div>
-                     {/*---- Email label ---------*/}
+            {/*---- Email label ---------*/}
 
             <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-              <label>Phone No:</label>
+              <label>Phone No<i className="text-danger "><b>*</b></i>:</label>
             </div>
 
             <div className="col-lg-4 col-md-4 col-sm-4 col-12">
@@ -339,7 +339,7 @@ const AddTenantDetails = ({
           <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
 
             <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-              <label> Address *:</label>
+              <label> Address <i className="text-danger "><b>*</b></i>:</label>
             </div>
 
             <div className="col-lg-4 col-md-4 col-sm-6 col-12">
@@ -356,33 +356,34 @@ const AddTenantDetails = ({
               ></textarea>
             </div>
           </div>
-       {/*------------- Multiple Location adding details starting------------ */}
-       <div className="addItem">
-<label>Location :</label>
-<input 
-type='text' 
-name="Location"
-value={inputdata}
-onChange={(e)=>setinput(e.target.value)}
-placeholder="Location" 
-id="Location"></input>
- <Button onClick={addItem}>+</Button> *
-</div>
-<div className="showItem">
+          {/*------------- Multiple Location adding details starting------------ */}
+          <div className="addItem m-4">
+            <label>Location :</label>
+            <input
+            className=""
+              type='text'
+              name="Location"
+              value={inputdata}
+              onChange={(e) => setinput(e.target.value)}
+              placeholder="Location"
+              id="Location"></input>
+            <Button className="btn_plus" onClick={addItem}>+</Button>
+          </div>
+          <div className="showItem">
 
-{
-  items.map((ele,index)=>{
-return(
-<div className="eachItem" key={index}>
-  <span>{ele}</span> <button onClick={()=>handleLocationclose(index)}>X</button>
-</div>
-)
-  })
-}
+            {
+              items.map((ele, index) => {
+                return (
+                  <div className="eachItem" key={index}>
+                    <span>{ele}</span> <button onClick={() => handleLocationclose(index)}>X</button>
+                  </div>
+                )
+              })
+            }
 
-</div>
+          </div>
 
-         {/*------------- Multiple Location adding details Ending------------ */}
+          {/*------------- Multiple Location adding details Ending------------ */}
 
         </div>
 
@@ -393,9 +394,9 @@ return(
             onClick={() => onSubmit()}
             style={
               tenantName !== "" &&
-              tenantPaymentMode !== "" &&
-              tenantDepositAmt !== "" &&
-              tenantAddr !== ""
+                tenantPaymentMode !== "" &&
+                tenantDepositAmt !== "" &&
+                tenantAddr !== ""
                 ? { opacity: "1" }
                 : { opacity: "1", pointerEvents: "none" }
             }
@@ -724,12 +725,12 @@ return(
               variant="success"
               className="btn sub_form btn_continue Save float-right"
               // onClick={() => onSubmit()}
-            
+
               style={
                 tenantName !== "" &&
-                tenantPaymentMode !== "" &&
-                tenantDepositAmt !== "" &&
-                tenantAddr !== ""
+                  tenantPaymentMode !== "" &&
+                  tenantDepositAmt !== "" &&
+                  tenantAddr !== ""
                   ? { opacity: "1" }
                   : { opacity: "1", pointerEvents: "none" }
               }
