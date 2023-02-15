@@ -9,6 +9,7 @@ import {
 } from "../../actions/tenants";
 import Select from "react-select";
 import { Modal } from "react-bootstrap";
+import ImageUpload from "./FileUpload";
 const AddTenantDetails = ({
   tenants: { allDoorNos, allTenantSetting },
   auth: { isAuthenticated, user, users },
@@ -384,6 +385,26 @@ const AddTenantDetails = ({
           </div>
 
           {/*------------- Multiple Location adding details Ending------------ */}
+
+        {/*---------- Image upload starting------------ */}
+{/* it is connected to files 1) goto FileUpload  in dashboard 
+                             2) that file upload is connected to Services folder 
+                             3) uunder that folder some code is generated
+                             4) goto  http-common.jsx file */}
+
+        <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
+
+<div className="col-lg-2 col-md-2 col-sm-4 col-12">
+  <label> Upload Logo *:</label>
+</div>
+
+<div className="col-lg-4 col-md-4 col-sm-6 col-12">
+ <ImageUpload/>
+</div>
+</div>
+
+        {/* ----------Image upload Ending */}
+
 
         </div>
 
