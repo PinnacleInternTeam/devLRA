@@ -15,6 +15,7 @@ app.use("/api/users", require("./routes/api/user"));
 app.use("/api/auth", require("./routes/api/auth"));
 app.use("/api/tenants", require("./routes/api/tenants"));
 
+
 // Set static folder for client build Serve static assets in production
 //app.use(express.static('client/build'));
 // app.get('*', (req, res) => {
