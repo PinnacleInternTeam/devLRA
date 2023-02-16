@@ -11,6 +11,7 @@ const Homepage = ({ auth: { isAuthenticated, user } }) => {
   const handleLoginModalClose = () => setShowLogin(false);
   const handleLoginModalShow = () => setShowLogin(true);
 
+
   return (
     <div>
       {isAuthenticated && user ? ( <Fragment></Fragment>) : (
@@ -44,6 +45,7 @@ const Homepage = ({ auth: { isAuthenticated, user } }) => {
       )}
     </div>
   );
+  
 };
 
 Homepage.propTypes = {

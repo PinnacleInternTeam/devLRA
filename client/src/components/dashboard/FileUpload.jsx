@@ -62,7 +62,9 @@ const ImageUpload = () =>{
 
         <div className="col-4">
           <button
-            className="btn btn-success btn-sm"
+          variant="success"
+            className="upload"
+            
             disabled={!currentFile}
             onClick={upload}
           >
@@ -99,7 +101,7 @@ const ImageUpload = () =>{
       )}
 
       <div className="card mt-3">
-        <div className="card-header">List of Images</div>
+        {/* <div className="card-header">List of Images</div> */}
         <ul className="list-group list-group-flush">
           {imageInfos &&
             imageInfos.map((img, index) => (
@@ -107,7 +109,7 @@ const ImageUpload = () =>{
                 <p>
                   <a href={img.url}>{img.name}</a>
                 </p>
-                <img src={img.url} alt={img.name} height="80px" />
+                <img src={img.url} alt={img.name} height="10px" />
               </li>
             ))}
         </ul>

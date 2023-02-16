@@ -259,19 +259,51 @@ const AddTenantDetails = ({
       {/* -------------need to add the organisation details with storing the values---------- */}
       <Fragment>
         <div className="container container_align">
-          <div className="col-lg-5 col-md-12 col-sm-12 col-12 ">
-            <h2 className="heading_color">Add Organization Details </h2>
+          <div className="col-lg-12 col-md-12 col-sm-12 col-12 ">
+            <h2 className="heading_color"><marquee>Organization</marquee> </h2>
           </div>
           <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
 
 
             <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-              <label> Organization Name<i className="text-danger "><b>*</b></i>:</label>
+              <label className="field_font"> Organization Name<i className="text-danger "><b>*</b></i>:</label>
             </div>
 
             <div className="col-lg-4 col-md-4 col-sm-4 col-12">
               <input
                 type="text"
+                // name="tenantPhone"
+                // value={tenantPhone}
+                className="form-control"
+                onChange={(e) => onInputChange(e)}
+                
+                required
+              /><br></br>
+            </div>
+
+            {/*---- Email label ---------*/}
+            <div className="col-lg-2 col-md-2 col-sm-4 col-12">
+              <label className="field_font">Email <i className="text-danger "><b>*</b></i>:</label>
+            </div>
+            <div className="col-lg-4  col-md-4 col-sm-4 col-12">
+              <input
+                type="email"
+                // name="tenantName"
+                // value={tenantName}
+                className="form-control"
+                onChange={(e) => onInputChange(e)}
+                required
+              /><br></br>
+            </div>
+            {/*---- Email label ---------*/}
+
+            <div className="col-lg-2 col-md-2 col-sm-4 col-12">
+              <label className="field_font">Phone No<i className="text-danger "><b>*</b></i>:</label>
+            </div>
+
+            <div className="col-lg-4 col-md-4 col-sm-4 col-12">
+              <input
+                type="number"
                 // name="tenantPhone"
                 // value={tenantPhone}
                 className="form-control"
@@ -283,41 +315,8 @@ const AddTenantDetails = ({
               /><br></br>
             </div>
 
-            {/*---- Email label ---------*/}
             <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-              <label>Email <i className="text-danger "><b>*</b></i>:</label>
-            </div>
-            <div className="col-lg-4  col-md-4 col-sm-4 col-12">
-              <input
-                type="email"
-                // name="tenantName"
-                // value={tenantName}
-                className="form-control"
-                onChange={(e) => onInputChange(e)}
-                required
-              />
-            </div>
-            {/*---- Email label ---------*/}
-
-            <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-              <label>Phone No<i className="text-danger "><b>*</b></i>:</label>
-            </div>
-
-            <div className="col-lg-4 col-md-4 col-sm-4 col-12">
-              <input
-                type="number"
-                // name="tenantPhone"
-                // value={tenantPhone}
-                className="form-control"
-                onChange={(e) => onInputChange(e)}
-                onKeyDown={(e) =>
-                  (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
-                }
-                required
-              />
-            </div>
-            <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-              <label>Number of User:</label>
+              <label className="field_font">Number of User<i className="text-danger "><b>*</b></i>:</label>
             </div>
 
             <div className="col-lg-4 col-md-4 col-sm-4 col-12">
@@ -334,13 +333,10 @@ const AddTenantDetails = ({
               />
             </div>
 
-
-          </div>
-
-          <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
+            {/* <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3"> */}
 
             <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-              <label> Address <i className="text-danger "><b>*</b></i>:</label>
+              <label className="field_font"> Address <i className="text-danger "><b>*</b></i>:</label>
             </div>
 
             <div className="col-lg-4 col-md-4 col-sm-6 col-12">
@@ -354,59 +350,59 @@ const AddTenantDetails = ({
                 onChange={(e) => onInputChange(e)}
                 style={{ width: "100%" }}
                 required
-              ></textarea>
+              ></textarea><br></br>
             </div>
+            {/*------------- Multiple Location adding details starting------------ */}
+            <div className="addItem  col-lg-2 col-md-2 col-sm-4 col-12">
+              <label className="field_font">Location<i className="text-danger "><b>*</b></i> :</label>
+            </div>
+            <div className="col-lg-4 col-md-4 col-sm-4 col-12">
+              <input
+                className=""
+                type='text'
+                name="Location"
+                value={inputdata}
+                onChange={(e) => setinput(e.target.value)}
+                placeholder="Location"
+                id="Location"></input>
+              <Button className="loc_add_btn m-2" onClick={addItem}>+</Button>
+              <div className="showItem ">
+
+                {
+                  items.map((ele, index) => {
+                    return (
+                      <div className="eachItem" key={index}>
+                        <span>{ele}</span> <button onClick={() => handleLocationclose(index)} className="loc_close_btn m-2">X</button>
+                      </div>
+                    )
+                  })
+                }
+
+              </div>
+            </div>
+            {/*------------- Multiple Location adding details Ending------------ */}
+
+            {/*---------- Image upload starting------------ */}
+         
+
+              <div className="col-lg-2 col-md-2 col-sm-4 col-12">
+                <label className="field_font"> Upload Logo :</label>
+              </div>
+
+              <div className="col-lg-4 col-md-4 col-sm-6 col-12">
+                <ImageUpload />
+              </div>
+            
           </div>
-          {/*------------- Multiple Location adding details starting------------ */}
-          <div className="addItem m-4">
-            <label>Location :</label>
-            <input
-            className=""
-              type='text'
-              name="Location"
-              value={inputdata}
-              onChange={(e) => setinput(e.target.value)}
-              placeholder="Location"
-              id="Location"></input>
-            <Button className="btn_plus" onClick={addItem}>+</Button>
-          </div>
-          <div className="showItem">
-
-            {
-              items.map((ele, index) => {
-                return (
-                  <div className="eachItem" key={index}>
-                    <span>{ele}</span> <button onClick={() => handleLocationclose(index)}>X</button>
-                  </div>
-                )
-              })
-            }
-
-          </div>
-
-          {/*------------- Multiple Location adding details Ending------------ */}
-
-        {/*---------- Image upload starting------------ */}
-{/* it is connected to files 1) goto FileUpload  in dashboard 
+          
+        </div>
+        {/* it is connected to files 1) goto FileUpload  in dashboard 
                              2) that file upload is connected to Services folder 
                              3) uunder that folder some code is generated
                              4) goto  http-common.jsx file */}
-
-        <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-
-<div className="col-lg-2 col-md-2 col-sm-4 col-12">
-  <label> Upload Logo *:</label>
-</div>
-
-<div className="col-lg-4 col-md-4 col-sm-6 col-12">
- <ImageUpload/>
-</div>
-</div>
-
         {/* ----------Image upload Ending */}
+        {/* </div> */}
 
-
-        </div>
 
         <div className="col-lg-12 Savebutton " size="lg">
           <button
@@ -451,7 +447,7 @@ const AddTenantDetails = ({
       </Fragment>
 
       {/* Organisation details ending */}
-    </Fragment>
+    </Fragment >
   ) : (
     <Fragment>
       <div className="container container_align">

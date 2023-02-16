@@ -1,7 +1,38 @@
 .carousel-inner {
   height: 100%;
 }
-
+/* div{
+  border: 1px solid salmon;
+} */
+.field_font{
+  font-size:larger;
+}
+.upload{
+  background-color:transparent;
+  color: #000;
+  padding: 9px 30px;
+  border: 1px solid rgba(2, 2, 2, 0.2);
+  border-radius: 0px;
+  transition: 500ms all;
+}
+.upload:hover{
+  background-color: grey;
+}
+.loc_close_btn{
+  background-color: transparent;
+  border:transparent;
+  
+}
+.loc_close_btn:hover{
+  background-color: lightgrey;
+  color:black;
+}
+.loc_add_btn{
+  background-color:#0d0d0d;
+  border:transparent;
+  
+  
+}
 .colorRed {
   color: #b90808;
 }
@@ -17,11 +48,7 @@
   margin-top: 55px;
   margin-bottom: 55px;
 }
-.btn_plus{
-  background-color: red;
-  height: 2em;
-  text-size-adjust:calc();
-}
+
 
 .btnLink,
 .btnLink:active {
@@ -284,7 +311,7 @@ footer.footer .top_top {
 }
 
 .top_menu {
-  background-color: #429f8c;
+  background-color: #471722;
   /* #4b748f;#0086dc */
   /* #429f8c; */
 }

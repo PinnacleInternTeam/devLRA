@@ -96,7 +96,7 @@ const Header = ({
                     </NavLink>
                   ) : (
                     <NavItem>
-                    <NavLink to="/add-tenant-details"activeStyle={{ color: "Black", textDecoration: "none" }}>
+                    <NavLink to="/shop-Details"activeStyle={{ color: "Black", textDecoration: "none" }}>
                       Property
                       </NavLink>
                     </NavItem>
@@ -109,14 +109,18 @@ const Header = ({
                   isAuthenticated &&
                   user &&
                   user.usergroup == "Super Admin" ? (
-                    <NavLink to="/add-tenant-details" activeStyle={{ color: "Black", textDecoration: "none" }}>
+                    <NavLink to="/add-user" activeStyle={{ color: "Black", textDecoration: "none" }}>
                       User
                     </NavLink>
                   ) : (
-                    <NavItem></NavItem>
+                    <NavItem>
+
+                    </NavItem>
                   )}
                 </NavItem>
-
+                {/* <NavLink  to="/" activeStyle={{ color: "Black", textDecoration: "none" }}>
+                      User
+                      </NavLink> */}
                 <NavItem>
                   {!loading &&
                   isAuthenticated &&
@@ -126,7 +130,21 @@ const Header = ({
                   ) : (
                     <NavItem>
                       <NavLink  to="/all-tenant-shop-Details" activeStyle={{ color: "Black", textDecoration: "none" }}>
-                        User
+                         Add Tenant
+                      </NavLink>
+                    </NavItem>
+                  )}
+                </NavItem>
+                <NavItem>
+                  {!loading &&
+                  isAuthenticated &&
+                  user &&
+                  user.usergroup === "Super Admin" ? (
+                    <NavItem></NavItem>
+                  ) : (
+                    <NavItem>
+                      <NavLink  to="/all-" activeStyle={{ color: "Black", textDecoration: "none" }}>
+                         User
                       </NavLink>
                     </NavItem>
                   )}

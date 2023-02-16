@@ -26,7 +26,6 @@ const ShopDetails = ({
       handleEditModalClose();
     }
   };
-
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
