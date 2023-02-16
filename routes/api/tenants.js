@@ -10,6 +10,13 @@ const TenentAgreement = require("../../models/TenantAgreementDetails");
 const TenentHistories = require("../../models/TenantHistories");
 const bcrypt = require("bcryptjs");
 
+router.post("/add-Organization-details",async(req,res)=>{
+  let data = req.body;
+  const finalORGdata = {
+    
+  }
+})
+
 router.post("/add-tenant-details", async (req, res) => {
   let data = req.body;
   const finalData = {

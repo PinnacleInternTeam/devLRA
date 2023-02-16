@@ -1,20 +1,25 @@
 import React, { useState, Fragment, useEffect } from "react";
-import {  Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import {
   AddTenantDetailsform,
   getAllDoorNos,
+  AddOrganization,
   getAllSettings,
 } from "../../actions/tenants";
 import Select from "react-select";
 import { Modal } from "react-bootstrap";
 import ImageUpload from "./FileUpload";
+
+//THIS PAGE IS CONNECTED TO TENANTS.JS
+
 const AddTenantDetails = ({
   tenants: { allDoorNos, allTenantSetting },
   auth: { isAuthenticated, user, users },
   getAllDoorNos,
   AddTenantDetailsform,
+  AddOrganization,
   getAllSettings,
 }) => {
   useEffect(() => {
@@ -24,30 +29,38 @@ const AddTenantDetails = ({
     getAllSettings();
   }, [getAllSettings]);
 
-  const[inputdata,setinput]=useState('');
-  const[items,setitem]=useState([]);
+  //
+  const [inputdata, setinput] = useState("");
+  const [items, setitem] = useState([]);
 
-  const handleLocationclose=(index) =>{
-    const delitem = items.filter((ele,ind)=>{
-    return ind != index 
-    })
-    setitem(delitem)
-    }
+  const handleLocationclose = (index) => {
+    const delitem = items.filter((ele, ind) => {
+      return ind != index;
+    });
+    setitem(delitem);
+  };
 
-    const addItem =()=>{
-      if(!inputdata){
-    
-      }else{
-        setitem([...items,inputdata])
-        setinput('')
-      }
-    
+  const addItem = () => {
+    if (!inputdata) {
+    } else {
+      setitem([...items, inputdata]);
+      setinput("");
     }
+  };
 
   const PaymentMethods = [
     { value: "Cash", label: "Cash" },
     { value: "Cheque", label: "Cheque" },
   ];
+  //ORGANIZATION DATA
+  const [formDataORG, setFormDataORG] = useState({
+    OrganizationName: "",
+    OrganizationEmail: "",
+    OrganizationNumber: "",
+    OrganizationAddress: "",
+    Logo: "",
+    Location: [],
+  });
 
   //formData
   const [formData, setFormData] = useState({
@@ -92,6 +105,15 @@ const AddTenantDetails = ({
     tenantDate,
     isSubmitted,
   } = formData;
+
+  const {
+    OrganizationName,
+    OrganizationEmail,
+    OrganizationNumber,
+    OrganizationAddress,
+    Logo,
+    Location,
+  } = formDataORG;
 
   const onInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -204,6 +226,53 @@ const AddTenantDetails = ({
     })
   );
 
+  //this function is used to handle and to type in textbox email ...formorgdata will keep all the records  and change the email part only
+  const onORGchange = (e) => {
+    setFormDataORG({
+       ...formDataORG,
+        [e.target.name]: e.target.value });
+  };
+
+  // longer way of doing onchange method
+
+  // const onchange = (e) => {
+  //   console.log(e.target.value)
+  //   setFormDataORG({ ...formDataORG, OrganizationName: e.target.value });
+  // };
+
+  // const onchange = (e) => {
+  //   setFormDataORG({ ...formDataORG, OrganizationNumber: e.target.value });
+  // };
+  // const onAchange = (e) => {
+  //   setFormDataORG({ ...formDataORG, OrganizationAddress: e.target.value });
+  // };
+
+  const onSubmitORGdata = () => {
+    const finalORGdata = {
+      OrganizationName: OrganizationName,
+      OrganizationEmail: OrganizationEmail,
+      OrganizationNumber: OrganizationNumber,
+      OrganizationAddress: OrganizationAddress,
+      Logo: "",
+      Location: items,
+    };
+    console.log(
+      "this is in main" + finalORGdata.OrganizationAddress,
+      OrganizationNumber
+    );
+
+    AddOrganization(finalORGdata);
+    setFormDataORG({
+      ...formDataORG,
+      OrganizationName: "" /*name*/,
+      OrganizationEmail: "",
+      OrganizationNumber: "",
+      OrganizationAddress: "",
+      Logo: "",
+      Location: [],
+    });
+  };
+
   const onSubmit = () => {
     const finalData = {
       tenantFileNo: shopfileNo,
@@ -253,9 +322,11 @@ const AddTenantDetails = ({
     setFileNoData("");
   };
 
-  return isAuthenticated ||user ||  users && users.usergroup == "Super Admin" ? (
+  return isAuthenticated ||
+    user ||
+    (users && users.usergroup == "Super Admin") ? (
     <Fragment>
-      {/* Organisation details starting */} 
+      {/* Organisation details starting */}
       {/* -------------need to add the organisation details with storing the values---------- */}
       <Fragment>
         <div className="container container_align">
@@ -263,41 +334,37 @@ const AddTenantDetails = ({
             <h2 className="heading_color">Add Organization Details </h2>
           </div>
           <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-
-
-          <div className="col-lg-2 col-md-2 col-sm-4 col-12">
+            <div className="col-lg-2 col-md-2 col-sm-4 col-12">
               <label> Organization Name:</label>
             </div>
 
             <div className="col-lg-4 col-md-4 col-sm-4 col-12">
               <input
                 type="text"
-                // name="tenantPhone"
-                // value={tenantPhone}
+                name="OrganizationName"
+                value={OrganizationName}
                 className="form-control"
-                onChange={(e) => onInputChange(e)}
-                onKeyDown={(e) =>
-                  (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
-                }
+                onChange={(e) => onORGchange(e)}
                 required
               />
+              {/* <input type='text' value={OrganizationEmail}></input> */}
             </div>
 
-                          {/*---- Email label ---------*/}
+            {/*---- Email label ---------*/}
             <div className="col-lg-2 col-md-2 col-sm-4 col-12">
               <label>Email *:</label>
             </div>
             <div className="col-lg-4  col-md-4 col-sm-4 col-12">
               <input
                 type="email"
-                // name="tenantName"
-                // value={tenantName}
+                name="OrganizationEmail"
+                value={OrganizationEmail}
                 className="form-control"
-                onChange={(e) => onInputChange(e)}
+                onChange={(e) => onORGchange(e)}
                 required
               />
             </div>
-                     {/*---- Email label ---------*/}
+            {/*---- Email label ---------*/}
 
             <div className="col-lg-2 col-md-2 col-sm-4 col-12">
               <label>Phone No:</label>
@@ -306,13 +373,10 @@ const AddTenantDetails = ({
             <div className="col-lg-4 col-md-4 col-sm-4 col-12">
               <input
                 type="number"
-                // name="tenantPhone"
-                // value={tenantPhone}
+                name="OrganizationNumber"
+                value={OrganizationNumber}
                 className="form-control"
-                onChange={(e) => onInputChange(e)}
-                onKeyDown={(e) =>
-                  (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
-                }
+                onChange={(e) => onORGchange(e)}
                 required
               />
             </div>
@@ -323,106 +387,87 @@ const AddTenantDetails = ({
             <div className="col-lg-4 col-md-4 col-sm-4 col-12">
               <input
                 type="number"
-                // name="tenantPhone"
-                // value={tenantPhone}
+                //  name=""
+                //  value={tenantPhone}
                 className="form-control"
                 onChange={(e) => onInputChange(e)}
-                onKeyDown={(e) =>
-                  (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
-                }
                 required
               />
             </div>
-
-
           </div>
 
           <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-
             <div className="col-lg-2 col-md-2 col-sm-4 col-12">
               <label> Address *:</label>
             </div>
 
             <div className="col-lg-4 col-md-4 col-sm-6 col-12">
               <textarea
-                //  name="tenantAddr"
-                //  value={tenantAddr}
+                name="OrganizationAddress"
+                value={OrganizationAddress}
                 // id="tenantAddr"
                 className="textarea form-control"
                 rows="3"
                 placeholder="Address"
-                onChange={(e) => onInputChange(e)}
+                onChange={(e) => onORGchange(e)}
                 style={{ width: "100%" }}
                 required
               ></textarea>
             </div>
           </div>
-       {/*------------- Multiple Location adding details starting------------ */}
-       <div className="addItem">
-<label>Location :</label>
-<input 
-type='text' 
-name="Location"
-value={inputdata}
-onChange={(e)=>setinput(e.target.value)}
-placeholder="Location" 
-id="Location"></input>
- <Button onClick={addItem}>+</Button> *
-</div>
-<div className="showItem">
+          {/*------------- Multiple Location adding details starting------------ */}
+          <div className="addItem">
+            <label>Location :</label>
+            <input
+              type="text"
+              name="Location"
+              value={inputdata}
+              onChange={(e) => setinput(e.target.value)}
+              placeholder="Location"
+              id="Location"
+            ></input>
+            <Button onClick={addItem}>+</Button> *
+          </div>
+          <div className="showItem">
+            {items.map((ele, index) => {
+              return (
+                <div className="eachItem" key={index}>
+                  <span>{ele}</span>{" "}
+                  <button onClick={() => handleLocationclose(index)}>X</button>
+                </div>
+              );
+            })}
+          </div>
 
-{
-  items.map((ele,index)=>{
-return(
-<div className="eachItem" key={index}>
-  <span>{ele}</span> <button onClick={()=>handleLocationclose(index)}>X</button>
-</div>
-)
-  })
-}
+          {/*------------- Multiple Location adding details Ending------------ */}
 
-</div>
-
-         {/*------------- Multiple Location adding details Ending------------ */}
-
-        {/*---------- Image upload starting------------ */}
-{/* it is connected to files 1) goto FileUpload  in dashboard 
+          {/*---------- Image upload starting------------ */}
+          {/* it is connected to files 1) goto FileUpload  in dashboard 
                              2) that file upload is connected to Services folder 
                              3) uunder that folder some code is generated
                              4) goto  http-common.jsx file */}
 
-        <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
+          <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
+            <div className="col-lg-2 col-md-2 col-sm-4 col-12">
+              <label> Upload Logo *:</label>
+            </div>
 
-<div className="col-lg-2 col-md-2 col-sm-4 col-12">
-  <label> Upload Logo *:</label>
-</div>
+            <div className="col-lg-4 col-md-4 col-sm-6 col-12">
+              <ImageUpload />
+            </div>
+          </div>
 
-<div className="col-lg-4 col-md-4 col-sm-6 col-12">
- <ImageUpload/>
-</div>
-</div>
-
-        {/* ----------Image upload Ending */}
-
-
+          {/* ----------Image upload Ending */}
         </div>
 
-        <div className="col-lg-12 Savebutton " size="lg">
-          <button
+        <div className="col-lg-12 bg-danger " size="lg">
+          <Button
             variant="success"
-            className="btn sub_form btn_continue Save float-right"
-            onClick={() => onSubmit()}
-            style={
-              tenantName !== "" &&
-              tenantPaymentMode !== "" &&
-              tenantDepositAmt !== "" &&
-              tenantAddr !== ""
-                ? { opacity: "1" }
-                : { opacity: "1", pointerEvents: "none" }
-            }
+            className="btn sub_form btn_continue Save float-right bg-danger"
+            onClick={() => onSubmitORGdata()}
           >
             Save
-          </button>
+          </Button>
         </div>
         <Modal
           show={showInformationModal}
@@ -436,7 +481,7 @@ return(
             <h4 className="mt-0">Information</h4>
           </Modal.Header>
           <Modal.Body>
-            <h5>Shop Details Added!!</h5>
+            <h5> Congratz Organization Added!!</h5>
           </Modal.Body>
           <Modal.Footer>
             <button
@@ -744,8 +789,7 @@ return(
             <button
               variant="success"
               className="btn sub_form btn_continue Save float-right"
-              // onClick={() => onSubmit()}
-            
+              onClick={() => onSubmit()}
               style={
                 tenantName !== "" &&
                 tenantPaymentMode !== "" &&
@@ -804,4 +848,5 @@ export default connect(mapStateToProps, {
   AddTenantDetailsform,
   getAllDoorNos,
   getAllSettings,
+  AddOrganization,
 })(AddTenantDetails);

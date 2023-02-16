@@ -23,6 +23,7 @@ export const GET_ALL_SETTINGS = "GET_ALL_SETTINGS";
 
 export const GET_DOORNOS = "GET_DOORNOS";
 export const NEW_TENENTDETAILS = "NEW_TENENTDETAILS";
+export const NEW_ORGANIZATION = "NEW_ORGANIZATION";
 
 export const MONTH_EXP_CNT = "MONTH_EXP_CNT";
 export const YEAR_EXP_CNT = "YEAR_EXP_CNT";

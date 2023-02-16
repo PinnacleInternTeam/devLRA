@@ -12,6 +12,7 @@ import {
   EXP_REPORT,
   GET_DOORNOS,
   NEW_TENENTDETAILS,
+  NEW_ORGANIZATION,
   TENANT_FEEDBACK_ERROR,
   GET_ALL_SHOPS,
   GET_ALL_TENANTS,
@@ -26,6 +27,27 @@ const config = {
   headers: {
     "Content-Type": "application/json",
   },
+};
+
+export const AddOrganization = (finalData) => async (dispatch) => {
+  try {
+    const res = await axios.post(
+      "/api/tenants/add-Organization-details",
+      finalData,
+      config
+    );
+    console.log(finalData)
+    dispatch({
+      type: NEW_ORGANIZATION,
+      payload: res.data,
+    });
+
+    dispatch(getAllDoorNos());
+  } catch (err) {
+    dispatch({
+      type: AUTH_ERROR,
+    });
+  }
 };
 
 // Add Staff Performance feedback
@@ -62,6 +84,9 @@ export const AddTenantSettingsform = (finalData) => async (dispatch) => {
     });
   }
 };
+
+
+
 
 export const AddTenantSettingform = (finalData) => async (dispatch) => {
   try {
